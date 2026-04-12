@@ -1,10 +1,12 @@
+/*debugged using blackbox ai*/
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
 }
+
 .game_window canvas {
   display: block;
   width: 100%;
@@ -25,31 +27,38 @@ canvas {
 .layout {
   display: grid;
   grid-template-areas:
-    "topbar stories_window about_window "
+    "topbar stories_window about_window"
     "game_window stories_window about_window";
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 1fr 6fr;
-  gap: 3px;
-  padding: 5px;
-  min-height: 100vh;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr;
+  height: 100vh; /* CRITICAL: full viewport height */
+  width: 100vw; /* CRITICAL: full viewport width */
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .topbar {
   grid-area: topbar;
   background-color: #ff2cb2;
+  overflow: hidden;
 }
 
 .game_window {
   grid-area: game_window;
   background-color: white;
+  overflow: hidden;
 }
 
 .stories_window {
   grid-area: stories_window;
   background-color: #cbcbcb;
+  overflow-y: auto; /* VERTICAL SCROLL ONLY */
+  overflow-x: hidden; /* NO HORIZONTAL SCROLL */
 }
 
 .about_window {
   grid-area: about_window;
   background-color: #b1b1b1;
+  overflow: hidden;
 }
