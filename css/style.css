@@ -1,8 +1,55 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.game_window canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 canvas {
   display: block;
+}
+
+.topbar,
+.game_window,
+.stories_window,
+.about_window {
+  border: 2px solid red;
+}
+
+.layout {
+  display: grid;
+  grid-template-areas:
+    "topbar stories_window about_window "
+    "game_window stories_window about_window";
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr;
+  gap: 3px;
+  padding: 5px;
+  min-height: 100vh;
+}
+
+.topbar {
+  grid-area: topbar;
+  background-color: #ff2cb2;
+}
+
+.game_window {
+  grid-area: game_window;
+  background-color: white;
+}
+
+.stories_window {
+  grid-area: stories_window;
+  background-color: #cbcbcb;
+}
+
+.about_window {
+  grid-area: about_window;
+  background-color: #b1b1b1;
 }

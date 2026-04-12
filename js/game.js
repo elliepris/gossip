@@ -1,11 +1,16 @@
+let canvas;
+//debugged code from chatGPT
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  const gameWindow = document.querySelector("#game_window");
+  canvas = createCanvas(gameWindow.clientWidth, gameWindow.clientHeight);
+  canvas.parent("game_window");
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  const gameWindow = document.querySelector("#game_window");
+  resizeCanvas(gameWindow.clientWidth, gameWindow.clientHeight);
 }
 
 function draw() {
-  background("#b1b1b1");
+  clear();
 }

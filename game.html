@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Buzz Battleship</title>
-
+    <!-- used chatGPT to link to the 98.css file correctly -->
     <link rel="stylesheet" href="https://unpkg.com/98.css" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
     <script src="js/libraries/p5.min.js"></script>
     <script src="js/libraries/p5.sound.min.js"></script>
   </head>
 
   <body>
-    <script src="js/game.js"></script>
-    <p><a href="about.html">About</a></p>
-    
+    <section id="game_window" class="game_window"></section>
+    <main class="layout">
+      <section class="topbar">topbar</section>
+      <section class="game_window">game</section>
+      <section class="stories_window">stories</section>
+      <section class="about_window">about</section>
+    </main>
 
+    <p><a href="about.html">About</a></p>
+    <script src="js/game.js"></script>
   </body>
 </html>
