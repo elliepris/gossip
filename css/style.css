@@ -27,7 +27,7 @@ canvas {
 .layout {
   display: grid;
   grid-template-areas:
-    "topbar stories_window about_window"
+    "topbar topbar topbar"
     "game_window stories_window about_window";
   grid-template-columns: 3fr 1fr 1fr;
   grid-template-rows: 1fr 5fr;
@@ -61,4 +61,8 @@ canvas {
   grid-area: about_window;
   background-color: #b1b1b1;
   overflow: hidden;
+}
+
+.about {
+  padding: 20px;
 }
