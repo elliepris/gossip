@@ -1,5 +1,5 @@
 /*debugged using blackbox ai*/
-hhtml,
+html,
 body {
   margin: 0;
   padding: 0;
@@ -46,7 +46,8 @@ canvas {
 
 .game_window {
   grid-area: game_window;
-  background-color: white;
+  background-image: url("../assets/img/pinkspec.gif");
+  background-repeat: repeat;
   overflow: hidden;
 }
 

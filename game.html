@@ -13,153 +13,226 @@
   </head>
 
   <body>
-    <section id="game_window" class="game_window"></section>
+  
 
     <main class="layout">
       <section class="topbar">
         <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
       </section>
 
+        <section id="game_window" class="game_window"></section>
 
-      <section class="stories_window">
-        <div class="stories_header">
-          <img src="assets/img/stories.png" alt="Stories Window Header" />
+<!--THIS IS THE STORIES WINDOW-->
+<!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
+   <section class="stories_window">
+  <div class="stories_header">
+    <img src="assets/img/stories.png" alt="Stories Window Header" />
+  </div>
+
+  <div class="ad1" style="padding: 10px">
+    <img src="assets/img/twins.gif" alt="Advertisement 1" />
+    <p>This is a preview of the story for Tweflth Night LOL</p>
+    <button class="open-chat" data-target="chatModal1">Read More!</button>
+
+    <div id="chatModal1" class="modal">
+      <div class="window modal-window">
+        <div class="title-bar">
+          <div class="title-bar-text">Chat Log bby</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button>
+          </div>
         </div>
 
-        <div class="ad1" style="padding: 10px">
-          <img src="assets/img/twins.gif" alt="Advertisement 1" />
-          <p>This is a preview of the story for Tweflth Night LOL</p>
-          <a href="#">Read More!</a>
+        <div class="window-body">
+          <div class="chat-layout">
+            <div class="chat-icon">
+              <img src="assets/img/runningman.png" alt="chat icon" />
+            </div>
+
+            <div class="chat-scroll">
+              <p>User A: ok wait do u remember ella</p>
+              <p>User B: ya from hart’s class</p>
+              <p>User A: ok</p>
+              <p>User A: i always thought she was just shy</p>
+              <p>User B: same</p>
+              <p>User A: like never talked</p>
+              <p>User A: ever</p>
+              <p>User B: ya</p>
+              <p>User A: ok so</p>
+              <p>User A: she told me she has a stutter</p>
+              <p>User B: oh</p>
+              <p>User A: like thats why</p>
+              <p>User B: that makes sense</p>
+              <p>User A: but shes been doing speech therapy</p>
+              <p>User A: and shes totally different now</p>
+              <p>User B: wait really</p>
+              <p>User A: we got coffee</p>
+              <p>User A: she was talking nonstop</p>
+              <p>User A: like confident and funny</p>
+              <p>User B: i love that</p>
+              <p>User A: ok but listen</p>
+              <p>User A: she said she had been hooking up w hart</p>
+              <p>User B: NO</p>
+              <p>User A: yes</p>
+              <p>User A: for a while</p>
+              <p>User B: thats so gross</p>
+              <p>User A: and the way she said it</p>
+              <p>User A: it didnt even sound like she realized how bad it was</p>
+              <p>User B: thats worse</p>
+              <p>User A: like she kept being like</p>
+              <p>User A: “he helped me”</p>
+              <p>User B: ew</p>
+              <p>User A: it just felt really off</p>
+            </div>
+          </div>
+
+          <div class="field-border-disabled response" style="padding: 8px">
+            <div class="response-icon">
+              <img src="assets/img/runningman.png" alt="chat icon" />
+            </div>
+            <div class="response-text">
+              What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
+            </div>
+          </div>
         </div>
-
-        <div class="ad2" style="padding: 10px">
-          <img src="assets/img/taming.gif" alt="Advertisement 2" />
-          <p>This is a preview of the story for Taming of the Shrew LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-        <div class="ad3" style="padding: 10px">
-          <img src="assets/img/armyguy.gif" alt="Advertisement 3" />
-          <p>This is a preview of the story for pride and predjudice LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-        <div class="ad4" style="padding: 10px">
-          <img src="assets/img/romeo_juliet.gif" alt="Advertisement 4" />
-          <p>This is a preview of the story for romeo and juliet LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-        <div class="ad5" style="padding: 10px">
-          <img src="assets/img/cinderella.gif" alt="Advertisement 5" />
-          <p>This is a preview of the story for cinderella LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-        <div class="ad6" style="padding: 10px">
-          <img src="assets/img/emma.gif" alt="Advertisement 6" />
-          <p>This is a preview of the story for emma LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-        <div class="ad7" style="padding: 10px">
-          <img src="assets/img/teacher.gif" alt="Advertisement 7" />
-          <p>This is a preview of the story for pygmalion LOL</p>
-          <a href="#">Read More!</a>
-        </div>
-
-<!--Model code from W3 Schools figured out 98.css with chat GPT debug, this got lots of ai sinde i had no freaking clue what i was doing-->
-<button id="moreBtn">Read More!</button>
-
-<div id="chatModal" class="modal">
-  <div class="window modal-window">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat Log bby</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close"></button>
       </div>
     </div>
+  </div>
 
-    <div class="window-body">
-      <div class="chat-layout">
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="chat icon">
+  <div class="ad2" style="padding: 10px">
+    <img src="assets/img/taming.gif" alt="Advertisement 2" />
+    <p>This is a preview of the story for Taming of the Shrew LOL</p>
+    <button class="open-chat" data-target="chatModal2">Read More!</button>
+
+    <div id="chatModal2" class="modal">
+      <div class="window modal-window">
+        <div class="title-bar">
+          <div class="title-bar-text">Chat Log bby</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button>
+          </div>
         </div>
 
-        <div class="chat-scroll">
-          <p>User A: ok wait do u remember ella</p>
-          <p>User B: ya from hart’s class</p>
-          <p>User A: ok</p>
-          <p>User A: i always thought she was just shy</p>
-          <p>User B: same</p>
-          <p>User A: like never talked</p>
-          <p>User A: ever</p>
-          <p>User B: ya</p>
-          <p>User A: ok so</p>
-          <p>User A: she told me she has a stutter</p>
-          <p>User B: oh</p>
-          <p>User A: like thats why</p>
-          <p>User B: that makes sense</p>
-          <p>User A: but shes been doing speech therapy</p>
-          <p>User A: and shes totally different now</p>
-          <p>User B: wait really</p>
-          <p>User A: we got coffee</p>
-          <p>User A: she was talking nonstop</p>
-          <p>User A: like confident and funny</p>
-          <p>User B: i love that</p>
-          <p>User A: ok but listen</p>
-          <p>User A: she said she had been hooking up w hart</p>
-          <p>User B: NO</p>
-          <p>User A: yes</p>
-          <p>User A: for a while</p>
-          <p>User B: thats so gross</p>
-          <p>User A: and the way she said it</p>
-          <p>User A: it didnt even sound like she realized how bad it was</p>
-          <p>User B: thats worse</p>
-          <p>User A: like she kept being like</p>
-          <p>User A: “he helped me”</p>
-          <p>User B: ew</p>
-          <p>User A: it just felt really off</p>
+        <div class="window-body">
+          <div class="chat-layout">
+            <div class="chat-icon">
+              <img src="assets/img/runningman.png" alt="chat icon" />
+            </div>
+
+            <div class="chat-scroll">
+              <p>User A: ok wait do u remember ella</p>
+              <p>User B: ya from hart’s class</p>
+              <p>User A: ok</p>
+              <p>User A: i always thought she was just shy</p>
+              <p>User B: same</p>
+              <p>User A: like never talked</p>
+              <p>User A: ever</p>
+              <p>User B: ya</p>
+              <p>User A: ok so</p>
+              <p>User A: she told me she has a stutter</p>
+              <p>User B: oh</p>
+              <p>User A: like thats why</p>
+              <p>User B: that makes sense</p>
+              <p>User A: but shes been doing speech therapy</p>
+              <p>User A: and shes totally different now</p>
+              <p>User B: wait really</p>
+              <p>User A: we got coffee</p>
+              <p>User A: she was talking nonstop</p>
+              <p>User A: like confident and funny</p>
+              <p>User B: i love that</p>
+              <p>User A: ok but listen</p>
+              <p>User A: she said she had been hooking up w hart</p>
+              <p>User B: NO</p>
+              <p>User A: yes</p>
+              <p>User A: for a while</p>
+              <p>User B: thats so gross</p>
+              <p>User A: and the way she said it</p>
+              <p>User A: it didnt even sound like she realized how bad it was</p>
+              <p>User B: thats worse</p>
+              <p>User A: like she kept being like</p>
+              <p>User A: “he helped me”</p>
+              <p>User B: ew</p>
+              <p>User A: it just felt really off</p>
+            </div>
+          </div>
+
+          <div class="field-border-disabled response" style="padding: 8px">
+            <div class="response-icon">
+              <img src="assets/img/runningman.png" alt="chat icon" />
+            </div>
+            <div class="response-text">
+              What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
+            </div>
+          </div>
         </div>
       </div>
-
-<div class="field-border-disabled response" style="padding: 8px">
-  <div class="response-icon">
-    <img src="assets/img/runningman.png" alt="chat icon">
-  </div>
-
-  <div class="response-text">
-    What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
-  </div>
-</div>
-
-    
     </div>
   </div>
-</div>
 
+  <div class="ad3" style="padding: 10px">
+    <img src="assets/img/armyguy.gif" alt="Advertisement 3" />
+    <p>This is a preview of the story for pride and predjudice LOL</p>
+    <a href="#">Read More!</a>
+  </div>
+
+  <div class="ad4" style="padding: 10px">
+    <img src="assets/img/romeo_juliet.gif" alt="Advertisement 4" />
+    <p>This is a preview of the story for romeo and juliet LOL</p>
+    <a href="#">Read More!</a>
+  </div>
+
+  <div class="ad5" style="padding: 10px">
+    <img src="assets/img/cinderella.gif" alt="Advertisement 5" />
+    <p>This is a preview of the story for cinderella LOL</p>
+    <a href="#">Read More!</a>
+  </div>
+
+  <div class="ad6" style="padding: 10px">
+    <img src="assets/img/emma.gif" alt="Advertisement 6" />
+    <p>This is a preview of the story for emma LOL</p>
+    <a href="#">Read More!</a>
+  </div>
+
+  <div class="ad7" style="padding: 10px">
+    <img src="assets/img/teacher.gif" alt="Advertisement 7" />
+    <p>This is a preview of the story for pygmalion LOL</p>
+    <a href="#">Read More!</a>
+  </div>
+</section>
 <script>
-var modal = document.getElementById("chatModal");
-var btn = document.getElementById("moreBtn");
-var closeBtn = document.querySelector(".title-bar-controls button");
+const buttons = document.querySelectorAll(".open-chat");
 
-btn.onclick = function() {
-  modal.style.display = "block";
-};
+buttons.forEach(button => {
+  button.addEventListener("click", function () {
+    const target = this.dataset.target;
+    const modal = document.getElementById(target);
+    if (modal) {
+      modal.style.display = "block";
+    }
+  });
+});
 
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
+const closeButtons = document.querySelectorAll(".title-bar-controls button");
 
-window.onclick = function(event) {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-};
+closeButtons.forEach(btn => {
+  btn.addEventListener("click", function () {
+    const modal = this.closest(".modal");
+    if (modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+window.addEventListener("click", function (e) {
+  document.querySelectorAll(".modal").forEach(modal => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
 </script>
 
 
-</div>
       </section>
 
       <section class="about_window">
