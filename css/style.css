@@ -67,12 +67,7 @@ canvas {
   padding: 20px;
 }
 
-/* The Modal (background) W3 School and debugged using chat GPT*/
-.modal-window {
-  position: absolute;
-  width: 600px;
-  height: 400px; /* FIXED WINDOW SIZE */
-}
+/* The Modal (background) W3 School and debugged using chat GPT yeah so heavy reliance on this ai thing since i had zero clue what i was doing*/
 .modal {
   display: none;
   position: fixed;
@@ -80,8 +75,34 @@ canvas {
   z-index: 999;
 }
 
+.modal-window {
+  position: absolute;
+  width: 600px;
+  height: 375px;
+  top: 100px;
+  left: 100px;
+}
+
+.chat-layout {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.chat-icon {
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.chat-icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .chat-scroll {
-  height: 220px; /* slightly smaller than window */
+  flex: 1;
+  height: 250px;
   overflow-y: auto;
   overflow-x: hidden;
   background: white;
@@ -93,14 +114,26 @@ canvas {
   background: linear-gradient(to right, #ff2cb2, white);
 }
 
-.title-bar-text {
-  color: black;
+.response {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 20px;
 }
 
-/* The Close Button */
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+.response-icon {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.response-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.response-text {
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
 }

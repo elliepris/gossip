@@ -68,7 +68,7 @@
           <a href="#">Read More!</a>
         </div>
 
-<!--Model code from W3 Schools figured out 98.css with chat GPT debug-->
+<!--Model code from W3 Schools figured out 98.css with chat GPT debug, this got lots of ai sinde i had no freaking clue what i was doing-->
 <button id="moreBtn">Read More!</button>
 
 <div id="chatModal" class="modal">
@@ -76,80 +76,88 @@
     <div class="title-bar">
       <div class="title-bar-text">Chat Log bby</div>
       <div class="title-bar-controls">
-        <button aria-label="Close" class="close"></button>
+        <button aria-label="Close"></button>
       </div>
     </div>
 
     <div class="window-body">
-      <div class="chat-scroll">
-        <p><strong>User A:</strong> ok wait do u remember ella</p>
-<p><strong>User B:</strong> ya from hart’s class</p>
-<p><strong>User A:</strong> ok</p>
-<p><strong>User A:</strong> i always thought she was just shy</p>
-<p><strong>User B:</strong> same</p>
-<p><strong>User A:</strong> like never talked</p>
-<p><strong>User A:</strong> ever</p>
-<p><strong>User B:</strong> ya</p>
-<p><strong>User A:</strong> ok so</p>
-<p><strong>User A:</strong> she told me she has a stutter</p>
-<p><strong>User B:</strong> oh</p>
-<p><strong>User A:</strong> like thats why</p>
-<p><strong>User B:</strong> that makes sense</p>
-<p><strong>User A:</strong> but shes been doing speech therapy</p>
-<p><strong>User A:</strong> and shes totally different now</p>
-<p><strong>User B:</strong> wait really</p>
-<p><strong>User A:</strong> we got coffee</p>
-<p><strong>User A:</strong> she was talking nonstop</p>
-<p><strong>User A:</strong> like confident and funny</p>
-<p><strong>User B:</strong> i love that</p>
-<p><strong>User A:</strong> ok but listen</p>
-<p><strong>User A:</strong> she said she had been hooking up w hart</p>
-<p><strong>User B:</strong> NO</p>
-<p><strong>User A:</strong> yes</p>
+      <div class="chat-layout">
+        <div class="chat-icon">
+          <img src="assets/img/runningman.png" alt="chat icon">
+        </div>
 
-<p><em>(CHAT #2 CONT’D.)</em></p>
-
-<p><strong>User A:</strong> for a while</p>
-<p><strong>User B:</strong> thats so gross</p>
-<p><strong>User A:</strong> and the way she said it</p>
-<p><strong>User A:</strong> it didnt even sound like she realized how bad it was</p>
-<p><strong>User B:</strong> thats worse</p>
-<p><strong>User A:</strong> like she kept being like</p>
-<p><strong>User A:</strong> “he helped me”</p>
-<p><strong>User B:</strong> ew</p>
-<p><strong>User A:</strong> it just felt really off</p>
+        <div class="chat-scroll">
+          <p>User A: ok wait do u remember ella</p>
+          <p>User B: ya from hart’s class</p>
+          <p>User A: ok</p>
+          <p>User A: i always thought she was just shy</p>
+          <p>User B: same</p>
+          <p>User A: like never talked</p>
+          <p>User A: ever</p>
+          <p>User B: ya</p>
+          <p>User A: ok so</p>
+          <p>User A: she told me she has a stutter</p>
+          <p>User B: oh</p>
+          <p>User A: like thats why</p>
+          <p>User B: that makes sense</p>
+          <p>User A: but shes been doing speech therapy</p>
+          <p>User A: and shes totally different now</p>
+          <p>User B: wait really</p>
+          <p>User A: we got coffee</p>
+          <p>User A: she was talking nonstop</p>
+          <p>User A: like confident and funny</p>
+          <p>User B: i love that</p>
+          <p>User A: ok but listen</p>
+          <p>User A: she said she had been hooking up w hart</p>
+          <p>User B: NO</p>
+          <p>User A: yes</p>
+          <p>User A: for a while</p>
+          <p>User B: thats so gross</p>
+          <p>User A: and the way she said it</p>
+          <p>User A: it didnt even sound like she realized how bad it was</p>
+          <p>User B: thats worse</p>
+          <p>User A: like she kept being like</p>
+          <p>User A: “he helped me”</p>
+          <p>User B: ew</p>
+          <p>User A: it just felt really off</p>
+        </div>
       </div>
+
+<div class="field-border-disabled response" style="padding: 8px">
+  <div class="response-icon">
+    <img src="assets/img/runningman.png" alt="chat icon">
+  </div>
+
+  <div class="response-text">
+    What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
+  </div>
+</div>
+
+    
     </div>
   </div>
 </div>
 
-  <script>
-// Get the modal
+<script>
 var modal = document.getElementById("chatModal");
-
-// Get the button that opens the modal
 var btn = document.getElementById("moreBtn");
+var closeBtn = document.querySelector(".title-bar-controls button");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
-}
+};
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+closeBtn.onclick = function() {
   modal.style.display = "none";
-}
+};
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target === modal) {
     modal.style.display = "none";
   }
-}
+};
 </script>
+
 
 </div>
       </section>
