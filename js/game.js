@@ -14,3 +14,4 @@ function windowResized() {
 function draw() {
   clear();
 }
+

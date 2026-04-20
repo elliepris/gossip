@@ -1,20 +1,20 @@
 /*debugged using blackbox ai*/
-html,
+hhtml,
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
+}
+
+canvas {
+  display: block;
 }
 
 .game_window canvas {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-canvas {
-  display: block;
 }
 
 .topbar,
@@ -30,9 +30,9 @@ canvas {
     "topbar topbar topbar"
     "game_window stories_window about_window";
   grid-template-columns: 3fr 1fr 1fr;
-  grid-template-rows: 1fr 5fr;
-  height: 100vh; /* CRITICAL: full viewport height */
-  width: 100vw; /* CRITICAL: full viewport width */
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  width: 100vw;
   gap: 0;
   padding: 0;
   overflow: hidden;
@@ -53,8 +53,8 @@ canvas {
 .stories_window {
   grid-area: stories_window;
   background-color: #cbcbcb;
-  overflow-y: auto; /* VERTICAL SCROLL ONLY */
-  overflow-x: hidden; /* NO HORIZONTAL SCROLL */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .about_window {
@@ -65,4 +65,42 @@ canvas {
 
 .about {
   padding: 20px;
+}
+
+/* The Modal (background) W3 School and debugged using chat GPT*/
+.modal-window {
+  position: absolute;
+  width: 600px;
+  height: 400px; /* FIXED WINDOW SIZE */
+}
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+.chat-scroll {
+  height: 220px; /* slightly smaller than window */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: white;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.title-bar {
+  background: linear-gradient(to right, #ff2cb2, white);
+}
+
+.title-bar-text {
+  color: black;
+}
+
+/* The Close Button */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Buzz Battleship</title>
-    <!-- used chatGPT to link to the 98.css file correctly -->
     <link rel="stylesheet" href="https://unpkg.com/98.css" />
     <link rel="stylesheet" href="css/style.css" />
 
@@ -15,70 +14,155 @@
 
   <body>
     <section id="game_window" class="game_window"></section>
+
     <main class="layout">
       <section class="topbar">
-        <img src="assets/img/head.png" alt="Buzz Battleship Logo">
+        <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
       </section>
-      <section class="game_window">game</section>
+
+
       <section class="stories_window">
-        <div class="stories.header">
-          <img src="assets/img/stories.png" alt="Stories Window Header">
+        <div class="stories_header">
+          <img src="assets/img/stories.png" alt="Stories Window Header" />
         </div>
-        <div class= "ad1"style="padding: 10px;">
-          <img src="assets/img/twins.gif" alt="Advertisement 1">
-<p>This is a preview of the story for Tweflth Night LOL</p>
-          <a>Read More!</a>
-      </div>
-          <div class= "ad2 "style="padding: 10px;">
-          <img src="assets/img/taming.gif" alt="Advertisement 2">
-<p>This is a preview of the story for Taming of the Shrew LOL</p>
-          <a>Read More!</a>
+
+        <div class="ad1" style="padding: 10px">
+          <img src="assets/img/twins.gif" alt="Advertisement 1" />
+          <p>This is a preview of the story for Tweflth Night LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad2" style="padding: 10px">
+          <img src="assets/img/taming.gif" alt="Advertisement 2" />
+          <p>This is a preview of the story for Taming of the Shrew LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad3" style="padding: 10px">
+          <img src="assets/img/armyguy.gif" alt="Advertisement 3" />
+          <p>This is a preview of the story for pride and predjudice LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad4" style="padding: 10px">
+          <img src="assets/img/romeo_juliet.gif" alt="Advertisement 4" />
+          <p>This is a preview of the story for romeo and juliet LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad5" style="padding: 10px">
+          <img src="assets/img/cinderella.gif" alt="Advertisement 5" />
+          <p>This is a preview of the story for cinderella LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad6" style="padding: 10px">
+          <img src="assets/img/emma.gif" alt="Advertisement 6" />
+          <p>This is a preview of the story for emma LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+        <div class="ad7" style="padding: 10px">
+          <img src="assets/img/teacher.gif" alt="Advertisement 7" />
+          <p>This is a preview of the story for pygmalion LOL</p>
+          <a href="#">Read More!</a>
+        </div>
+
+<!--Model code from W3 Schools figured out 98.css with chat GPT debug-->
+<button id="moreBtn">Read More!</button>
+
+<div id="chatModal" class="modal">
+  <div class="window modal-window">
+    <div class="title-bar">
+      <div class="title-bar-text">Chat Log bby</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" class="close"></button>
       </div>
     </div>
-          <div class= "ad3 "style="padding: 10px;">
-          <img src="assets/img/armyguy.gif" alt="Advertisement 3">
-<p>This is a preview of the story for pride and predjudice LOL</p>
-          <a>Read More!</a>
-      </div>
-             <div class= "ad4" style="padding: 10px;">
-          <img src="assets/img/romeo_juliet.gif" alt="Advertisement 4">
-<p>This is a preview of the story for romeo and juliet LOL</p>
-          <a>Read More!</a>
-      </div>
-                <div class= "ad5" style="padding: 10px;">
-          <img src="assets/img/cinderella.gif" alt="Advertisement 5">
-<p>This is a preview of the story for cinderella LOL</p>
-          <a>Read More!</a>
-      </div>
-                <div class= "ad6" style="padding: 10px;">
-          <img src="assets/img/emma.gif" alt="Advertisement 6">
-<p>This is a preview of the story for emma LOL</p>
-          <a>Read More!</a>
-      </div>
 
+    <div class="window-body">
+      <div class="chat-scroll">
+        <p><strong>User A:</strong> ok wait do u remember ella</p>
+<p><strong>User B:</strong> ya from hart’s class</p>
+<p><strong>User A:</strong> ok</p>
+<p><strong>User A:</strong> i always thought she was just shy</p>
+<p><strong>User B:</strong> same</p>
+<p><strong>User A:</strong> like never talked</p>
+<p><strong>User A:</strong> ever</p>
+<p><strong>User B:</strong> ya</p>
+<p><strong>User A:</strong> ok so</p>
+<p><strong>User A:</strong> she told me she has a stutter</p>
+<p><strong>User B:</strong> oh</p>
+<p><strong>User A:</strong> like thats why</p>
+<p><strong>User B:</strong> that makes sense</p>
+<p><strong>User A:</strong> but shes been doing speech therapy</p>
+<p><strong>User A:</strong> and shes totally different now</p>
+<p><strong>User B:</strong> wait really</p>
+<p><strong>User A:</strong> we got coffee</p>
+<p><strong>User A:</strong> she was talking nonstop</p>
+<p><strong>User A:</strong> like confident and funny</p>
+<p><strong>User B:</strong> i love that</p>
+<p><strong>User A:</strong> ok but listen</p>
+<p><strong>User A:</strong> she said she had been hooking up w hart</p>
+<p><strong>User B:</strong> NO</p>
+<p><strong>User A:</strong> yes</p>
 
+<p><em>(CHAT #2 CONT’D.)</em></p>
 
-          <h3>Stories Window - SCROLL TEST</h3>
-          <p>Line 1</p><p>Line 2</p><p>Line 3</p><p>Line 4</p><p>Line 5</p>
-        <p>Line 6</p><p>Line 7</p><p>Line 8</p><p>Line 9</p><p>Line 10</p>
-        <p>Line 11</p><p>Line 12</p><p>Line 13</p><p>Line 14</p><p>Line 15</p>
-        <p>Line 16</p><p>Line 17</p><p>Line 18</p><p>Line 19</p><p>Line 20</p>
-        <p>Line 21</p><p>Line 22</p><p>Line 23</p><p>Line 24</p><p>Line 25</p>
-        <p>Line 26</p><p>Line 27</p><p>Line 28</p><p>Line 29</p><p>Line 30</p>
-        <p>Line 31</p><p>Line 32</p><p>Line 33</p><p>Line 34</p><p>Line 35</p>
-        <p>Line 36</p><p>Line 37</p><p>Line 38</p><p>Line 39</p><p>Line 40</p>
-        <p>Line 41</p><p>Line 42</p><p>Line 43</p><p>Line 44</p><p>Line 45</p>
-        <p>Line 46</p><p>Line 47</p><p>Line 48</p><p>Line 49</p><p>Line 50</p>
-        <p>Line 51 - KEEP SCROLLING!</p><p>Line 52</p><p>Line 53</p><p>Line 54</p>
-        <p>Line 55</p><p>Line 56</p><p>Line 57</p><p>Line 58</p><p>Line 59</p>
-        <p>Line 60 - BOTTOM</p>
-    </div>stories</section>
-      
-      <section class="about_window">
-  <div class="about">
-        <button class="default" onclick="window.location.href='about.html'">ABOUT</button>
+<p><strong>User A:</strong> for a while</p>
+<p><strong>User B:</strong> thats so gross</p>
+<p><strong>User A:</strong> and the way she said it</p>
+<p><strong>User A:</strong> it didnt even sound like she realized how bad it was</p>
+<p><strong>User B:</strong> thats worse</p>
+<p><strong>User A:</strong> like she kept being like</p>
+<p><strong>User A:</strong> “he helped me”</p>
+<p><strong>User B:</strong> ew</p>
+<p><strong>User A:</strong> it just felt really off</p>
+      </div>
+    </div>
   </div>
+</div>
+
+  <script>
+// Get the modal
+var modal = document.getElementById("chatModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("moreBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</div>
       </section>
+
+      <section class="about_window">
+        <div class="about">
+          <button class="default" onclick="window.location.href = 'about.html'">
+            ABOUT
+          </button>
+        </div>
+      </section>
+
+      
     </main>
 
     <script src="js/game.js"></script>
