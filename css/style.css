@@ -20,8 +20,10 @@ canvas {
 .topbar,
 .game_window,
 .stories_window,
+
 .about_window {
-  border: 2px solid red;
+  /*border: 2px solid red;*/
+  background-color: #B2B2B2;
 }
 
 .layout {
@@ -44,11 +46,23 @@ canvas {
   overflow: hidden;
 }
 
+
 .game_window {
   grid-area: game_window;
-  background-image: url("../assets/img/pinkspec.gif");
-  background-repeat: repeat;
+  position: relative;
   overflow: hidden;
+  background-color: #191919;
+  /*background-image: url("../assets/img/pinkspec.gif");
+  background-repeat: repeat;
+  overflow: hidden;*/
+}
+
+.story-selection {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 220px;
+  z-index: 10;
 }
 
 .stories_window {
@@ -56,6 +70,17 @@ canvas {
   background-color: #cbcbcb;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.gif-hover {
+  width: 200px;
+  height: 200px;
+  background-image: url("..assets/img/ad1_still.gif"); /* paused version */
+  background-size: cover;
+}
+
+.gif-hover:hover {
+  background-image: url("...assets/img/twins.gif"); /* plays on hover */
 }
 
 .about_window {
@@ -77,11 +102,12 @@ canvas {
 }
 
 .modal-window {
-  position: absolute;
-  width: 600px;
+position: absolute;
+  width: 350px;
   height: 375px;
-  top: 100px;
-  left: 100px;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
 }
 
 .chat-layout {
@@ -112,7 +138,7 @@ canvas {
 }
 
 .title-bar {
-  background: linear-gradient(to right, #ff2cb2, white);
+  background: linear-gradient(to right, black, white);
 }
 
 .response {
@@ -137,4 +163,5 @@ canvas {
   flex: 1;
   margin-left: 10px;
   margin-right: 10px;
+  text-decoration-color: white;
 }

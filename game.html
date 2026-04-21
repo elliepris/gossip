@@ -20,7 +20,51 @@
         <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
       </section>
 
-        <section id="game_window" class="game_window"></section>
+        <section id="game_window" class="game_window">
+     <div class="field-border" style="padding: 8px">
+<div class ="story-selection">
+          <div class="field-row">
+  <input id="gossip1" type="radio" name="gossip-story" value="0">
+  <label for="gossip1">My roommate is secretly moving to Australia in two weeks</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip2" type="radio" name="gossip-story" value="1">
+  <label for="gossip2">My friend keeps going home every weekend but says college is amazing</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip3" type="radio" name="gossip-story" value="2">
+  <label for="gossip3">Two coworkers are basically dating and no one is saying it out loud</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip4" type="radio" name="gossip-story" value="3">
+  <label for="gossip4">My sister-in-law figured out parenting and my mother-in-law hates it</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip5" type="radio" name="gossip-story" value="4">
+  <label for="gossip5">Someone in our class copied a project idea almost exactly</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip6" type="radio" name="gossip-story" value="5">
+  <label for="gossip6">One of my friends is still obsessed with her ex but acts totally over it</label>
+</div>
+
+<div class="field-row">
+  <input id="gossip7" type="radio" name="gossip-story" value="6">
+  <label for="gossip7">A couple in our group broke up but still pretend nothing happened</label>
+</div>
+</div>  <div id="optionsMenu">
+    ...
+  </div>
+</div>     
+
+
+          
+        </section>
 
 <!--THIS IS THE STORIES WINDOW-->
 <!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
@@ -28,9 +72,9 @@
   <div class="stories_header">
     <img src="assets/img/stories.png" alt="Stories Window Header" />
   </div>
-
-  <div class="ad1" style="padding: 10px">
-    <img src="assets/img/twins.gif" alt="Advertisement 1" />
+<div class="gif-hover"></div>
+  <div class="class="gif-hover" style="padding: 10px">
+   <!--<img src="assets/img/twins.gif" alt="Advertisement 1" />--> 
     <p>This is a preview of the story for Tweflth Night LOL</p>
     <button class="open-chat" data-target="chatModal1">Read More!</button>
 
@@ -218,14 +262,6 @@ closeButtons.forEach(btn => {
   btn.addEventListener("click", function () {
     const modal = this.closest(".modal");
     if (modal) {
-      modal.style.display = "none";
-    }
-  });
-});
-
-window.addEventListener("click", function (e) {
-  document.querySelectorAll(".modal").forEach(modal => {
-    if (e.target === modal) {
       modal.style.display = "none";
     }
   });
