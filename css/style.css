@@ -11,10 +11,29 @@ canvas {
   display: block;
 }
 
-.game_window canvas {
-  display: block;
-  width: 100%;
+.game_window {
+  grid-area: game_window;
+  background-color: #191919;
+  overflow: hidden;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
   height: 100%;
+  width: 100%;
+}
+
+.grid-area {
+  position: relative;
+  height: 100%;
+}
+
+.selector-area {
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .topbar,
@@ -53,14 +72,6 @@ canvas {
   /*background-image: url("../assets/img/pinkspec.gif");
   background-repeat: repeat;
   overflow: hidden;*/
-}
-
-.story-selection {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 220px;
-  z-index: 10;
 }
 
 .stories_window {
@@ -153,13 +164,42 @@ canvas {
   text-decoration-color: white;
 }
 
+.stories-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 250px;
+  padding-top: 20px;
+
+}
+
+.ad1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  width: 250px;
+}
+
+.ad1 button {
+  margin-top: 5px;
+}
+
+.ad1-text h2,
+.ad1-text p {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
 .ad1-img {
-  float: left;
   width: 250px;
   height: 90px;
   background: transparent url("../assets/img/ad1_still.png") center top
     no-repeat;
   background-size: cover;
+  margin-bottom: 10px;
+  margin-top:20px;
 }
 
 .ad1-img:hover {
@@ -249,4 +289,13 @@ canvas {
 .ad7-img:hover {
   background: transparent url("../assets/img/ad7.gif") center center no-repeat;
   background-size: cover;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: "franklin-gothic-atf", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  margin: 0;
 }

@@ -1,4 +1,4 @@
-20th// sample grid code from chat gpt the rest of the js debugged using chat also based on a p5 sketch i found
+// sample grid code from chat gpt the rest of the js debugged using chat also based on a p5 sketch i found
 let selectedStory = null;
 let guesses = [];
 
@@ -14,9 +14,9 @@ let offsetX;
 let offsetY;
 
 function setup() {
-  const gameWindow = document.querySelector("#game_window");
-  canvas = createCanvas(gameWindow.clientWidth, gameWindow.clientHeight);
-  canvas.parent("game_window");
+  const gridArea = document.querySelector(".grid-area");
+  canvas = createCanvas(gridArea.clientWidth, gridArea.clientHeight);
+  canvas.parent(gridArea);
 
   updateGridSize();
   setupStorySelection();
@@ -25,7 +25,7 @@ function setup() {
 function setupStorySelection() {
   const radios = document.querySelectorAll('input[name="gossip-story"]');
 
-  radios.forEach(radio => {
+  radios.forEach((radio) => {
     radio.addEventListener("change", function () {
       selectedStory = Number(this.value);
     });
@@ -33,8 +33,8 @@ function setupStorySelection() {
 }
 
 function windowResized() {
-  const gameWindow = document.querySelector("#game_window");
-  resizeCanvas(gameWindow.clientWidth, gameWindow.clientHeight);
+  const gridArea = document.querySelector(".grid-area");
+  resizeCanvas(gridArea.clientWidth, gridArea.clientHeight);
 
   updateGridSize();
 }
@@ -49,7 +49,7 @@ function updateGridSize() {
   gridSizeH = cellH * rows;
 
   // center grid inside canvas
-  offsetX = (width - gridSizeW) / 2-200;
+  offsetX = (width - gridSizeW) / 2;
   offsetY = (height - gridSizeH) / 2;
 }
 
@@ -69,7 +69,7 @@ function drawGrid() {
       offsetX + x * cellW,
       offsetY,
       offsetX + x * cellW,
-      offsetY + gridSizeH
+      offsetY + gridSizeH,
     );
   }
 
@@ -78,13 +78,12 @@ function drawGrid() {
       offsetX,
       offsetY + y * cellH,
       offsetX + gridSizeW,
-      offsetY + y * cellH
+      offsetY + y * cellH,
     );
   }
 }
 
 function drawHover() {
-  // only show hover if inside grid
   if (
     mouseX < offsetX ||
     mouseX > offsetX + gridSizeW ||
@@ -104,7 +103,6 @@ function drawHover() {
 }
 
 function mousePressed() {
-  // make sure click is inside centered grid
   if (
     mouseX < offsetX ||
     mouseX > offsetX + gridSizeW ||
@@ -112,7 +110,6 @@ function mousePressed() {
     mouseY > offsetY + gridSizeH
   ) return;
 
-  // make sure a story is selected
   if (selectedStory === null) {
     alert("Please select a gossip story first.");
     return;
@@ -121,21 +118,18 @@ function mousePressed() {
   let col = floor((mouseX - offsetX) / cellW);
   let row = floor((mouseY - offsetY) / cellH);
 
-  // find existing guess for this story
   let existingStoryGuess = guesses.find(
-    guess => guess.storyId === selectedStory
+    (guess) => guess.storyId === selectedStory,
   );
 
   if (existingStoryGuess) {
-    // move the existing guess for that story
     existingStoryGuess.col = col;
     existingStoryGuess.row = row;
   } else {
-    // create a new guess for that story
     guesses.push({
       storyId: selectedStory,
       col: col,
-      row: row
+      row: row,
     });
   }
 }
