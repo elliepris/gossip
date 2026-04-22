@@ -56,7 +56,7 @@ canvas {
 .game-layout {
   display: grid;
   grid-template-areas: "grid-area selector-area";
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 2fr;
   width: 100%;
   height: 100%;
 }
@@ -88,6 +88,14 @@ canvas {
 
 .about {
   padding: 20px;
+}
+
+
+.selector-area {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical */
+  height: 100vh;
 }
 
 .border {
@@ -189,82 +197,72 @@ canvas {
   text-decoration-color: white;
 }
 
+.stories-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
 .stories-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: 30px auto 20px auto;
   width: 250px;
-  padding-top: 20px;
 }
 
-.ad1 {
+.ad-wrapper {
+  margin: 10px 20px;
+  background-color: white;
+  box-shadow: 0px 0px 8px #191919;
+  
+}
+
+.ad {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 250px;
-  padding-bottom: 20px;
+  padding: 10px;
   border: 2px black dotted;
 }
 
-.ad1 button {
+.ad button {
   margin-top: 5px;
 }
 
-.ad1-text h2,
-.ad1-text p {
-  margin-bottom: 5px;
+.ad-text h2,
+.ad-text p {
   margin-top: 0;
+  margin-bottom: 5px;
 }
 
-.ad1-img {
+.ad-img {
   width: 250px;
   height: 90px;
-  background: transparent url("../assets/img/ad1_still.png") center top
-    no-repeat;
+  background-repeat: no-repeat;
+  background-position: center top;
   background-size: cover;
   margin-bottom: 10px;
-  margin-top: 20px;
+}
+
+/*AD SPECIFIC IMAGE SWAPS*/
+
+.ad1-img {
+  background-image: url("../assets/img/ad1_still.png");
 }
 
 .ad1-img:hover {
-  background: transparent url("../assets/img/ad1.gif") center center no-repeat;
-  background-size: cover;
-}
-
-.ad2 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 250px;
-  padding-bottom: 20px;
-  border: 2px black dotted;
+  background-image: url("../assets/img/ad1.gif");
 }
 
 .ad2-img {
-  float: left;
-  width: 250px;
-  height: 90px;
-  background: transparent url("../assets/img/ad2_still.png") center top
-    no-repeat;
-  background-size: cover;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  background-image: url("../assets/img/ad2_still.png");
 }
 
 .ad2-img:hover {
-  background: transparent url("../assets/img/ad2.gif") center center no-repeat;
-  background-size: cover;
-}
-
-.ad2-text h2,
-.ad2-text p {
-  margin-bottom: 5px;
-  margin-top: 0;
-}
-
-.ad2 button {
-  margin-top: 5px;
+  background-image: url("../assets/img/ad2.gif");
 }
 
 .ad3-img {
