@@ -1,4 +1,4 @@
-// sample grid code from chat gpt the rest of the js debugged using chat also based on a p5 sketch i found
+20th// sample grid code from chat gpt the rest of the js debugged using chat also based on a p5 sketch i found
 let selectedStory = null;
 let guesses = [];
 

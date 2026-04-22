@@ -20,10 +20,9 @@ canvas {
 .topbar,
 .game_window,
 .stories_window,
-
 .about_window {
   /*border: 2px solid red;*/
-  background-color: #B2B2B2;
+  background-color: #b2b2b2;
 }
 
 .layout {
@@ -45,7 +44,6 @@ canvas {
   background-color: #ff2cb2;
   overflow: hidden;
 }
-
 
 .game_window {
   grid-area: game_window;
@@ -72,17 +70,6 @@ canvas {
   overflow-x: hidden;
 }
 
-.gif-hover {
-  width: 200px;
-  height: 200px;
-  background-image: url("..assets/img/ad1_still.gif"); /* paused version */
-  background-size: cover;
-}
-
-.gif-hover:hover {
-  background-image: url("...assets/img/twins.gif"); /* plays on hover */
-}
-
 .about_window {
   grid-area: about_window;
   background-color: #b1b1b1;
@@ -102,7 +89,7 @@ canvas {
 }
 
 .modal-window {
-position: absolute;
+  position: absolute;
   width: 350px;
   height: 375px;
   top: 50%;
@@ -164,4 +151,102 @@ position: absolute;
   margin-left: 10px;
   margin-right: 10px;
   text-decoration-color: white;
+}
+
+.ad1-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad1_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad1-img:hover {
+  background: transparent url("../assets/img/ad1.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad2-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad2_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad2-img:hover {
+  background: transparent url("../assets/img/ad2.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad3-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad3_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad3-img:hover {
+  background: transparent url("../assets/img/ad3.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad4-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad4_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad4-img:hover {
+  background: transparent url("../assets/img/ad4.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad5-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad5_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad5-img:hover {
+  background: transparent url("../assets/img/ad5.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad6-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad6_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad6-img:hover {
+  background: transparent url("../assets/img/ad6.gif") center center no-repeat;
+  background-size: cover;
+}
+
+.ad7-img {
+  float: left;
+  width: 250px;
+  height: 90px;
+  background: transparent url("../assets/img/ad7_still.png") center top
+    no-repeat;
+  background-size: cover;
+}
+
+.ad7-img:hover {
+  background: transparent url("../assets/img/ad7.gif") center center no-repeat;
+  background-size: cover;
 }
