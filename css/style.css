@@ -11,44 +11,11 @@ canvas {
   display: block;
 }
 
-.game_window {
-  grid-area: game_window;
-  background-color: #191919;
-  overflow: hidden;
-}
-
-.game-layout {
-  display: grid;
-  grid-template-columns: 1fr 240px;
-  height: 100%;
-  width: 100%;
-}
-
-.grid-area {
-  position: relative;
-  height: 100%;
-}
-
-.selector-area {
-  padding: 20px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.topbar,
-.game_window,
-.stories_window,
-.about_window {
-  /*border: 2px solid red;*/
-  background-color: #b2b2b2;
-}
-
 .layout {
   display: grid;
   grid-template-areas:
-    "topbar topbar topbar"
-    "game_window stories_window about_window";
+    "header header header"
+    "game-window stories_window about_window";
   grid-template-columns: 3fr 1fr 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
@@ -58,20 +25,52 @@ canvas {
   overflow: hidden;
 }
 
-.topbar {
-  grid-area: topbar;
+.header {
+  grid-area: header;
   background-color: #ff2cb2;
-  overflow: hidden;
 }
 
-.game_window {
-  grid-area: game_window;
+.header:hover {
+  background-image: url("../assets/img/sparkle_pink.gif");
+  background-repeat: repeat;
+}
+
+.logo {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0;
+}
+
+.game-window {
+  grid-area: game-window;
   position: relative;
   overflow: hidden;
   background-color: #191919;
   /*background-image: url("../assets/img/pinkspec.gif");
   background-repeat: repeat;
   overflow: hidden;*/
+}
+
+.game-layout {
+  display: grid;
+  grid-template-areas: "grid-area selector-area";
+  grid-template-columns: 2fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-area {
+  grid-area: grid-area;
+  height: 100%;
+  border: 2px solid red;
+}
+
+.selector-area {
+  grid-area: selector-area;
+  height: 100%;
+  border: 2px solid red;
 }
 
 .stories_window {
@@ -89,6 +88,32 @@ canvas {
 
 .about {
   padding: 20px;
+}
+
+.border {
+  color: black;
+  background: white;
+  padding: 20px 10px 14px 12px;
+  background-clip: padding-box;
+  border-image-outset: 0 0 0 12px;
+  border-image-slice: 45 8 8 15;
+  border-image-width: 90px 16px 16px 30px;
+  border-image-repeat: stretch;
+  border-style: solid;
+  border-color: transparent;
+  image-rendering: pixelated;
+  border-image-source: url("../assets/img/border_img.png");
+}
+
+.story-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
+}
+
+.field-row label {
+  font-size: 13px;
 }
 
 /* The Modal (background) W3 School and debugged using chat GPT yeah so heavy reliance on this ai thing since i had zero clue what i was doing*/
@@ -171,15 +196,15 @@ canvas {
   margin: 0 auto;
   width: 250px;
   padding-top: 20px;
-
 }
 
 .ad1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 auto;
   width: 250px;
+  padding-bottom: 20px;
+  border: 2px black dotted;
 }
 
 .ad1 button {
@@ -199,12 +224,21 @@ canvas {
     no-repeat;
   background-size: cover;
   margin-bottom: 10px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .ad1-img:hover {
   background: transparent url("../assets/img/ad1.gif") center center no-repeat;
   background-size: cover;
+}
+
+.ad2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 250px;
+  padding-bottom: 20px;
+  border: 2px black dotted;
 }
 
 .ad2-img {
@@ -214,11 +248,23 @@ canvas {
   background: transparent url("../assets/img/ad2_still.png") center top
     no-repeat;
   background-size: cover;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .ad2-img:hover {
   background: transparent url("../assets/img/ad2.gif") center center no-repeat;
   background-size: cover;
+}
+
+.ad2-text h2,
+.ad2-text p {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.ad2 button {
+  margin-top: 5px;
 }
 
 .ad3-img {
@@ -298,4 +344,12 @@ h2 {
   font-style: normal;
   text-transform: uppercase;
   margin: 0;
+}
+
+.open-chat {
+  font-weight: bold;
+}
+
+.p {
+  font-size: 13px;
 }
