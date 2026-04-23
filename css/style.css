@@ -28,6 +28,7 @@ canvas {
 .header {
   grid-area: header;
   background-color: #ff2cb2;
+  border: 2px black dotted;
 }
 
 .header:hover {
@@ -55,7 +56,7 @@ canvas {
 .game-layout {
   display: grid;
   grid-template-areas: "grid-area selector-area";
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 2fr 1fr;
   width: 100%;
   height: 100%; /* Remove align-items: center */
   gap: 0; /* Add this */
@@ -88,12 +89,16 @@ canvas {
   background-color: #cbcbcb;
   overflow-y: auto;
   overflow-x: hidden;
+  border-left: 2px black dotted;
+  border-bottom: 2px black dotted;
 }
 
 .about_window {
   grid-area: about_window;
   background-color: #b1b1b1;
   overflow: hidden;
+  border-right: 2px black dotted;
+  border-bottom: 2px black dotted;
 }
 
 .about {
@@ -105,7 +110,7 @@ canvas {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 8px;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -256,6 +261,8 @@ canvas {
   background-position: center top;
   background-size: cover;
   margin-bottom: 10px;
+  image-rendering: pixelated;
+
 }
 
 /*AD SPECIFIC IMAGE SWAPS*/
@@ -359,12 +366,64 @@ h2 {
   font-weight: bold;
 }
 
-@keyframes open-chat {
+@keyframes sheen {
   100% {
     transform: rotateZ(60deg) translate(1em, -9em);
   }
 }
 
+[anim="sheen"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[anim="sheen"]::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotateZ(60deg) translate(-5em, 7.5em);
+  pointer-events: none;
+}
+
+[anim="sheen"]:not(.toggled)::after {
+  animation: sheen 1s infinite;
+}
+
 .p {
   font-size: 13px;
+}
+
+.links{
+  font-size: 15px;
+  font-weight: bold;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+.credits {
+padding top: 200px;
+}
+
+a:link {
+  color: #191919;
+}
+
+a:visited {
+  color: #191919;
+}
+
+a:hover {
+  color: #ff2cb2;
 }

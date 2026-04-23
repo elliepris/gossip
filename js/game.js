@@ -18,11 +18,11 @@ function setup() {
   const gridArea = document.querySelector(".grid-area");
   const wrapper = document.querySelector(".grid-wrapper");
 
-  const availableWidth = gridArea.clientWidth * 0.95;
-  const availableHeight = gridArea.clientHeight * 0.95;
+  const availableWidth = gridArea.clientWidth * 0.75;
+  const availableHeight = gridArea.clientHeight * 0.75;
   const size = Math.min(availableWidth, availableHeight);
 
-  canvas = createCanvas(size, size);
+  canvas = createCanvas(350, 350);
   canvas.parent(wrapper);
 
   updateGridSize();
