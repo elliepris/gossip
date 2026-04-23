@@ -31,6 +31,7 @@
     <div class="selector-area">
       <div class="border">
         <div class="story-selection">
+          
           <div class="field-row">
             <input id="gossip1" type="radio" name="gossip-story" value="0">
             <label for="gossip1">Gossip 1</label>
@@ -64,6 +65,8 @@
           <div class="field-row">
             <input id="gossip7" type="radio" name="gossip-story" value="6">
             <label for="gossip7">Gossip 7</label>
+            <button id="reveal-btn" style="margin-top: 10px;">Reveal Answers</button>
+<button id="clear-btn" style="margin-top: 5px;">Clear Guesses</button>
           </div>
         </div>
       </div>
@@ -73,10 +76,12 @@
 
 <!--THIS IS THE STORIES WINDOW-->
 <!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
-   <section class="stories_window">
-    <div class="stories-wrapper">
-  <div class="stories-header">
-    <img src="assets/img/stories.png" alt="Stories Window Header" />
+<section class="stories_window">
+  <div class="stories-wrapper">
+    <div class="stories-header">
+      <div class="marquee">
+        <img src="assets/img/stories.png" alt="Stories Window Header" />
+      </div>
     </div>
 
 <!--GOSSIP STORIES START HERE-->
@@ -150,7 +155,7 @@
         </div>
       </div>
 
-      <div class="field-border-disabled response" style="padding: 8px">
+      <!--<div class="field-border-disabled response" style="padding: 8px">
         <div class="response-icon">
           <img src="assets/img/runningman.png" alt="chat icon" />
         </div>
@@ -158,6 +163,7 @@
           What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
         </div>
       </div>
+    -->
     </div>
   </div>
 </div>

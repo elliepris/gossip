@@ -49,7 +49,9 @@ canvas {
   position: relative;
   overflow: hidden;
   background-color: #191919;
-  height: 100%;
+  background-image: url("../assets/img/galaxy.gif");
+  background-repeat: repeat;
+  background-size: auto;
 }
 
 /* Ensure game-layout stretches properly */
@@ -72,16 +74,15 @@ canvas {
 }
 
 .grid-wrapper {
-  background-color: white;
-  box-shadow: 0px 0px 8px #ff00b5;
-  display: inline-block;
+  width: 100%;
+  height: 100%;
+  display: block;
   padding: 0;
   margin: 0;
 }
 
 .grid-wrapper canvas {
   display: block;
-  border: 2px black dotted;
 }
 
 .stories_window {
@@ -118,7 +119,7 @@ canvas {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 8px; /* ← THIS was the killer! */
+  margin: 40px 60px; /* ← THIS was the killer! */
   width: 100%;
   max-height: 100%;
 }
@@ -148,25 +149,41 @@ canvas {
   position: fixed;
   inset: 0;
   z-index: 999;
+  pointer-events: none;
 }
 
 .modal-window {
-  position: absolute;
-  width: 350px;
-  height: 375px;
-  top: 50%;
-  left: 80%;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  /* Match the about_window column (rightmost 1fr of your 3fr 1fr 1fr grid) */
+  right: 0;
+  top: auto;
+  bottom: 20px;
+  width: calc(100vw / 5 - 40px); /* matches the 1fr column width */
+  max-width: 280px;
+  height: 70%;
+  max-height: 60vh;
+  margin: 5px;
+  pointer-events: auto;
+  box-shadow: 0px 0px 8px #191919;
+}
+
+.modal-window.window {
+  background: #cccccc; /* your pink */
+}
+
+.modal-window .window-body {
+  background: #cccccc; /* matches the inside too */
 }
 
 .chat-layout {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: flex-start;
+  align-items: left;
 }
 
 .chat-icon {
-  width: 60px;
+  width: 40px;
   flex-shrink: 0;
 }
 
@@ -177,17 +194,23 @@ canvas {
 }
 
 .chat-scroll {
-  flex: 1;
-  height: 250px;
+  width: 100%;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
   background: white;
   padding: 6px;
   box-sizing: border-box;
+  font-size: 11px;
+  font-family: "comic-sans-ms", sans-serif;
 }
 
 .title-bar {
-  background: linear-gradient(to right, black, white);
+background: linear-gradient(to right, #ff2cb2, #191919);
+}
+
+.title-bar-text {
+color:#191919;
 }
 
 .response {
@@ -208,12 +231,12 @@ canvas {
   display: block;
 }
 
-.response-text {
+/*.response-text {
   flex: 1;
   margin-left: 10px;
   margin-right: 10px;
   text-decoration-color: white;
-}
+}*/
 
 .stories-wrapper {
   display: flex;
@@ -222,12 +245,34 @@ canvas {
 }
 
 .stories-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 30px auto 20px auto;
   width: 250px;
+  margin: 30px auto 20px auto;
 }
+
+.marquee {
+  width: 250px;
+  height: 60px; /* set this to your header image height */
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  animation: marquee-right 8s linear infinite;
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 
 .ad-wrapper {
   margin: 10px 20px;
@@ -403,13 +448,16 @@ h2 {
 }
 
 .links{
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 20px;
   margin: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
+font-family: "impact", sans-serif;
+font-weight: 400;
+font-style: normal;
+text-shadow: 0 0 10px #ff2cb2, 0 0 20px #ff2cb2, 0 0 30px #ff2cb2
+
 }
 
 .credits {
