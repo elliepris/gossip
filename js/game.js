@@ -1,5 +1,12 @@
 // === CONFIG ===
-const greyColors = ["#ffffff", "#cccccc", "#999999", "#666666", "#333333", "#000000"];
+const greyColors = [
+  "#ffffff",
+  "#cccccc",
+  "#999999",
+  "#666666",
+  "#333333",
+  "#000000",
+];
 
 const missFonts = [
   "'Impact', sans-serif",
@@ -40,8 +47,8 @@ let cellW, cellH;
 let gridSizeW, gridSizeH;
 let offsetX, offsetY;
 // Reduced padding since titles are no longer in the game-play area
-let labelPadding = 10;
-let titlePadding = 10;
+let labelPadding = 50;
+let titlePadding = 50;
 
 let markerImg;
 
@@ -131,7 +138,7 @@ function setup() {
 
   updateGridSize();
   setupClearButton();
-  setupSubmitButton();  // 👈 ADD
+  setupSubmitButton(); // 👈 ADD
   setupDVDOverlay();
   setupSliders();
 
@@ -184,7 +191,7 @@ function setupSubmitButton() {
 
 function submitSliderGuess() {
   if (selectedStory === null) {
-    alert("Open a gossip story's chat log first!");  // 👈 updated message
+    alert("Open a gossip story's chat log first!"); // 👈 updated message
     return;
   }
 
@@ -206,7 +213,7 @@ function submitSliderGuess() {
 
   checkGuess(selectedStory, col, row);
 
-  resetSliders();           // 👈 ADD — reset after guess
+  resetSliders(); // 👈 ADD — reset after guess
   isSliderDragging = false;
 }
 
@@ -261,8 +268,8 @@ function resetSliders() {
 
   xSlider.value = 5;
   ySlider.value = 5;
-  previewCol = 4;  // value 5 - 1 = column 4
-  previewRow = 5;  // rows (10) - 5 = row 5
+  previewCol = 4; // value 5 - 1 = column 4
+  previewRow = 5; // rows (10) - 5 = row 5
   xSliderTouched = false;
   ySliderTouched = false;
 
@@ -370,10 +377,20 @@ function drawCellLines() {
   strokeWeight(1);
 
   for (let x = 0; x <= cols; x++) {
-    line(offsetX + x * cellW, offsetY, offsetX + x * cellW, offsetY + gridSizeH);
+    line(
+      offsetX + x * cellW,
+      offsetY,
+      offsetX + x * cellW,
+      offsetY + gridSizeH,
+    );
   }
   for (let y = 0; y <= rows; y++) {
-    line(offsetX, offsetY + y * cellH, offsetX + gridSizeW, offsetY + y * cellH);
+    line(
+      offsetX,
+      offsetY + y * cellH,
+      offsetX + gridSizeW,
+      offsetY + y * cellH,
+    );
   }
   pop();
 }
@@ -422,7 +439,7 @@ function submitSliderGuess() {
   ySliderTouched = false;
   isSliderDragging = false;
 
-  resetSliders();           // 👈 ADD — reset after guess
+  resetSliders(); // 👈 ADD — reset after guess
   isSliderDragging = false;
 }
 
