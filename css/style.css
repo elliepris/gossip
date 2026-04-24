@@ -136,10 +136,6 @@ canvas {
   cursor: pointer;
 }
 
-.stories-pop-up {
-  grid-area: stories-pop-up;
-}
-
 .stories_window {
   grid-area: stories_window;
   background-color: #cbcbcb;
@@ -165,7 +161,7 @@ canvas {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 20x px; /* ← THIS was the killer! */
+  margin: 20px; /* ← THIS was the killer! */
   width: 100%;
   max-height: 100%;
 }
@@ -189,43 +185,46 @@ canvas {
   font-size: 13px;
 }
 
-/* The Modal (background) W3 School and debugged using chat GPT yeah so heavy reliance on this ai thing since i had zero clue what i was doing*/
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
+.stories-popup {
+  grid-area: stories-popup;
+  padding: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
 }
 
-.modal-window {
-  position: fixed;
-  /* Match the about_window column (rightmost 1fr of your 3fr 1fr 1fr grid) */
-  right: 0;
-  top: auto;
-  bottom: 20px;
-  width: calc(100vw / 5 - 40px); /* matches the 1fr column width */
-  max-width: 280px;
-  height: 70%;
-  max-height: 60vh;
-  margin: 5px;
-  pointer-events: auto;
+#story-popup-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #cccccc;
   box-shadow: 0px 0px 8px #191919;
 }
 
-.modal-window.window {
-  background: #cccccc; /* your pink */
+#story-popup-content .window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #cccccc;
 }
 
-.modal-window .window-body {
-  background: #cccccc; /* matches the inside too */
+#story-popup-content .window-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #cccccc;
+  padding: 8px;
 }
 
 .chat-layout {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: left;
 }
 
 .chat-icon {
@@ -240,8 +239,9 @@ canvas {
 }
 
 .chat-scroll {
+  flex: 1;
+  min-height: 0;
   width: 100%;
-  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
   background: white;
@@ -276,13 +276,6 @@ canvas {
   height: auto;
   display: block;
 }
-
-/*.response-text {
-  flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  text-decoration-color: white;
-}*/
 
 .stories-wrapper {
   display: flex;
@@ -584,6 +577,82 @@ a:hover {
 .slider-area {
   outline: 2px solid blue;
 }
-.stories-pop-up {
-  outline: 2px solid purple;
+
+.stories-popup {
+  grid-area: stories-popup;
+  padding: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+  outline: 3px solid red; /* temporary debug */
+}
+
+#story-popup-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #cccccc;
+  outline: 2px solid blue; /* temporary debug */
+}
+
+#story-popup-content .window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#story-popup-content .window-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+#story-popup-content .chat-scroll {
+  flex: 1;
+  height: auto;
+  overflow-y: auto;
+}
+
+.popup-placeholder {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.current-story p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+#current-story-label {
+  font-weight: bold;
+  color: #ff2cb2;
+  font-size: 16px;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.control-buttons button {
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
 }

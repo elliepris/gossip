@@ -130,7 +130,6 @@ function setup() {
   textStyle(BOLD);
 
   updateGridSize();
-  setupStorySelection();
   setupClearButton();
   setupSubmitButton();  // 👈 ADD
   setupDVDOverlay();
@@ -144,14 +143,16 @@ function setup() {
   resizeObserver.observe(wrapper);
 }
 
-function setupStorySelection() {
-  const radios = document.querySelectorAll('input[name="gossip-story"]');
-  radios.forEach((radio) => {
-    radio.addEventListener("change", function () {
-      selectedStory = Number(this.value);
-      resetSliders();  // 👈 ADD if you want per-story reset
-    });
-  });
+function setStoryFromChat(storyId) {
+  selectedStory = storyId;
+  xSliderTouched = false;
+  ySliderTouched = false;
+
+  // Update control panel label
+  const labelEl = document.getElementById("current-story-label");
+  if (labelEl) {
+    labelEl.textContent = `Gossip Story #${storyId + 1}`;
+  }
 }
 
 function setupClearButton() {
@@ -161,12 +162,15 @@ function setupClearButton() {
       guesses = [];
       feedbackMessages = {};
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
-      document.querySelectorAll('input[name="gossip-story"]').forEach((r) => {
-        r.checked = false;
-      });
       selectedStory = null;
 
-      resetSliders();   // 👈 ADD — reset sliders too
+      // Reset control panel label
+      const labelEl = document.getElementById("current-story-label");
+      if (labelEl) {
+        labelEl.innerHTML = "<em>No gossip selected</em>";
+      }
+
+      resetSliders();
     });
   }
 }
@@ -180,7 +184,7 @@ function setupSubmitButton() {
 
 function submitSliderGuess() {
   if (selectedStory === null) {
-    alert("Please select a gossip story first.");
+    alert("Open a gossip story's chat log first!");  // 👈 updated message
     return;
   }
 
@@ -448,19 +452,19 @@ function checkGuess(storyId, col, row) {
 }
 
 function updateFeedbackUI(storyId, result) {
-  const label = document.querySelector(`label[for="gossip${storyId + 1}"]`);
-  if (!label) return;
+  const labelEl = document.getElementById("current-story-label");
+  if (!labelEl) return;
 
-  let existing = label.parentElement.querySelector(".feedback-tag");
-  if (existing) existing.remove();
-
-  let tag = document.createElement("span");
-  tag.className = "feedback-tag";
-  tag.textContent = result;
-  tag.style.marginLeft = "8px";
-  tag.style.fontWeight = "bold";
+  // Show result next to the current story label temporarily
+  const tag = document.createElement("span");
+  tag.textContent = ` — ${result}!`;
   tag.style.color = result === "HIT" ? "#ff2cb2" : "#888";
-  label.parentElement.appendChild(tag);
+  tag.style.marginLeft = "4px";
+  tag.className = "feedback-tag";
+
+  // Remove any old tag first
+  labelEl.querySelectorAll(".feedback-tag").forEach((t) => t.remove());
+  labelEl.appendChild(tag);
 }
 
 // === DVD BOUNCE ANIMATION ===

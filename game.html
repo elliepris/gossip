@@ -7,358 +7,303 @@
     <title>Buzz Battleship</title>
     <link rel="stylesheet" href="https://unpkg.com/98.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="https://use.typekit.net/lep8ram.css">
+    <link rel="stylesheet" href="https://use.typekit.net/lep8ram.css" />
 
     <script src="js/libraries/p5.min.js"></script>
     <script src="js/libraries/p5.sound.min.js"></script>
-
   </head>
 
   <body>
-   <main class="layout">
-<section class="header">
-  <div class="logo">
-    <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
-  </div>  <!-- 👈 ADD this closing div -->
-</section>
-
-<section id="game-window" class="game-window">
-  <div class="game-layout">
-
-    <!-- Row 1-2, Col 1: the grid/canvas -->
-    <div class="game-play">
-      <div class="game-play-wrapper">
-        <!-- p5 canvas goes here -->
-      </div>
-    </div>
-
-    <!-- Row 1, Col 2: coordinates window -->
-    <div class="coordinates">
-      <div class="window" style="width: 100%;">
-        <div class="title-bar">
-          <div class="title-bar-text">Coords</div>
+    <main class="layout">
+      <section class="header">
+        <div class="logo">
+          <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
         </div>
-        <div class="window-body">
-          <p id="coord-display">(5, 5)</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 2, Col 2: selector / story radios -->
-    <div class="selector-area">
-      <div class="border">
-        <div class="story-selection">
-          <div class="field-row">
-            <input id="gossip1" type="radio" name="gossip-story" value="0">
-            <label for="gossip1">Gossip 1</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip2" type="radio" name="gossip-story" value="1">
-            <label for="gossip2">Gossip 2</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip3" type="radio" name="gossip-story" value="2">
-            <label for="gossip3">Gossip 3</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip4" type="radio" name="gossip-story" value="3">
-            <label for="gossip4">Gossip 4</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip5" type="radio" name="gossip-story" value="4">
-            <label for="gossip5">Gossip 5</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip6" type="radio" name="gossip-story" value="5">
-            <label for="gossip6">Gossip 6</label>
-          </div>
-          <div class="field-row">
-            <input id="gossip7" type="radio" name="gossip-story" value="6">
-            <label for="gossip7">Gossip 7</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 3, Col 1: slider area -->
-<!-- Row 3, Col 1: slider area -->
-<div class="slider-area">
-  <div class="slider-panel">
-    <div class="slider-row">
-      <span class="slider-label-left" id="truth-left">Boring</span>
-      <input type="range" id="x-slider" min="1" max="10" value="5" step="1" />
-      <span class="slider-label-right" id="truth-right">Juicy</span>
-    </div>
-    <div class="slider-row">
-      <span class="slider-label-left" id="drama-left">Harmless</span>
-      <input type="range" id="y-slider" min="1" max="10" value="5" step="1" />
-      <span class="slider-label-right" id="drama-right">Dramatic</span>
-    </div>
-
-    <!-- NEW: button row below sliders -->
-    <div class="button-row">
-      <button id="submit-btn">Submit Guess</button>
-      <button id="clear-btn">Clear Guesses</button>
-    </div>
-  </div>
-</div>
-
-    <!-- Row 3, Col 2: stories pop-up -->
-    <div class="stories-pop-up">
-      <!-- whatever you want here -->
-    </div>
-
-  </div>
-</section>
-
-<!--THIS IS THE STORIES WINDOW-->
-<!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
-<section class="stories_window">
-  <div class="stories-wrapper">
-    <div class="stories-header">
-      <div class="marquee">
-        <img src="assets/img/stories.png" alt="Stories Window Header" />
-      </div>
-    </div>
-
-<!--GOSSIP STORIES START HERE-->
-
-<!--AD 1 STARTS HERE-->
-<div class="ad-wrapper">
-  <div class="ad">
-    <div class="ad-img ad1-img"></div>
-
-    <div class="ad-text">
-      <h2>Gossip Story 1</h2>
-      <p>This is a preview of the story for Twelfth Night LOL</p>
-    </div>
-
-    <button anim="sheen" class="open-chat" data-target="chatModal1">
-      Read More!
-    </button>
-  </div>
-</div>
-
-<!--AD 1 MODAL STARTS HERE-->
-<div id="chatModal1" class="modal">
-  <div class="window modal-window">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat Log bby</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="chat icon" />
-        </div>
-
-        <div class="chat-scroll">
-          <p>User A: ok wait do u remember ella</p>
-          <p>User B: ya from hart’s class</p>
-          <p>User A: ok</p>
-          <p>User A: i always thought she was just shy</p>
-          <p>User B: same</p>
-          <p>User A: like never talked</p>
-          <p>User A: ever</p>
-          <p>User B: ya</p>
-          <p>User A: ok so</p>
-          <p>User A: she told me she has a stutter</p>
-          <p>User B: oh</p>
-          <p>User A: like thats why</p>
-          <p>User B: that makes sense</p>
-          <p>User A: but shes been doing speech therapy</p>
-          <p>User A: and shes totally different now</p>
-          <p>User B: wait really</p>
-          <p>User A: we got coffee</p>
-          <p>User A: she was talking nonstop</p>
-          <p>User A: like confident and funny</p>
-          <p>User B: i love that</p>
-          <p>User A: ok but listen</p>
-          <p>User A: she said she had been hooking up w hart</p>
-          <p>User B: NO</p>
-          <p>User A: yes</p>
-          <p>User A: for a while</p>
-          <p>User B: thats so gross</p>
-          <p>User A: and the way she said it</p>
-          <p>User A: it didnt even sound like she realized how bad it was</p>
-          <p>User B: thats worse</p>
-          <p>User A: like she kept being like</p>
-          <p>User A: “he helped me”</p>
-          <p>User B: ew</p>
-          <p>User A: it just felt really off</p>
-        </div>
-      </div>
-
-      <!--<div class="field-border-disabled response" style="padding: 8px">
-        <div class="response-icon">
-          <img src="assets/img/runningman.png" alt="chat icon" />
-        </div>
-        <div class="response-text">
-          What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
-        </div>
-      </div>
-    -->
-    </div>
-  </div>
-</div>
-
-<!--AD 2 STARTS HERE-->
-<div class="ad-wrapper">
-  <div class="ad">
-    <div class="ad-img ad2-img"></div>
-
-    <div class="ad-text">
-      <h2>Gossip Story 2</h2>
-      <p>This is a preview of the story for Taming of the Shrew LOL</p>
-    </div>
-
-    <button anim="sheen" class="open-chat" data-target="chatModal2">
-      Read More!
-    </button>
-  </div>
-</div> 
-
-    <!--AD 2 MODAL STARTS HERE-->
-    <div id="chatModal2" class="modal">
-      <div class="window modal-window">
-        <div class="title-bar">
-          <div class="title-bar-text">Chat Log bby</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button>
-          </div>
-        </div>
-
-        <div class="window-body">
-          <div class="chat-layout">
-            <div class="chat-icon">
-              <img src="assets/img/runningman.png" alt="chat icon" />
-            </div>
-
-            <div class="chat-scroll">
-              <p>User A: ok wait do u remember ella</p>
-              <p>User B: ya from hart’s class</p>
-              <p>User A: ok</p>
-              <p>User A: i always thought she was just shy</p>
-              <p>User B: same</p>
-              <p>User A: like never talked</p>
-              <p>User A: ever</p>
-              <p>User B: ya</p>
-              <p>User A: ok so</p>
-              <p>User A: she told me she has a stutter</p>
-              <p>User B: oh</p>
-              <p>User A: like thats why</p>
-              <p>User B: that makes sense</p>
-              <p>User A: but shes been doing speech therapy</p>
-              <p>User A: and shes totally different now</p>
-              <p>User B: wait really</p>
-              <p>User A: we got coffee</p>
-              <p>User A: she was talking nonstop</p>
-              <p>User A: like confident and funny</p>
-              <p>User B: i love that</p>
-              <p>User A: ok but listen</p>
-              <p>User A: she said she had been hooking up w hart</p>
-              <p>User B: NO</p>
-              <p>User A: yes</p>
-              <p>User A: for a while</p>
-              <p>User B: thats so gross</p>
-              <p>User A: and the way she said it</p>
-              <p>User A: it didnt even sound like she realized how bad it was</p>
-              <p>User B: thats worse</p>
-              <p>User A: like she kept being like</p>
-              <p>User A: “he helped me”</p>
-              <p>User B: ew</p>
-              <p>User A: it just felt really off</p>
-            </div>
-          </div>
-
-          <div class="field-border-disabled response" style="padding: 8px">
-            <div class="response-icon">
-              <img src="assets/img/runningman.png" alt="chat icon" />
-            </div>
-            <div class="response-text">
-              What happens if there is like a lot of text here does is it just keep going and then you can scroll up to see the rest of the chat log? I hope so because that would be really cool if it worked like that.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!--AD 3 STARTS HERE-->
-  <div class="ad3" style="padding: 10px">
-    <div class="ad3-img"></div>
-    <p>This is a preview of the story for pride and predjudice LOL</p>
-    <a href="#">Read More!</a>
-  </div>
-<!--AD 4 STARTS HERE-->
-  <div class="ad4" style="padding: 10px">
-    <div class="ad4-img"></div>
-    <p>This is a preview of the story for romeo and juliet LOL</p>
-    <a href="#">Read More!</a>
-  </div>
-<!--AD 5 STARTS HERE-->
-  <div class="ad5" style="padding: 10px">
-    <div class="ad5-img"></div>
-    <p>This is a preview of the story for cinderella LOL</p>
-    <a href="#">Read More!</a>
-  </div>
-<!--AD 6 STARTS HERE-->
-  <div class="ad6" style="padding: 10px">
-<div class="ad6-img"></div>
-    <p>This is a preview of the story for emma LOL</p>
-    <a href="#">Read More!</a>
-  </div>
-<!--AD 7 STARTS HERE-->
-  <div class="ad7" style="padding: 10px">
-    <div class="ad7-img"></div>
-    <p>This is a preview of the story for pygmalion LOL</p>
-    <a href="#">Read More!</a>
-  </div>
-</section>
-<!--MODAL SCRIPT STARTS HERE-->
-<script>
-const buttons = document.querySelectorAll(".open-chat");
-
-buttons.forEach(button => {
-  button.addEventListener("click", function () {
-    const target = this.dataset.target;
-    const modal = document.getElementById(target);
-    if (modal) {
-      modal.style.display = "block";
-    }
-  });
-});
-
-const closeButtons = document.querySelectorAll(".title-bar-controls button");
-
-closeButtons.forEach(btn => {
-  btn.addEventListener("click", function () {
-    const modal = this.closest(".modal");
-    if (modal) {
-      modal.style.display = "none";
-    }
-  });
-});
-</script>
+        <!-- 👈 ADD this closing div -->
       </section>
-<!--ABOUT SECTION STARTS HERE-->
+
+      <section id="game-window" class="game-window">
+        <div class="game-layout">
+          <!-- Row 1-2, Col 1: the grid/canvas -->
+          <div class="game-play">
+            <div class="game-play-wrapper">
+              <!-- p5 canvas goes here -->
+            </div>
+          </div>
+
+          <!-- Row 1, Col 2: coordinates window -->
+          <div class="coordinates">
+            <div class="window" style="width: 100%">
+              <div class="title-bar">
+                <div class="title-bar-text">Coords</div>
+              </div>
+              <div class="window-body">
+                <p id="coord-display">(5, 5)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2, Col 2: control panel -->
+          <div class="selector-area">
+            <div class="border">
+              <div class="control-panel">
+                <h2>Control Panel</h2>
+                <div class="current-story">
+                  <p>Currently reading:</p>
+                  <p id="current-story-label"><em>No gossip selected</em></p>
+                </div>
+                <div class="control-buttons">
+                  <button id="submit-btn">Submit Guess</button>
+                  <button id="clear-btn">Clear Board</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3, Col 1: slider area -->
+          <!-- Row 3, Col 1: slider area -->
+          <div class="slider-area">
+            <div class="slider-panel">
+              <div class="slider-row">
+                <span class="slider-label-left" id="truth-left">Boring</span>
+                <input
+                  type="range"
+                  id="x-slider"
+                  min="1"
+                  max="10"
+                  value="5"
+                  step="1"
+                />
+                <span class="slider-label-right" id="truth-right">Juicy</span>
+              </div>
+              <div class="slider-row">
+                <span class="slider-label-left" id="drama-left">Harmless</span>
+                <input
+                  type="range"
+                  id="y-slider"
+                  min="1"
+                  max="10"
+                  value="5"
+                  step="1"
+                />
+                <span class="slider-label-right" id="drama-right"
+                  >Dramatic</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="stories-popup">
+            <div id="story-popup-content">
+              <!-- Default "empty" state -->
+              <div class="popup-placeholder">
+                <p>
+                  Click "Read More!" on any gossip story to see the chat log
+                  here 👀
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3, Col 2: stories pop-up -->
+      </section>
+
+      <!--THIS IS THE STORIES WINDOW-->
+      <!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
+      <!--THIS IS THE STORIES WINDOW-->
+      <section class="stories_window">
+        <div class="stories-wrapper">
+          <div class="stories-header">
+            <div class="marquee">
+              <img src="assets/img/stories.png" alt="Stories Window Header" />
+            </div>
+          </div>
+
+          <!--AD 1 STARTS HERE-->
+          <div class="ad-wrapper">
+            <div class="ad">
+              <div class="ad-img ad1-img"></div>
+              <div class="ad-text">
+                <h2>Gossip Story 1</h2>
+                <p>This is a preview of the story for Twelfth Night LOL</p>
+              </div>
+              <button
+                anim="sheen"
+                class="open-chat"
+                data-chat-id="1"
+                data-story-id="0"
+              >
+                Read More!
+              </button>
+            </div>
+          </div>
+
+          <!--AD 2 STARTS HERE-->
+          <div class="ad-wrapper">
+            <div class="ad">
+              <div class="ad-img ad2-img"></div>
+              <div class="ad-text">
+                <h2>Gossip Story 2</h2>
+                <p>
+                  This is a preview of the story for Taming of the Shrew LOL
+                </p>
+              </div>
+              <button
+                anim="sheen"
+                class="open-chat"
+                data-chat-id="2"
+                data-story-id="1"
+              >
+                Read More!
+              </button>
+            </div>
+          </div>
+
+          <!--AD 3 STARTS HERE-->
+          <div class="ad3" style="padding: 10px">
+            <div class="ad3-img"></div>
+            <p>This is a preview of the story for pride and predjudice LOL</p>
+            <a href="#">Read More!</a>
+          </div>
+
+          <!--AD 4 STARTS HERE-->
+          <div class="ad4" style="padding: 10px">
+            <div class="ad4-img"></div>
+            <p>This is a preview of the story for romeo and juliet LOL</p>
+            <a href="#">Read More!</a>
+          </div>
+
+          <!--AD 5 STARTS HERE-->
+          <div class="ad5" style="padding: 10px">
+            <div class="ad5-img"></div>
+            <p>This is a preview of the story for cinderella LOL</p>
+            <a href="#">Read More!</a>
+          </div>
+
+          <!--AD 6 STARTS HERE-->
+          <div class="ad6" style="padding: 10px">
+            <div class="ad6-img"></div>
+            <p>This is a preview of the story for emma LOL</p>
+            <a href="#">Read More!</a>
+          </div>
+
+          <!--AD 7 STARTS HERE-->
+          <div class="ad7" style="padding: 10px">
+            <div class="ad7-img"></div>
+            <p>This is a preview of the story for pygmalion LOL</p>
+            <a href="#">Read More!</a>
+          </div>
+        </div>
+        <!-- closes .stories-wrapper -->
+      </section>
+
+      <!-- Hidden chat templates -->
+      <div id="chat-templates" style="display: none">
+        <div data-chat-id="1">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <div class="title-bar-text">Chat Log bby</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-icon">
+                  <img src="assets/img/runningman.png" alt="runningman" />
+                </div>
+
+                <div class="chat-scroll">
+                  <p>User A: ok wait do u remember ella</p>
+                  <p>User B: ya from hart's class</p>
+                  <p>User A: it just felt really off</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-chat-id="2">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <div class="title-bar-text">Chat Log bby</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-scroll">
+                <p>User A: chat 2 content here...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--ABOUT SECTION STARTS HERE-->
       <section class="about_window">
         <div class="links">
-  <a href="about.html"><img src="assets/img/link_gif.gif" alt="flower gif">About Project</a>
-  <a href="rules.html"><img src="assets/img/link_gif.gif" alt="flower gif">How to Play</a>
-  <a href="stats.html"><img src="assets/img/link_gif.gif" alt="flower gif">Answer Key</a>
-
-  <div class="credits">
-  <a href="https://www.are.na/ellie-prisbrey/buzz-battleship"><img src="assets/img/credits.png" alt="credits" /></a>
-  </div>
+          <a href="about.html"
+            ><img src="assets/img/link_gif.gif" alt="flower gif" />About
+            Project</a
+          >
+          <a href="rules.html"
+            ><img src="assets/img/link_gif.gif" alt="flower gif" />How to
+            Play</a
+          >
+          <a href="stats.html"
+            ><img src="assets/img/link_gif.gif" alt="flower gif" />Answer Key</a
+          >
+          <div class="credits">
+            <a href="https://www.are.na/ellie-prisbrey/buzz-battleship"
+              ><img src="assets/img/credits.png" alt="credits"
+            /></a>
+          </div>
         </div>
       </section>
 
-      
+      <!-- ALSO: delete the old <div id="chatModal1"> and <div id="chatModal2"> modals — they're no longer used -->
+
+      <!--MODAL SCRIPT STARTS HERE-->
+      <script>
+        // Open chat in storiespopup + auto-select the story
+        document.querySelectorAll(".open-chat").forEach((button) => {
+          button.addEventListener("click", function () {
+            const chatId = this.dataset.chatId;
+            const storyId = Number(this.dataset.storyId);
+
+            const template = document.querySelector(
+              `#chat-templates [data-chat-id="${chatId}"]`,
+            );
+            const popup = document.getElementById("story-popup-content");
+
+            if (template && popup) {
+              popup.innerHTML = template.innerHTML;
+            }
+
+            // Auto-select this story for the guess
+            if (typeof setStoryFromChat === "function") {
+              setStoryFromChat(storyId);
+            }
+          });
+        });
+
+        // Close popup
+        document.addEventListener("click", function (e) {
+          if (e.target.classList.contains("close-popup")) {
+            const popup = document.getElementById("story-popup-content");
+            if (popup) {
+              popup.innerHTML = `
+          <div class="popup-placeholder">
+            <p>Click "Read More!" on any gossip story to see the chat log here 👀</p>
+          </div>
+        `;
+            }
+          }
+        });
+      </script>
     </main>
-<!--GAME SCRIPT LINKED HERE-->
+    <!--GAME SCRIPT LINKED HERE-->
     <script src="js/game.js"></script>
   </body>
 </html>
