@@ -1,4 +1,4 @@
-// Greyscale palette for miss confetti
+// === CONFIG ===
 const greyColors = ["#ffffff", "#cccccc", "#999999", "#666666", "#333333", "#000000"];
 
 const missFonts = [
@@ -11,26 +11,67 @@ const missFonts = [
   "'london', cursive",
 ];
 
-let confettiPieces = [];
+const cornerLabels = [
+  { text: "Juicy, harmless fun", corner: "TL" },
+  { text: "Call the police — keep me updated", corner: "TR" },
+  { text: "Bad news, no intrigue", corner: "BR" },
+  { text: "Boring, who cares", corner: "BL" },
+];
 
+const maxDist = 180;
+
+const answerKey = [
+  { storyId: 0, x: 3, y: 4 },
+  { storyId: 1, x: 6, y: 6 },
+  { storyId: 2, x: 3, y: 5 },
+  { storyId: 3, x: 3, y: 3 },
+  { storyId: 4, x: 5, y: 6 },
+  { storyId: 5, x: 5, y: 4 },
+  { storyId: 6, x: 9, y: 7 },
+];
+
+// === STATE ===
+let xSliderTouched = false;
+let ySliderTouched = false;
+
+let confettiPieces = [];
 let selectedStory = null;
 let guesses = [];
+let feedbackMessages = {};
 
 let canvas;
 let cols = 10;
 let rows = 10;
-let cellW;
-let cellH;
+let cellW, cellH;
 
-let gridSizeW;
-let gridSizeH;
-let offsetX;
-let offsetY;
-let labelPadding = 35;
+let gridSizeW, gridSizeH;
+let offsetX, offsetY;
+let labelPadding = 50;
 let titlePadding = 25;
+
 let markerImg;
 
+// Sliders (HTML elements now)
+let xSlider, ySlider;
+let previewCol = 4;
+let previewRow = 5;
+let isSliderDragging = false;
 
+// DVD animation state
+let dvdActive = false;
+let dvdX, dvdY;
+let dvdSpeedX = 6;
+let dvdSpeedY = 6;
+let dvdW = 100;
+let dvdH = 60;
+let dvdColor;
+let wallsHit = { top: false, bottom: false, left: false, right: false };
+let dvdLoopCount = 0;
+const DVD_TOTAL_LOOPS = 1;
+
+let dvdCanvas, dvdCtx;
+
+// === CONFETTI CLASS ===
 class Confetti {
   constructor() {
     this.x = -1000;
@@ -43,13 +84,13 @@ class Confetti {
     this.life = 255;
     this.col = greyColors[int(random(greyColors.length))];
     this.letter = random(["M", "I", "S", "S"]);
-    this.font = missFonts[int(random(missFonts.length))]; // 👈 NEW
+    this.font = missFonts[int(random(missFonts.length))];
   }
 
   burst(mx, my) {
     this.x = mx;
     this.y = my;
-    this.xspeed = random(-10, 5);
+    this.xspeed = random(-10, 10);
     this.yspeed = random(-10, -5);
   }
 
@@ -72,7 +113,7 @@ class Confetti {
     textAlign(CENTER, CENTER);
     textStyle(BOLD);
     textSize(this.size);
-    drawingContext.font = `bold ${this.size}px ${this.font}`; // 👈 NEW
+    drawingContext.font = `bold ${this.size}px ${this.font}`;
     text(this.letter, 0, 0);
     pop();
   }
@@ -82,43 +123,7 @@ class Confetti {
   }
 }
 
-// Corner labels
-const cornerLabels = [
-  { text: "Juicy, harmless fun", corner: "TL" },
-  { text: "Call the police — keep me updated", corner: "TR" },
-  { text: "Bad news, no intrigue", corner: "BR" },
-  { text: "Boring, who cares", corner: "BL" },
-];
-
-const maxDist = 180;
-
-// ANSWER KEY
-const answerKey = [
-{ storyId: 0, x: 3, y: 4 },
-{ storyId: 1, x: 6, y: 6 },
-{ storyId: 2, x: 3, y: 5 },
-{ storyId: 3, x: 3, y: 3 },
-{ storyId: 4, x: 5, y: 6 },
-{ storyId: 5, x: 5, y: 4 },
-{ storyId: 6, x: 9, y: 7 },
-];
-
-let feedbackMessages = {};
-
-// DVD animation state
-let dvdActive = false;
-let dvdX, dvdY;
-let dvdSpeedX = 6;
-let dvdSpeedY = 6;
-let dvdW = 100;
-let dvdH = 60;
-let dvdColor;
-let wallsHit = { top: false, bottom: false, left: false, right: false };
-let dvdLoopCount = 0; // how many full cycles completed
-const DVD_TOTAL_LOOPS = 1; // run twice
-
-let dvdCanvas, dvdCtx;
-
+// === SETUP ===
 function setup() {
   const wrapper = document.querySelector(".grid-wrapper");
   canvas = createCanvas(wrapper.clientWidth, wrapper.clientHeight);
@@ -134,6 +139,7 @@ function setup() {
   setupStorySelection();
   setupClearButton();
   setupDVDOverlay();
+  setupSliders();
 }
 
 function setupStorySelection() {
@@ -141,24 +147,25 @@ function setupStorySelection() {
   radios.forEach((radio) => {
     radio.addEventListener("change", function () {
       selectedStory = Number(this.value);
+      xSliderTouched = false;  // 👈 ADD
+      ySliderTouched = false;  // 👈 ADD
     });
   });
 }
 
-// Clear guesses button
 function setupClearButton() {
   const btn = document.getElementById("clear-btn");
   if (btn) {
     btn.addEventListener("click", () => {
       guesses = [];
       feedbackMessages = {};
-      // Remove all feedback tags in the UI
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
-      // Uncheck selected radio
       document.querySelectorAll('input[name="gossip-story"]').forEach((r) => {
         r.checked = false;
       });
       selectedStory = null;
+      xSliderTouched = false;  // 👈 ADD
+      ySliderTouched = false;  // 👈 ADD
     });
   }
 }
@@ -184,10 +191,60 @@ function setupDVDOverlay() {
   });
 }
 
+function setupSliders() {
+  xSlider = document.getElementById("x-slider");
+  ySlider = document.getElementById("y-slider");
+
+  if (!xSlider || !ySlider) {
+    console.warn("Sliders not found in HTML!");
+    return;
+  }
+
+  xSlider.addEventListener("input", () => {
+    previewCol = Number(xSlider.value) - 1;
+    isSliderDragging = true;
+    xSliderTouched = true;
+  });
+  ySlider.addEventListener("input", () => {
+    previewRow = rows - Number(ySlider.value);
+    isSliderDragging = true;
+    ySliderTouched = true;
+  });
+
+  xSlider.addEventListener("change", submitSliderGuess);
+  ySlider.addEventListener("change", submitSliderGuess);
+
+  previewCol = Number(xSlider.value) - 1;
+  previewRow = rows - Number(ySlider.value);
+}
+
+function positionSliders() {
+  if (!xSlider || !ySlider) return;
+
+  const xContainer = document.querySelector(".x-slider-container");
+  const yContainer = document.querySelector(".y-slider-container");
+  if (!xContainer || !yContainer) return;
+
+  // X slider along bottom of grid
+  xContainer.style.left = offsetX + "px";
+  xContainer.style.top = offsetY + gridSizeH + 8 + "px";
+  xContainer.style.width = gridSizeW + "px";
+  xSlider.style.width = gridSizeW + "px";
+
+// Y slider along left of grid (rotated via CSS)
+// After rotating -90deg around top-left corner, the slider extends upward.
+// So we need to position it such that after rotation it sits along the left side of the grid.
+yContainer.style.left = (offsetX - 8) + "px";
+yContainer.style.top = (offsetY + gridSizeH) + "px";  // 👈 start at BOTTOM of grid
+yContainer.style.width = gridSizeH + "px";
+ySlider.style.width = gridSizeH + "px";
+}
+
 function windowResized() {
   const wrapper = document.querySelector(".grid-wrapper");
   resizeCanvas(wrapper.clientWidth, wrapper.clientHeight);
   updateGridSize();
+  positionSliders();
 }
 
 function updateGridSize() {
@@ -210,27 +267,60 @@ function updateGridSize() {
   offsetY = topSpace + (availableH - size) / 2;
 }
 
+// === DRAW LOOP ===
 function draw() {
   clear();
   drawGlow();
   drawGridBackground();
   drawCornerLabels();
   drawCellLines();
-  drawLabels();
-  drawAxisTitles();
   drawHover();
   drawGuesses();
 
-  // Update and show confetti
-for (let i = confettiPieces.length - 1; i >= 0; i--) {
-  confettiPieces[i].update();
-  confettiPieces[i].show();
-  if (confettiPieces[i].isDead()) {
-    confettiPieces.splice(i, 1);
+  updateCoordDisplay();
+  updateSliderLabelSizes();
+
+  for (let i = confettiPieces.length - 1; i >= 0; i--) {
+    confettiPieces[i].update();
+    confettiPieces[i].show();
+    if (confettiPieces[i].isDead()) {
+      confettiPieces.splice(i, 1);
+    }
+  }
+
+  if (dvdActive) updateDVD();
+}
+
+function updateCoordDisplay() {
+  const coordEl = document.getElementById("coord-display");
+  if (coordEl && xSlider && ySlider) {
+    coordEl.textContent = `(${xSlider.value}, ${ySlider.value})`;
   }
 }
 
-  if (dvdActive) updateDVD();
+function updateSliderLabelSizes() {
+  if (!xSlider || !ySlider) return;
+
+  const xVal = Number(xSlider.value);
+  const yVal = Number(ySlider.value);
+
+  // X slider → Boring (low) vs Juicy (high)
+  styleLabel("truth-left", 11 - xVal);  // distance from 1
+  styleLabel("truth-right", xVal);       // distance from 10 = 10 - dist
+
+  // Y slider → Harmless (low) vs Dramatic (high)
+  styleLabel("drama-left", 11 - yVal);
+  styleLabel("drama-right", yVal);
+}
+
+function styleLabel(id, closeness) {
+  // closeness: higher = closer to that end
+  const el = document.getElementById(id);
+  if (!el) return;
+  const size = map(closeness, 1, 10, 12, 24);
+  const isClose = closeness >= 7;
+  el.style.fontSize = size + "px";
+  el.style.color = isClose ? "#ff2cb2" : "#666";
 }
 
 function drawGlow() {
@@ -289,6 +379,7 @@ function drawCornerLabels() {
   pop();
 }
 
+
 function drawCellLines() {
   push();
   stroke("#191919");
@@ -300,108 +391,107 @@ function drawCellLines() {
   for (let y = 0; y <= rows; y++) {
     line(offsetX, offsetY + y * cellH, offsetX + gridSizeW, offsetY + y * cellH);
   }
-  drawingContext.setLineDash([]);
   pop();
 }
 
-function drawLabels() {
-  noStroke();
-  fill(180);
-  textSize(13);
-  textStyle(BOLD);
-  textAlign(CENTER, CENTER);
-
-  for (let x = 0; x < cols; x++) {
-    let cx = offsetX + x * cellW + cellW / 2;
-    let cy = offsetY + gridSizeH + labelPadding / 2;
-    text(x + 1, cx, cy);
-  }
-
-  for (let y = 0; y < rows; y++) {
-    let cx = offsetX - labelPadding / 2;
-    let cy = offsetY + y * cellH + cellH / 2;
-    text(rows - y, cx, cy);
-  }
-}
-
-function drawAxisTitles() {
-  noStroke();
-  fill(180);
-  textSize(14);
-  textStyle(BOLD);
-  textAlign(CENTER, CENTER);
-
-  text(
-    "TRUTH →",
-    offsetX + gridSizeW / 2,
-    offsetY + gridSizeH + labelPadding + titlePadding / 2
-  );
-
+function drawCornerLabels() {
   push();
-  translate(offsetX - labelPadding - titlePadding / 2, offsetY + gridSizeH / 2);
-  rotate(-HALF_PI);
-  text("DRAMA →", 0, 0);
+  drawingContext.save();
+  drawingContext.beginPath();
+  drawingContext.rect(offsetX, offsetY, gridSizeW, gridSizeH);
+  drawingContext.clip();
+
+  let padding = 40;
+  let maxTextWidth = gridSizeW * 0.38;
+
+  let positions = {
+    TL: { x: offsetX + padding, y: offsetY + padding, align: [LEFT, TOP], xTarget: 1, yTarget: 10 },
+    TR: { x: offsetX + gridSizeW - padding, y: offsetY + padding, align: [RIGHT, TOP], xTarget: 10, yTarget: 10 },
+    BR: { x: offsetX + gridSizeW - padding, y: offsetY + gridSizeH - padding, align: [RIGHT, BOTTOM], xTarget: 10, yTarget: 1 },
+    BL: { x: offsetX + padding, y: offsetY + gridSizeH - padding, align: [LEFT, BOTTOM], xTarget: 1, yTarget: 1 },
+  };
+
+  let xVal = xSlider ? Number(xSlider.value) : 5;
+  let yVal = ySlider ? Number(ySlider.value) : 5;
+
+  textStyle(BOLD);
+
+  for (let label of cornerLabels) {
+    let pos = positions[label.corner];
+
+    // "distance" in slider space (max = sqrt(9² + 9²) ≈ 12.7)
+    let dx = pos.xTarget - xVal;
+    let dy = pos.yTarget - yVal;
+    let d = Math.sqrt(dx * dx + dy * dy);
+    let maxD = 12.7;
+
+    let size = map(d, 0, maxD, 24, 11, true);
+    let r = map(d, 0, maxD, 255, 160, true);
+    let g = map(d, 0, maxD, 44, 160, true);
+    let b = map(d, 0, maxD, 178, 160, true);
+
+    textSize(size);
+    textAlign(pos.align[0], pos.align[1]);
+    noStroke();
+    fill(r, g, b);
+
+    text(label.text, pos.x, pos.y, maxTextWidth);
+  }
+
+  drawingContext.restore();
   pop();
 }
-
 function drawHover() {
-  if (
-    mouseX < offsetX ||
-    mouseX > offsetX + gridSizeW ||
-    mouseY < offsetY ||
-    mouseY > offsetY + gridSizeH
-  )
-    return;
+  if (!xSlider || !ySlider) return;
 
-  let col = floor((mouseX - offsetX) / cellW);
-  let row = floor((mouseY - offsetY) / cellH);
+  let col = previewCol;
+  let row = previewRow;
   let cx = offsetX + col * cellW;
   let cy = offsetY + row * cellH;
 
   noStroke();
-  fill(255, 44, 178, 128); // bright pink
+  if (xSliderTouched && ySliderTouched) {
+    fill(255, 44, 178, 180);
+  } else {
+    fill(255, 44, 178, 80);
+  }
   rect(cx, cy, cellW, cellH);
 }
 
-function mousePressed() {
-  // LOCK: block guesses while answer key is visible
-
-  if (
-    mouseX < offsetX ||
-    mouseX > offsetX + gridSizeW ||
-    mouseY < offsetY ||
-    mouseY > offsetY + gridSizeH
-  )
-    return;
-
+function submitSliderGuess() {
   if (selectedStory === null) {
     alert("Please select a gossip story first.");
     return;
   }
 
-  let col = floor((mouseX - offsetX) / cellW);
-  let row = floor((mouseY - offsetY) / cellH);
+  if (!xSliderTouched || !ySliderTouched) {
+    return;
+  }
 
-  let existingStoryGuess = guesses.find(
-    (guess) => guess.storyId === selectedStory
-  );
+  let col = Number(xSlider.value) - 1;
+  let row = rows - Number(ySlider.value);
 
-  if (existingStoryGuess) {
-    existingStoryGuess.col = col;
-    existingStoryGuess.row = row;
+  let existing = guesses.find((g) => g.storyId === selectedStory);
+  if (existing) {
+    existing.col = col;
+    existing.row = row;
   } else {
-    guesses.push({ storyId: selectedStory, col: col, row: row });
+    guesses.push({ storyId: selectedStory, col, row });
   }
 
   checkGuess(selectedStory, col, row);
+
+  xSliderTouched = false;   // 👈 reset for next guess
+  ySliderTouched = false;   // 👈 reset for next guess
+  isSliderDragging = false;
 }
 
 function checkGuess(storyId, col, row) {
   let answer = answerKey.find((a) => a.storyId === storyId);
   if (!answer) return;
 
-  let answerCol = floor(answer.x) - 1;      // 👈 subtract 1 (1-indexed → 0-indexed)
-  let answerRow = rows - floor(answer.y);   // 👈 no -1 anymore
+  let answerCol = floor(answer.x) - 1;
+  let answerRow = rows - floor(answer.y);
 
   let result = col === answerCol && row === answerRow ? "HIT" : "MISS";
 
@@ -411,13 +501,17 @@ function checkGuess(storyId, col, row) {
   if (result === "HIT") {
     startDVDAnimation();
   } else {
+    // Burst confetti from the marker position
+    let markerX = offsetX + col * cellW + cellW / 2;
+    let markerY = offsetY + row * cellH + cellH / 2;
     for (let i = 0; i < 40; i++) {
       let c = new Confetti();
-      c.burst(mouseX, mouseY);
+      c.burst(markerX, markerY);
       confettiPieces.push(c);
     }
   }
 }
+
 function updateFeedbackUI(storyId, result) {
   const label = document.querySelector(`label[for="gossip${storyId + 1}"]`);
   if (!label) return;
@@ -435,7 +529,6 @@ function updateFeedbackUI(storyId, result) {
 }
 
 // === DVD BOUNCE ANIMATION ===
-
 function startDVDAnimation() {
   dvdActive = true;
   dvdLoopCount = 0;
@@ -493,17 +586,14 @@ function updateDVD() {
   dvdCtx.textBaseline = "middle";
   dvdCtx.fillText("HIT!", dvdX + dvdW / 2, dvdY + dvdH / 2);
 
-  // Check if all 4 walls have been hit = one full loop complete
   if (wallsHit.top && wallsHit.bottom && wallsHit.left && wallsHit.right) {
     dvdLoopCount++;
     if (dvdLoopCount >= DVD_TOTAL_LOOPS) {
-      // Done — stop and clear
       setTimeout(() => {
         dvdActive = false;
         dvdCtx.clearRect(0, 0, dvdCanvas.width, dvdCanvas.height);
       }, 500);
     } else {
-      // Reset walls for next loop, keep going
       wallsHit = { top: false, bottom: false, left: false, right: false };
     }
   }
@@ -520,8 +610,15 @@ function drawGuesses() {
     let x = offsetX + guess.col * cellW + cellW / 2;
     let y = offsetY + guess.row * cellH + cellH / 2;
 
-    imageMode(CENTER);
-    image(markerImg, x, y, markerSize, markerSize);
+    if (markerImg) {
+      imageMode(CENTER);
+      image(markerImg, x, y, markerSize, markerSize);
+    } else {
+      // Fallback if no image
+      fill(255, 44, 178);
+      noStroke();
+      ellipse(x, y, markerSize * 0.7);
+    }
 
     fill(0);
     noStroke();
@@ -529,8 +626,9 @@ function drawGuesses() {
   }
 }
 
-let anims = [...document.querySelectorAll("[anim]")];
-let click = (el, cb) => el.addEventListener("click", cb);
-let toggle = (el) => el.classList.toggle("toggled");
-let clickTog = (el) => click(el, () => toggle(el));
-anims.map(clickTog);
+// === Toggle helpers (for [anim] elements) ===
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[anim]").forEach((el) => {
+    el.addEventListener("click", () => el.classList.toggle("toggled"));
+  });
+});
