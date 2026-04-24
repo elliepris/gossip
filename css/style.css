@@ -5,7 +5,19 @@ body {
   padding: 0;
   height: 100%;
   overflow: hidden;
+  cursor: url('../assets/img/cursor.gif'), auto;
 }
+
+@font-face {
+  font-family: "curlz";
+  src: url("../assets/font/curlz.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "london";
+  src: url("../assets/font/OldLondon.ttf") format("truetype");
+}
+
 
 canvas {
   display: block;
@@ -448,8 +460,8 @@ h2 {
 }
 
 .links{
-  font-size: 20px;
-  margin: 20px;
+  font-size: 22px;
+  margin: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -460,8 +472,13 @@ text-shadow: 0 0 10px #ff2cb2, 0 0 20px #ff2cb2, 0 0 30px #ff2cb2
 
 }
 
+a img {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 .credits {
-padding top: 200px;
+padding-top: 200px;
 }
 
 a:link {
@@ -473,5 +490,9 @@ a:visited {
 }
 
 a:hover {
-  color: #ff2cb2;
+  color: white;
+}
+.grid-wrapper,
+.grid-wrapper canvas {
+  cursor: url("images/marker.png") 16 16, crosshair;
 }

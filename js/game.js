@@ -1,3 +1,18 @@
+// Greyscale palette for miss confetti
+const greyColors = ["#ffffff", "#cccccc", "#999999", "#666666", "#333333", "#000000"];
+
+const missFonts = [
+  "'Impact', sans-serif",
+  "'Comic Sans MS', cursive",
+  "'adobe-garamond-pro', serif",
+  "'stencil-std', sans-serif",
+  "'franklin-gothic-atf', sans-serif",
+  "'curlz', cursive",
+  "'london', cursive",
+];
+
+let confettiPieces = [];
+
 let selectedStory = null;
 let guesses = [];
 
@@ -13,6 +28,59 @@ let offsetX;
 let offsetY;
 let labelPadding = 35;
 let titlePadding = 25;
+let markerImg;
+
+
+class Confetti {
+  constructor() {
+    this.x = -1000;
+    this.y = -1000;
+    this.size = random(20, 32);
+    this.xspeed = 0;
+    this.yspeed = 0;
+    this.angle = 0;
+    this.rotationSpeed = random(-8, 8);
+    this.life = 255;
+    this.col = greyColors[int(random(greyColors.length))];
+    this.letter = random(["M", "I", "S", "S"]);
+    this.font = missFonts[int(random(missFonts.length))]; // 👈 NEW
+  }
+
+  burst(mx, my) {
+    this.x = mx;
+    this.y = my;
+    this.xspeed = random(-10, 5);
+    this.yspeed = random(-10, -5);
+  }
+
+  update() {
+    this.x += this.xspeed;
+    this.y += this.yspeed;
+    this.angle += radians(this.rotationSpeed);
+    this.yspeed += 0.4;
+    this.life -= 5;
+  }
+
+  show() {
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle);
+    noStroke();
+    let c = color(this.col);
+    c.setAlpha(this.life);
+    fill(c);
+    textAlign(CENTER, CENTER);
+    textStyle(BOLD);
+    textSize(this.size);
+    drawingContext.font = `bold ${this.size}px ${this.font}`; // 👈 NEW
+    text(this.letter, 0, 0);
+    pop();
+  }
+
+  isDead() {
+    return this.life <= 0;
+  }
+}
 
 // Corner labels
 const cornerLabels = [
@@ -26,16 +94,15 @@ const maxDist = 180;
 
 // ANSWER KEY
 const answerKey = [
-  { storyId: 0, x: 3.44, y: 4.11, spread: 4.89 },
-  { storyId: 1, x: 6.30, y: 6.00, spread: 7.22 },
-  { storyId: 2, x: 2.96, y: 4.85, spread: 5.30 },
-  { storyId: 3, x: 2.63, y: 3.44, spread: 4.09 },
-  { storyId: 4, x: 5.27, y: 6.46, spread: 7.30 },
-  { storyId: 5, x: 5.07, y: 3.93, spread: 6.09 },
-  { storyId: 6, x: 8.63, y: 7.30, spread: 9.31 },
+{ storyId: 0, x: 3, y: 4 },
+{ storyId: 1, x: 6, y: 6 },
+{ storyId: 2, x: 3, y: 5 },
+{ storyId: 3, x: 3, y: 3 },
+{ storyId: 4, x: 5, y: 6 },
+{ storyId: 5, x: 5, y: 4 },
+{ storyId: 6, x: 9, y: 7 },
 ];
 
-let showKey = false;
 let feedbackMessages = {};
 
 // DVD animation state
@@ -48,7 +115,7 @@ let dvdH = 60;
 let dvdColor;
 let wallsHit = { top: false, bottom: false, left: false, right: false };
 let dvdLoopCount = 0; // how many full cycles completed
-const DVD_TOTAL_LOOPS = 2; // run twice
+const DVD_TOTAL_LOOPS = 1; // run twice
 
 let dvdCanvas, dvdCtx;
 
@@ -65,7 +132,6 @@ function setup() {
 
   updateGridSize();
   setupStorySelection();
-  setupAnswerKeyToggle();
   setupClearButton();
   setupDVDOverlay();
 }
@@ -77,16 +143,6 @@ function setupStorySelection() {
       selectedStory = Number(this.value);
     });
   });
-}
-
-function setupAnswerKeyToggle() {
-  const btn = document.getElementById("reveal-btn");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      showKey = !showKey;
-      btn.textContent = showKey ? "Hide Answers" : "Reveal Answers";
-    });
-  }
 }
 
 // Clear guesses button
@@ -160,20 +216,27 @@ function draw() {
   drawGridBackground();
   drawCornerLabels();
   drawCellLines();
-  drawGridBorder();
   drawLabels();
   drawAxisTitles();
   drawHover();
-  if (showKey) drawAnswerKey();
   drawGuesses();
+
+  // Update and show confetti
+for (let i = confettiPieces.length - 1; i >= 0; i--) {
+  confettiPieces[i].update();
+  confettiPieces[i].show();
+  if (confettiPieces[i].isDead()) {
+    confettiPieces.splice(i, 1);
+  }
+}
 
   if (dvdActive) updateDVD();
 }
 
 function drawGlow() {
   noStroke();
-  let glowColor = color(255, 0, 181);
-  for (let i = 8; i > 0; i--) {
+  let glowColor = color("#ff2cb2");
+  for (let i = 10; i > 0; i--) {
     glowColor.setAlpha(12);
     fill(glowColor);
     rect(offsetX - i, offsetY - i, gridSizeW + i * 2, gridSizeH + i * 2);
@@ -182,7 +245,7 @@ function drawGlow() {
 
 function drawGridBackground() {
   noStroke();
-  fill("white");
+  fill("#cbcbcb");
   rect(offsetX, offsetY, gridSizeW, gridSizeH);
 }
 
@@ -228,9 +291,8 @@ function drawCornerLabels() {
 
 function drawCellLines() {
   push();
-  stroke(180, 180, 180, 120);
+  stroke("#191919");
   strokeWeight(1);
-  drawingContext.setLineDash([2, 3]);
 
   for (let x = 0; x <= cols; x++) {
     line(offsetX + x * cellW, offsetY, offsetX + x * cellW, offsetY + gridSizeH);
@@ -238,17 +300,6 @@ function drawCellLines() {
   for (let y = 0; y <= rows; y++) {
     line(offsetX, offsetY + y * cellH, offsetX + gridSizeW, offsetY + y * cellH);
   }
-  drawingContext.setLineDash([]);
-  pop();
-}
-
-function drawGridBorder() {
-  push();
-  noFill();
-  stroke(0);
-  strokeWeight(2);
-  drawingContext.setLineDash([2, 4]);
-  rect(offsetX, offsetY, gridSizeW, gridSizeH);
   drawingContext.setLineDash([]);
   pop();
 }
@@ -294,9 +345,6 @@ function drawAxisTitles() {
 }
 
 function drawHover() {
-  // Don't show hover if answer key is open (game is "locked")
-  if (showKey) return;
-
   if (
     mouseX < offsetX ||
     mouseX > offsetX + gridSizeW ||
@@ -307,50 +355,16 @@ function drawHover() {
 
   let col = floor((mouseX - offsetX) / cellW);
   let row = floor((mouseY - offsetY) / cellH);
-  let cx = offsetX + col * cellW + cellW / 2;
-  let cy = offsetY + row * cellH + cellH / 2;
-
-  let baseSize = Math.min(cellW, cellH);
+  let cx = offsetX + col * cellW;
+  let cy = offsetY + row * cellH;
 
   noStroke();
-  for (let i = 6; i > 0; i--) {
-    let t = i / 6;
-    fill(255, 44, 178, 25);
-    ellipse(cx, cy, baseSize * 1.4 * t, baseSize * 1.4 * t);
-  }
-
-  fill(255, 44, 178, 120);
-  ellipse(cx, cy, baseSize * 0.7, baseSize * 0.7);
-}
-
-function drawAnswerKey() {
-  for (let a of answerKey) {
-    let cx = offsetX + a.x * cellW;
-    let cy = offsetY + (rows - a.y) * cellH;
-    let spreadRadius = (a.spread / 2) * cellW;
-
-    noStroke();
-    for (let i = 6; i > 0; i--) {
-      let t = i / 6;
-      fill(255, 44, 178, 15);
-      ellipse(cx, cy, spreadRadius * 2 * t, spreadRadius * 2 * t);
-    }
-
-    fill(180, 0, 120);
-    noStroke();
-    ellipse(cx, cy, 16, 16);
-
-    fill(255);
-    textAlign(CENTER, CENTER);
-    textSize(10);
-    textStyle(BOLD);
-    text(a.storyId + 1, cx, cy);
-  }
+  fill(255, 44, 178, 128); // bright pink
+  rect(cx, cy, cellW, cellH);
 }
 
 function mousePressed() {
   // LOCK: block guesses while answer key is visible
-  if (showKey) return;
 
   if (
     mouseX < offsetX ||
@@ -386,8 +400,8 @@ function checkGuess(storyId, col, row) {
   let answer = answerKey.find((a) => a.storyId === storyId);
   if (!answer) return;
 
-  let answerCol = floor(answer.x);
-  let answerRow = rows - 1 - floor(answer.y);
+  let answerCol = floor(answer.x) - 1;      // 👈 subtract 1 (1-indexed → 0-indexed)
+  let answerRow = rows - floor(answer.y);   // 👈 no -1 anymore
 
   let result = col === answerCol && row === answerRow ? "HIT" : "MISS";
 
@@ -396,9 +410,14 @@ function checkGuess(storyId, col, row) {
 
   if (result === "HIT") {
     startDVDAnimation();
+  } else {
+    for (let i = 0; i < 40; i++) {
+      let c = new Confetti();
+      c.burst(mouseX, mouseY);
+      confettiPieces.push(c);
+    }
   }
 }
-
 function updateFeedbackUI(storyId, result) {
   const label = document.querySelector(`label[for="gossip${storyId + 1}"]`);
   if (!label) return;
@@ -495,16 +514,18 @@ function drawGuesses() {
   textSize(16);
   textStyle(NORMAL);
 
+  let markerSize = Math.min(cellW, cellH) * 0.8;
+
   for (let guess of guesses) {
     let x = offsetX + guess.col * cellW + cellW / 2;
     let y = offsetY + guess.row * cellH + cellH / 2;
 
-    fill(255, 44, 178);
-    noStroke();
-    ellipse(x, y, 20, 20);
+    imageMode(CENTER);
+    image(markerImg, x, y, markerSize, markerSize);
 
     fill(0);
-    text(guess.storyId + 1, x, y - 28);
+    noStroke();
+    text(guess.storyId + 1, x, y - markerSize / 2 - 10);
   }
 }
 
