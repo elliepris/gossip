@@ -11,13 +11,6 @@ const missFonts = [
   "'london', cursive",
 ];
 
-const cornerLabels = [
-  { text: "Juicy, harmless fun", corner: "TL" },
-  { text: "Call the police — keep me updated", corner: "TR" },
-  { text: "Bad news, no intrigue", corner: "BR" },
-  { text: "Boring, who cares", corner: "BL" },
-];
-
 const maxDist = 180;
 
 const answerKey = [
@@ -46,12 +39,13 @@ let cellW, cellH;
 
 let gridSizeW, gridSizeH;
 let offsetX, offsetY;
-let labelPadding = 50;
-let titlePadding = 25;
+// Reduced padding since titles are no longer in the game-play area
+let labelPadding = 10;
+let titlePadding = 10;
 
 let markerImg;
 
-// Sliders (HTML elements now)
+// Sliders
 let xSlider, ySlider;
 let previewCol = 4;
 let previewRow = 5;
@@ -125,7 +119,7 @@ class Confetti {
 
 // === SETUP ===
 function setup() {
-  const wrapper = document.querySelector(".grid-wrapper");
+  const wrapper = document.querySelector(".game-play-wrapper");
   canvas = createCanvas(wrapper.clientWidth, wrapper.clientHeight);
   canvas.parent(wrapper);
 
@@ -138,8 +132,16 @@ function setup() {
   updateGridSize();
   setupStorySelection();
   setupClearButton();
+  setupSubmitButton();  // 👈 ADD
   setupDVDOverlay();
   setupSliders();
+
+  // Observe the wrapper for size changes (handles grid layout shifts)
+  const resizeObserver = new ResizeObserver(() => {
+    resizeCanvas(wrapper.clientWidth, wrapper.clientHeight);
+    updateGridSize();
+  });
+  resizeObserver.observe(wrapper);
 }
 
 function setupStorySelection() {
@@ -147,8 +149,7 @@ function setupStorySelection() {
   radios.forEach((radio) => {
     radio.addEventListener("change", function () {
       selectedStory = Number(this.value);
-      xSliderTouched = false;  // 👈 ADD
-      ySliderTouched = false;  // 👈 ADD
+      resetSliders();  // 👈 ADD if you want per-story reset
     });
   });
 }
@@ -164,10 +165,45 @@ function setupClearButton() {
         r.checked = false;
       });
       selectedStory = null;
-      xSliderTouched = false;  // 👈 ADD
-      ySliderTouched = false;  // 👈 ADD
+
+      resetSliders();   // 👈 ADD — reset sliders too
     });
   }
+}
+
+function setupSubmitButton() {
+  const btn = document.getElementById("submit-btn");
+  if (btn) {
+    btn.addEventListener("click", submitSliderGuess);
+  }
+}
+
+function submitSliderGuess() {
+  if (selectedStory === null) {
+    alert("Please select a gossip story first.");
+    return;
+  }
+
+  if (!xSliderTouched || !ySliderTouched) {
+    alert("Please move both sliders before submitting.");
+    return;
+  }
+
+  let col = Number(xSlider.value) - 1;
+  let row = rows - Number(ySlider.value);
+
+  let existing = guesses.find((g) => g.storyId === selectedStory);
+  if (existing) {
+    existing.col = col;
+    existing.row = row;
+  } else {
+    guesses.push({ storyId: selectedStory, col, row });
+  }
+
+  checkGuess(selectedStory, col, row);
+
+  resetSliders();           // 👈 ADD — reset after guess
+  isSliderDragging = false;
 }
 
 function setupDVDOverlay() {
@@ -200,6 +236,7 @@ function setupSliders() {
     return;
   }
 
+  // Live preview only — no auto-submit
   xSlider.addEventListener("input", () => {
     previewCol = Number(xSlider.value) - 1;
     isSliderDragging = true;
@@ -211,47 +248,36 @@ function setupSliders() {
     ySliderTouched = true;
   });
 
-  xSlider.addEventListener("change", submitSliderGuess);
-  ySlider.addEventListener("change", submitSliderGuess);
-
   previewCol = Number(xSlider.value) - 1;
   previewRow = rows - Number(ySlider.value);
 }
 
-function positionSliders() {
+function resetSliders() {
   if (!xSlider || !ySlider) return;
 
-  const xContainer = document.querySelector(".x-slider-container");
-  const yContainer = document.querySelector(".y-slider-container");
-  if (!xContainer || !yContainer) return;
+  xSlider.value = 5;
+  ySlider.value = 5;
+  previewCol = 4;  // value 5 - 1 = column 4
+  previewRow = 5;  // rows (10) - 5 = row 5
+  xSliderTouched = false;
+  ySliderTouched = false;
 
-  // X slider along bottom of grid
-  xContainer.style.left = offsetX + "px";
-  xContainer.style.top = offsetY + gridSizeH + 8 + "px";
-  xContainer.style.width = gridSizeW + "px";
-  xSlider.style.width = gridSizeW + "px";
-
-// Y slider along left of grid (rotated via CSS)
-// After rotating -90deg around top-left corner, the slider extends upward.
-// So we need to position it such that after rotation it sits along the left side of the grid.
-yContainer.style.left = (offsetX - 8) + "px";
-yContainer.style.top = (offsetY + gridSizeH) + "px";  // 👈 start at BOTTOM of grid
-yContainer.style.width = gridSizeH + "px";
-ySlider.style.width = gridSizeH + "px";
+  // Trigger a UI update so slider labels re-size
+  updateSliderLabelSizes();
 }
 
 function windowResized() {
-  const wrapper = document.querySelector(".grid-wrapper");
+  const wrapper = document.querySelector(".game-play-wrapper");
+  if (!wrapper) return;
   resizeCanvas(wrapper.clientWidth, wrapper.clientHeight);
   updateGridSize();
-  positionSliders();
 }
 
 function updateGridSize() {
-  let leftSpace = labelPadding + titlePadding;
+  let leftSpace = labelPadding;
   let topSpace = titlePadding;
-  let rightSpace = 15;
-  let bottomSpace = labelPadding + titlePadding;
+  let rightSpace = labelPadding;
+  let bottomSpace = titlePadding;
 
   let availableW = width - leftSpace - rightSpace;
   let availableH = height - topSpace - bottomSpace;
@@ -272,7 +298,6 @@ function draw() {
   clear();
   drawGlow();
   drawGridBackground();
-  drawCornerLabels();
   drawCellLines();
   drawHover();
   drawGuesses();
@@ -304,17 +329,13 @@ function updateSliderLabelSizes() {
   const xVal = Number(xSlider.value);
   const yVal = Number(ySlider.value);
 
-  // X slider → Boring (low) vs Juicy (high)
-  styleLabel("truth-left", 11 - xVal);  // distance from 1
-  styleLabel("truth-right", xVal);       // distance from 10 = 10 - dist
-
-  // Y slider → Harmless (low) vs Dramatic (high)
+  styleLabel("truth-left", 11 - xVal);
+  styleLabel("truth-right", xVal);
   styleLabel("drama-left", 11 - yVal);
   styleLabel("drama-right", yVal);
 }
 
 function styleLabel(id, closeness) {
-  // closeness: higher = closer to that end
   const el = document.getElementById(id);
   if (!el) return;
   const size = map(closeness, 1, 10, 12, 24);
@@ -339,47 +360,6 @@ function drawGridBackground() {
   rect(offsetX, offsetY, gridSizeW, gridSizeH);
 }
 
-function drawCornerLabels() {
-  push();
-  drawingContext.save();
-  drawingContext.beginPath();
-  drawingContext.rect(offsetX, offsetY, gridSizeW, gridSizeH);
-  drawingContext.clip();
-
-  let padding = 40;
-  let maxTextWidth = gridSizeW * 0.38;
-
-  let positions = {
-    TL: { x: offsetX + padding, y: offsetY + padding, align: [LEFT, TOP] },
-    TR: { x: offsetX + gridSizeW - padding, y: offsetY + padding, align: [RIGHT, TOP] },
-    BR: { x: offsetX + gridSizeW - padding, y: offsetY + gridSizeH - padding, align: [RIGHT, BOTTOM] },
-    BL: { x: offsetX + padding, y: offsetY + gridSizeH - padding, align: [LEFT, BOTTOM] },
-  };
-
-  textStyle(BOLD);
-
-  for (let label of cornerLabels) {
-    let pos = positions[label.corner];
-    let d = dist(pos.x, pos.y, mouseX, mouseY);
-
-    let size = map(d, 0, maxDist, 20, 10, true);
-    let r = map(d, 0, maxDist, 255, 160, true);
-    let g = map(d, 0, maxDist, 44, 160, true);
-    let b = map(d, 0, maxDist, 160, 160, true);
-
-    textSize(size);
-    textAlign(pos.align[0], pos.align[1]);
-    noStroke();
-    fill(r, g, b);
-
-    text(label.text, pos.x, pos.y, maxTextWidth);
-  }
-
-  drawingContext.restore();
-  pop();
-}
-
-
 function drawCellLines() {
   push();
   stroke("#191919");
@@ -394,53 +374,6 @@ function drawCellLines() {
   pop();
 }
 
-function drawCornerLabels() {
-  push();
-  drawingContext.save();
-  drawingContext.beginPath();
-  drawingContext.rect(offsetX, offsetY, gridSizeW, gridSizeH);
-  drawingContext.clip();
-
-  let padding = 40;
-  let maxTextWidth = gridSizeW * 0.38;
-
-  let positions = {
-    TL: { x: offsetX + padding, y: offsetY + padding, align: [LEFT, TOP], xTarget: 1, yTarget: 10 },
-    TR: { x: offsetX + gridSizeW - padding, y: offsetY + padding, align: [RIGHT, TOP], xTarget: 10, yTarget: 10 },
-    BR: { x: offsetX + gridSizeW - padding, y: offsetY + gridSizeH - padding, align: [RIGHT, BOTTOM], xTarget: 10, yTarget: 1 },
-    BL: { x: offsetX + padding, y: offsetY + gridSizeH - padding, align: [LEFT, BOTTOM], xTarget: 1, yTarget: 1 },
-  };
-
-  let xVal = xSlider ? Number(xSlider.value) : 5;
-  let yVal = ySlider ? Number(ySlider.value) : 5;
-
-  textStyle(BOLD);
-
-  for (let label of cornerLabels) {
-    let pos = positions[label.corner];
-
-    // "distance" in slider space (max = sqrt(9² + 9²) ≈ 12.7)
-    let dx = pos.xTarget - xVal;
-    let dy = pos.yTarget - yVal;
-    let d = Math.sqrt(dx * dx + dy * dy);
-    let maxD = 12.7;
-
-    let size = map(d, 0, maxD, 24, 11, true);
-    let r = map(d, 0, maxD, 255, 160, true);
-    let g = map(d, 0, maxD, 44, 160, true);
-    let b = map(d, 0, maxD, 178, 160, true);
-
-    textSize(size);
-    textAlign(pos.align[0], pos.align[1]);
-    noStroke();
-    fill(r, g, b);
-
-    text(label.text, pos.x, pos.y, maxTextWidth);
-  }
-
-  drawingContext.restore();
-  pop();
-}
 function drawHover() {
   if (!xSlider || !ySlider) return;
 
@@ -481,8 +414,11 @@ function submitSliderGuess() {
 
   checkGuess(selectedStory, col, row);
 
-  xSliderTouched = false;   // 👈 reset for next guess
-  ySliderTouched = false;   // 👈 reset for next guess
+  xSliderTouched = false;
+  ySliderTouched = false;
+  isSliderDragging = false;
+
+  resetSliders();           // 👈 ADD — reset after guess
   isSliderDragging = false;
 }
 
@@ -501,7 +437,6 @@ function checkGuess(storyId, col, row) {
   if (result === "HIT") {
     startDVDAnimation();
   } else {
-    // Burst confetti from the marker position
     let markerX = offsetX + col * cellW + cellW / 2;
     let markerY = offsetY + row * cellH + cellH / 2;
     for (let i = 0; i < 40; i++) {
@@ -614,7 +549,6 @@ function drawGuesses() {
       imageMode(CENTER);
       image(markerImg, x, y, markerSize, markerSize);
     } else {
-      // Fallback if no image
       fill(255, 44, 178);
       noStroke();
       ellipse(x, y, markerSize * 0.7);
