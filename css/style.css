@@ -40,8 +40,8 @@ canvas {
   grid-area: header;
   background-color: #ff2cb2;
   border: 2px black dotted;
-    background-image: url("../assets/img/sparkle_pink.gif");
-  background-repeat: repeat
+  background-image: url("../assets/img/sparkle_pink.gif");
+  background-repeat: repeat;
 }
 
 .logo {
@@ -71,7 +71,7 @@ canvas {
     "slider-area selector-area"
     "coordinates selector-area";
   grid-template-columns: 50% 50%;
-  grid-template-rows: 30% 30% 30% 10%;
+  grid-template-rows: 30% 30% 25% 15%;
   width: 100%;
   height: 100%; /* Remove align-items: center */
   gap: 0; /* Add this */
@@ -104,10 +104,85 @@ canvas {
 
 .coordinates {
   grid-area: coordinates;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.slider-area {
-  grid-area: slider-area;
+.coordinates > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* LEFT SIDE */
+.coordinates .window {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.coordinates .title-bar {
+  flex-shrink: 0;
+}
+
+.coordinates .window-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+#coord-display {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: bold;
+}
+
+/* RIGHT SIDE */
+.image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.image-stack .guess,
+.image-stack .OMG {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  overflow: hidden;
+}
+
+.image-stack img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .button-row {
@@ -301,6 +376,7 @@ canvas {
 
 .ad button {
   margin-top: 5px;
+  background-color: #eeb2c9;
 }
 
 .ad-text h2,
@@ -323,7 +399,6 @@ canvas {
 
 .ad1-img {
   background-image: url("../assets/img/ad4_still.png");
-  
 }
 
 .ad1-img:hover {
@@ -493,14 +568,50 @@ a:hover {
   color: white;
 }
 
+.emoji {
+  display: inline-block; /* 👈 required for filter to work properly */
+  filter: grayscale(100%) brightness(80%);
+}
+
+#drama-left {
+  font-family: comic-sans-ms, sans-serif;
+}
+
+#drama-right {
+  font-family: stencil-std, sans-serif;
+}
+
+#truth-right {
+  font-family: "curlz";
+}
+
+#truth-left {
+  font-family: franklin-gothic-atf, sans-serif;
+}
+
+.slider-area {
+  grid-area: slider-area;
+  background-color: #ff2cb2;
+  margin: 10px;
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center; /* vertical */
+  margin: 10px 20px;
+  box-shadow: 0px 0px 8px #ff2cb2;
+  border: 2px black dotted;
+}
 
 .slider-panel {
-  flex-shrink: 0; /* 👈 never squish the sliders */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px 20px;
-  margin-top: 10px;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .slider-row {
@@ -512,12 +623,15 @@ a:hover {
 
 .slider-label-left,
 .slider-label-right {
-  font-weight: bold;
   transition:
-    font-size 0.15s ease,
-    color 0.15s ease;
+    font-size 0.05s ease,
+    color 0.05s ease;
+
   white-space: nowrap;
-  min-width: 100px;
+  min-width: 0;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .slider-label-left {
@@ -530,8 +644,8 @@ a:hover {
 
 .slider-row input[type="range"] {
   flex: 1;
+  min-width: 80px;
 }
-
 
 .stories-popup {
   grid-area: stories-popup;
@@ -540,16 +654,16 @@ a:hover {
   box-sizing: border-box;
   min-height: 0;
 
-   display: flex;                 /* 👈 add this */
-  align-items: center;       /* 👈 bottom */
-  justify-content: center; 
+  display: flex; /* 👈 add this */
+  align-items: center; /* 👈 bottom */
+  justify-content: center;
 }
 
 #story-popup-content {
   width: 90%;
   height: 90%;
   overflow: hidden;
- background: rgba(203, 203, 203, 0.2);
+  background: rgba(203, 203, 203, 0.2);
   box-shadow: 0px 0px 10px #ff2cb2;
 }
 
@@ -591,14 +705,16 @@ a:hover {
 }
 
 .border {
-  flex: 1; /* fills .selector-area */
+  flex: 1;
   width: 100%;
   height: 100%;
   min-height: 0;
 
-  display: flex; /* lets child fill/center inside */
-  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start; /* top */
+  justify-content: center; /* horizontal center */
 
+  box-sizing: border-box;
   color: black;
   background: white;
   padding: 20px 10px 14px 12px;
@@ -615,7 +731,6 @@ a:hover {
 }
 
 .control-panel {
-  flex: 1;
   width: 100%;
   min-height: 0;
 
@@ -624,15 +739,15 @@ a:hover {
   gap: 12px;
 
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
 
+  text-align: center;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 40px; /* instead of 150px */
+  padding: 20px;
 }
 
-/* .game-play {
+.game-play {
   outline: 2px solid red;
 }
 .coordinates {
@@ -640,7 +755,4 @@ a:hover {
 }
 .selector-area {
   outline: 2px solid green;
-}
-.slider-area {
-  outline: 2px solid blue;
 }

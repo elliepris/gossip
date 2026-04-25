@@ -340,19 +340,50 @@ function updateSliderLabelSizes() {
   const xVal = Number(xSlider.value);
   const yVal = Number(ySlider.value);
 
-  styleLabel("truth-left", 11 - xVal);
-  styleLabel("truth-right", xVal);
-  styleLabel("drama-left", 11 - yVal);
-  styleLabel("drama-right", yVal);
+  if (xSliderTouched) {
+    styleLabel("truth-left", 11 - xVal);
+    styleLabel("truth-right", xVal);
+  } else {
+    resetLabelStyle("truth-left");
+    resetLabelStyle("truth-right");
+  }
+
+  if (ySliderTouched) {
+    styleLabel("drama-left", 11 - yVal);
+    styleLabel("drama-right", yVal);
+  } else {
+    resetLabelStyle("drama-left");
+    resetLabelStyle("drama-right");
+  }
 }
 
 function styleLabel(id, closeness) {
   const el = document.getElementById(id);
   if (!el) return;
-  const size = map(closeness, 1, 10, 12, 24);
+
+  let t = map(closeness, 1, 10, 0, 1);
+  t = constrain(t, 0, 1);
+
+  // controls drama/intensity
+  t = Math.pow(t, 2.5);
+
+  // capped so it does not break the box
+  const size = lerp(14, 25, t);
+
   const isClose = closeness >= 7;
+
   el.style.fontSize = size + "px";
-  el.style.color = isClose ? "#ff2cb2" : "#666";
+  el.style.color = isClose ? "#ff2cb2" : "#191919";
+  el.style.fontWeight = isClose ? "900" : "400";
+}
+
+function resetLabelStyle(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.style.fontSize = "14px";
+  el.style.color = "#191919";
+  el.style.fontWeight = "400";
 }
 
 function drawGlow() {
@@ -367,7 +398,7 @@ function drawGlow() {
 
 function drawGridBackground() {
   noStroke();
-  fill("#cbcbcb");
+  fill("#c0c0c0");
   rect(offsetX, offsetY, gridSizeW, gridSizeH);
 }
 
@@ -441,6 +472,7 @@ function submitSliderGuess() {
 
   resetSliders(); // 👈 ADD — reset after guess
   isSliderDragging = false;
+  updateSliderLabelSizes();
 }
 
 function checkGuess(storyId, col, row) {
@@ -475,7 +507,7 @@ function updateFeedbackUI(storyId, result) {
   // Show result next to the current story label temporarily
   const tag = document.createElement("span");
   tag.textContent = ` — ${result}!`;
-  tag.style.color = result === "HIT" ? "#ff2cb2" : "#888";
+  tag.style.color = result === "HIT" ? "#ff2cb2" : "#c0c0c0";
   tag.style.marginLeft = "4px";
   tag.className = "feedback-tag";
 
