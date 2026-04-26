@@ -297,41 +297,60 @@
       <!-- ============================= -->
       <div id="chat-templates" style="display: none">
         <!-- HOW TO PLAY TEMPLATE -->
+        <!-- HOW TO PLAY TEMPLATE -->
         <div data-chat-id="instructions">
           <div class="window" style="width: 100%; height: 100%">
             <div class="title-bar">
-              <div class="title-bar-text">📖 How to Play</div>
+              <div class="title-bar-text">How to Play</div>
               <div class="title-bar-controls">
                 <button aria-label="Close" class="close-popup"></button>
               </div>
             </div>
+
             <div class="window-body">
               <div class="chat-layout">
                 <div class="chat-scroll instructions-body">
-                  <h3>Welcome to Buzz Battleship 💋</h3>
+                  <h3>How to Play 🎮</h3>
+
+                  <p><strong>1. Open a Gossip Story</strong></p>
+                  <p>Click <em>Read More!</em> on any ad to open the chat.</p>
+
+                  <p><strong>2. Read Carefully 👀</strong></p>
                   <p>
-                    <strong>1.</strong> Click <em>"Read More!"</em> on any
-                    gossip story to open its chat log.
+                    Pay attention to tone, details, and what’s said versus
+                    what’s implied.
                   </p>
-                  <p><strong>2.</strong> Use the sliders to rate the gossip:</p>
+
+                  <p><strong>3. Make Your Judgment</strong></p>
+                  <p>Use the sliders to rate the story:</p>
                   <ul>
-                    <li><strong>X-axis:</strong> boring ↔ JUICY</li>
-                    <li><strong>Y-axis:</strong> UnSeRiOuS ↔ SERIOUS</li>
+                    <li>
+                      <strong>Boring 🥱</strong> → <strong>JUICY 🍒</strong>
+                    </li>
+                    <li>
+                      <strong>UnSeRiOuS 😉</strong> →
+                      <strong>SERIOUS 🚨</strong>
+                    </li>
                   </ul>
+
+                  <p><strong>4. Place It on the Grid</strong></p>
                   <p>
-                    <strong>3.</strong> Click <em>Submit Guess</em> to plot your
-                    guess on the grid.
+                    Your slider choices determine where the story lands. This is
+                    your guess.
                   </p>
+
+                  <p><strong>5. Submit Your Answer</strong></p>
+                  <p>Click <em>Submit Guess</em> to lock it in.</p>
+
+                  <p><strong>6. See the Result</strong></p>
+                  <ul>
+                    <li><strong>HIT 💥</strong> → You placed it correctly</li>
+                    <li><strong>MISS ❌</strong> → Close… but not quite</li>
+                  </ul>
+
+                  <p><strong>7. Try Them All</strong></p>
                   <p>
-                    <strong>4.</strong>
-                    <span style="color: #ff2cb2; font-weight: bold">HIT</span> =
-                    DVD bounce 🎉 | MISS = confetti 💅
-                  </p>
-                  <p>
-                    <strong>5.</strong> Hit <em>Clear Board</em> to start over.
-                  </p>
-                  <p style="text-align: center; margin-top: 16px">
-                    <em>Have fun spilling tea ☕</em>
+                    Work through each story and see how many you can get right.
                   </p>
                 </div>
               </div>
@@ -1018,65 +1037,65 @@
       </section>
 
       <!--MODAL SCRIPT STARTS HERE-->
-<script>
-  // ============================================
-  // OPEN CHAT POPUP + set chat-style class
-  // ============================================
-  document.querySelectorAll(".open-chat").forEach((button) => {
-    button.addEventListener("click", function () {
-      const chatId = this.dataset.chatId;
-      const storyId = Number(this.dataset.storyId);
+      <script>
+        // ============================================
+        // OPEN CHAT POPUP + set chat-style class
+        // ============================================
+        document.querySelectorAll(".open-chat").forEach((button) => {
+          button.addEventListener("click", function () {
+            const chatId = this.dataset.chatId;
+            const storyId = Number(this.dataset.storyId);
 
-      const template = document.querySelector(
-        `#chat-templates [data-chat-id="${chatId}"]`,
-      );
-      const popup = document.getElementById("story-popup-content");
+            const template = document.querySelector(
+              `#chat-templates [data-chat-id="${chatId}"]`,
+            );
+            const popup = document.getElementById("story-popup-content");
 
-      if (template && popup) {
-        popup.innerHTML = template.innerHTML;
-        popup.className = "";                            // clear old classes
-        popup.classList.add(`chat-style-${chatId}`);     // add new style class
-      }
+            if (template && popup) {
+              popup.innerHTML = template.innerHTML;
+              popup.className = ""; // clear old classes
+              popup.classList.add(`chat-style-${chatId}`); // add new style class
+            }
 
-      if (typeof setStoryFromChat === "function" && !isNaN(storyId)) {
-        setStoryFromChat(storyId);
-      }
-    });
-  });
+            if (typeof setStoryFromChat === "function" && !isNaN(storyId)) {
+              setStoryFromChat(storyId);
+            }
+          });
+        });
 
-  // ============================================
-  // CLOSE POPUP
-  // ============================================
-  document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("close-popup")) {
-      const popup = document.getElementById("story-popup-content");
-      if (popup) {
-        popup.innerHTML = `<div class="popup-placeholder"></div>`;
-        popup.className = "";   // clear chat-style class
-      }
-    }
-  });
+        // ============================================
+        // CLOSE POPUP
+        // ============================================
+        document.addEventListener("click", function (e) {
+          if (e.target.classList.contains("close-popup")) {
+            const popup = document.getElementById("story-popup-content");
+            if (popup) {
+              popup.innerHTML = `<div class="popup-placeholder"></div>`;
+              popup.className = ""; // clear chat-style class
+            }
+          }
+        });
 
-  // ============================================
-  // OPEN "HOW TO PLAY" POPUP from about_window link
-  // ============================================
-  document
-    .getElementById("open-instructions")
-    ?.addEventListener("click", function (e) {
-      e.preventDefault();
+        // ============================================
+        // OPEN "HOW TO PLAY" POPUP from about_window link
+        // ============================================
+        document
+          .getElementById("open-instructions")
+          ?.addEventListener("click", function (e) {
+            e.preventDefault();
 
-      const template = document.querySelector(
-        `#chat-templates [data-chat-id="instructions"]`,
-      );
-      const popup = document.getElementById("story-popup-content");
+            const template = document.querySelector(
+              `#chat-templates [data-chat-id="instructions"]`,
+            );
+            const popup = document.getElementById("story-popup-content");
 
-      if (template && popup) {
-        popup.innerHTML = template.innerHTML;
-        popup.className = "";
-        popup.classList.add("chat-style-instructions");
-      }
-    });
-</script>
+            if (template && popup) {
+              popup.innerHTML = template.innerHTML;
+              popup.className = "";
+              popup.classList.add("chat-style-instructions");
+            }
+          });
+      </script>
     </main>
     <!--GAME SCRIPT LINKED HERE-->
     <script src="js/game.js"></script>

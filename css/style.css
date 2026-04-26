@@ -274,6 +274,8 @@ canvas {
   display: flex;
   flex-direction: column;
   background: var(--gray-ui);
+  padding: 3px;              /* 👈 creates even border on all sides */
+  box-sizing: border-box;    /* 👈 so padding doesn't add to size */
 }
 
 #story-popup-content .window-body {
@@ -1069,6 +1071,10 @@ text-shadow: 0 0 10px var(--pink);
 font-size: 25px;
 margin: 0 0 10px 0; /* 👈 controlled spacing */
 
+}
+
+a:focus {
+  outline: none;
 }
 
 /* 98.css COLOR OVERRIDES */
