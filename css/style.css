@@ -104,24 +104,22 @@ canvas {
 /* COORDINATES — bottom-left cell, just the coord window */
 .coordinates {
   grid-area: coordinates;
-  width: 100%;
+
+  display: flex;                /* 👈 make it a flex container */
+  justify-content: center;      /* horizontal center */
+  align-items: center;          /* vertical center */
+
+  width: 100%;                  /* 👈 fill the grid cell */
   height: 100%;
-  padding: 20px;
+
+  padding: 20px;                /* 👈 your spacing */
   box-sizing: border-box;
-  overflow: hidden;
-  min-width: 0;
-  min-height: 0;
 }
 
 .coordinates .window {
   width: 100%;
-  height: 100%;
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  overflow: hidden;
+  height: auto;
+  max-width: 150px;
 }
 
 .coordinates .title-bar {
@@ -161,7 +159,6 @@ canvas {
 .image-stack {
   display: flex;
   flex-direction: column;
-  gap: 6px;
 
   width: 100%;
   height: 100%;
@@ -381,7 +378,7 @@ canvas {
 
 .ad button {
   margin-top: 5px;
-  background-color: #eeb2c9;
+  background-color: #ff2cb2;
 }
 
 .ad-text h2,
@@ -574,8 +571,7 @@ a:hover {
 }
 
 .emoji {
-  display: inline-block; /* 👈 required for filter to work properly */
-  filter: grayscale(100%) brightness(80%);
+  display: inline-block;
 }
 
 #drama-left {
@@ -596,14 +592,23 @@ a:hover {
 
 .slider-area {
   grid-area: slider-area;
-  background-color: #ff2cb2;
-  margin: 10px;
+  padding: 10px;        /* 👈 gives boxes breathing room */
+  box-sizing: border-box;
+
   display: flex;
-  justify-content: center; /* horizontal */
-  align-items: center; /* vertical */
-  margin: 10px 20px;
-  box-shadow: 0px 0px 8px #ff2cb2;
-  border: 2px black dotted;
+  justify-content: center;
+  align-items: center;
+
+  background: transparent; /* parent has no background */
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+@keyframes sliderBoxFlash {
+  0%   { background-color: #eeb2c9; box-shadow: 0 0 6px #eeb2c9; }
+  50%  { background-color: #ff6aa8; box-shadow: 0 0 10px #ff6aa8; }
+  100% { background-color: #ff2cb2; box-shadow: 0 0 14px #ff2cb2; }
 }
 
 .slider-panel {
@@ -613,48 +618,76 @@ a:hover {
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow: hidden;
+  gap: 16px;   /* 👈 increase this (you had ~10px) */
+
   padding: 10px;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.slider-box {
+  border: 2px black dotted;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+
+  animation: sliderBoxFlash 1s infinite alternate;
+}
+
+/* 👇 stops flashing */
+.slider-box.active {
+  animation: none;
+  background-color: #c0c0c0; /* final state */
+  box-shadow: 0 0 10px #ff2cb2;
 }
 
 .slider-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+
   width: 100%;
+  min-width: 0;
 }
 
 .slider-label-left,
 .slider-label-right {
+  flex: 0 0 90px;
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+
   transition:
-    font-size 0.05s ease,
-    color 0.05s ease;
+    font-size 0.1s ease,
+    color 0.1s ease;
 
   white-space: nowrap;
-  min-width: 0;
-  max-width: 110px;
   overflow: hidden;
   text-overflow: clip;
+
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .slider-label-left {
+  justify-content: flex-end;
   text-align: right;
 }
 
 .slider-label-right {
+  justify-content: flex-start;
   text-align: left;
 }
 
 .slider-row input[type="range"] {
   flex: 1;
-  min-width: 80px;
+  min-width: 0;
 }
 
 .stories-popup {
   grid-area: stories-popup;
-  padding: 40px;
+  padding: 0px 30px;
   overflow: hidden;
   box-sizing: border-box;
   min-height: 0;
@@ -707,7 +740,7 @@ a:hover {
   align-items: flex-start;     /* 👈 align border to top */
   justify-content: stretch;
   box-sizing: border-box;
-    padding: 10px 20px;          /* 👈 match slider-area's margin */
+  padding: 15px 70px;          /* 👈 match slider-area's margin */
 
   min-height: 0;
 }
@@ -767,6 +800,35 @@ flex: 1;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* Group each question + slider together */
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+
+/* The question text above each slider */
+.slider-question {
+  margin: 0;
+  font-family: "franklin-gothic-atf", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #191919;
+  text-align: center;
+  text-transform: none;        /* override the global h2/h3 uppercase if needed */
+}
+
+h3 {
+  font-size: 20px;
+  text-align: left;
+}
+
+.popup-placeholder p {
+text-align: left;
+
 }
 
 /*.game-play {

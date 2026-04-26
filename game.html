@@ -45,56 +45,67 @@
             <div id="story-popup-content">
               <div class="popup-placeholder">
                 <p>
-                  Click "Read More!" on any gossip story to see the chat log
-                  here 👀
+<h2>🎮 How to Play</h2>
+
+<h3>Open a Gossip Story</h3>
+<p>Click “Read More!” on any story to view the chat.</p>
+
+<h3>Read Carefully 👀</h3>
+<p>Pay attention to the tone, details, and context of the gossip.</p>
+
+<h3>Make Your Guess</h3>
+<p>Use the sliders to decide:</p>
+<ul>
+  <li>How JUICY 🍒 or boring 🥱 the gossip is</li>
+  <li>How Serious 🚨 or UnSeRiOuS 😉 it feels</li>
+</ul>
+
+<h3>Place It on the Grid</h3>
+<p>Your slider choices determine a location—this is your guess.</p>
+
+<h3>Submit Your Answer</h3>
+<p>Hit submit to lock it in.</p>
+
+<h3>See the Result</h3>
+<ul>
+  <li><strong>HIT 💥</strong> → You nailed it</li>
+  <li><strong>MISS ❌</strong> → Close… but not quite</li>
+</ul>
+
+<h3>Try Them All</h3>
+<p>Work through each story and see how many you can get right.</p>
                 </p>
               </div>
             </div>
           </div>
 
           <!-- Row 3, Col 1: slider area -->
-          <div class="slider-area">
-            <div class="slider-panel">
-              <div class="slider-row">
-                <span class="slider-label-left" id="truth-left">
-                  boring <span class="emoji">🥱</span>
-                </span>
-                <input
-                  type="range"
-                  id="x-slider"
-                  min="1"
-                  max="10"
-                  value="5"
-                  step="1"
-                />
-                <span class="slider-label-right" id="truth-right">
-                  JUICY <span class="emoji">🍒</span>
-                </span>
-              </div>
-              <div class="slider-row">
-                <span class="slider-label-left" id="drama-left">
-                  UnSeRiOuS <span class="emoji">😉</span>
-                </span>
-                <input
-                  type="range"
-                  id="y-slider"
-                  min="1"
-                  max="10"
-                  value="5"
-                  step="1"
-                />
-                <span class="slider-label-right" id="drama-right">
-                  Serious <span class="emoji">🚨</span>
-                </span>
-              </div>
-            </div>
-          </div>
+    <div class="slider-area">
+  <div class="slider-panel">
+
+    <div class="slider-box">
+      <div class="slider-row">
+        <span class="slider-label-left" id="truth-left">boring</span>
+        <input type="range" id="x-slider" min="1" max="10" value="5" step="1" />
+        <span class="slider-label-right" id="truth-right">JUICY</span>
+      </div>
+    </div>
+
+    <div class="slider-box">
+      <div class="slider-row">
+        <span class="slider-label-left" id="drama-left">UnSeRiOuS</span>
+        <input type="range" id="y-slider" min="1" max="10" value="5" step="1" />
+        <span class="slider-label-right" id="drama-right">SERIOUS</span>
+      </div>
+    </div>
+
+  </div>
+</div>
 
           <!-- Row 3, Col 2: control panel -->
           <div class="selector-area">
             <div class="border">
               <div class="control-panel">
-                <h2>Control Panel</h2>
                 <div class="current-story">
                   <p>Currently reading:</p>
                   <p id="current-story-label"><em>No gossip selected</em></p>
@@ -753,7 +764,24 @@
             if (popup) {
               popup.innerHTML = `
           <div class="popup-placeholder">
-            <p>Click "Read More!" on any gossip story to see the chat log here 👀</p>
+            <p>🎮 How to Play
+Open a Gossip Story
+Click “Read More!” on any story to view the chat.
+Read Carefully 👀
+Pay attention to the tone, details, and context of the gossip.
+Make Your Guess
+Use the sliders to decide:
+How JUICY 🍒 or boring 🥱 the gossip is
+How Serious 🚨 or UnSeRiOuS 😉 it feels
+Place It on the Grid
+Your slider choices determine a location—this is your guess.
+Submit Your Answer
+Hit submit to lock it in.
+See the Result
+HIT 💥 → You nailed it
+MISS ❌ → Close… but not quite
+Try Them All
+Work through each story and see how many you can get right.</p>
           </div>
         `;
             }

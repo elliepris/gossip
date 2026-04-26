@@ -30,6 +30,16 @@ const answerKey = [
   { storyId: 6, x: 9, y: 7 },
 ];
 
+const guessEmojis = [
+  "💔", // Story 1 — perfect couple
+  "😩", // Story 2 — overworked
+  "👭", // Story 3 — besties
+  "🎭", // Story 4 — twins
+  "💸", // Story 5 — earn money now
+  "🪖", // Story 6 — army guy
+  "🤢", // Story 7 — teacher
+];
+
 // === STATE ===
 let xSliderTouched = false;
 let ySliderTouched = false;
@@ -46,9 +56,8 @@ let cellW, cellH;
 
 let gridSizeW, gridSizeH;
 let offsetX, offsetY;
-// Reduced padding since titles are no longer in the game-play area
-let labelPadding = 50;
-let titlePadding = 50;
+let labelPadding = 40;
+let titlePadding = 40;
 
 let markerImg;
 
@@ -133,12 +142,9 @@ function setup() {
   canvas.canvas.style.imageRendering = "pixelated";
   noSmooth();
 
-  textAlign(CENTER, CENTER);
-  textStyle(BOLD);
-
   updateGridSize();
   setupClearButton();
-  setupSubmitButton(); // 👈 ADD
+  setupSubmitButton();
   setupDVDOverlay();
   setupSliders();
 
@@ -155,7 +161,6 @@ function setStoryFromChat(storyId) {
   xSliderTouched = false;
   ySliderTouched = false;
 
-  // Update control panel label
   const labelEl = document.getElementById("current-story-label");
   if (labelEl) {
     labelEl.textContent = `Gossip Story #${storyId + 1}`;
@@ -171,7 +176,6 @@ function setupClearButton() {
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
       selectedStory = null;
 
-      // Reset control panel label
       const labelEl = document.getElementById("current-story-label");
       if (labelEl) {
         labelEl.innerHTML = "<em>No gossip selected</em>";
@@ -191,7 +195,7 @@ function setupSubmitButton() {
 
 function submitSliderGuess() {
   if (selectedStory === null) {
-    alert("Open a gossip story's chat log first!"); // 👈 updated message
+    alert("Open a gossip story's chat log first!");
     return;
   }
 
@@ -213,8 +217,9 @@ function submitSliderGuess() {
 
   checkGuess(selectedStory, col, row);
 
-  resetSliders(); // 👈 ADD — reset after guess
+  resetSliders();
   isSliderDragging = false;
+  updateSliderLabelSizes();
 }
 
 function setupDVDOverlay() {
@@ -268,12 +273,11 @@ function resetSliders() {
 
   xSlider.value = 5;
   ySlider.value = 5;
-  previewCol = 4; // value 5 - 1 = column 4
-  previewRow = 5; // rows (10) - 5 = row 5
+  previewCol = 4;
+  previewRow = 5;
   xSliderTouched = false;
   ySliderTouched = false;
 
-  // Trigger a UI update so slider labels re-size
   updateSliderLabelSizes();
 }
 
@@ -310,6 +314,7 @@ function draw() {
   drawGlow();
   drawGridBackground();
   drawCellLines();
+  drawAxisLabels();
   drawHover();
   drawGuesses();
 
@@ -325,6 +330,36 @@ function draw() {
   }
 
   if (dvdActive) updateDVD();
+}
+
+// === AXIS LABELS ===
+function drawAxisLabels() {
+  push();
+  fill("white");
+  noStroke();
+  textStyle(BOLD);
+
+  // X-axis label (bottom, below the grid)
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  drawingContext.font = "italic 500 13px franklin-gothic-atf, sans-serif";
+  text(
+    "X = DOES THIS ACTUALLY MATTER?",
+    offsetX + gridSizeW / 2,
+    offsetY + gridSizeH + 25,
+  );
+
+  // Y-axis label (left side, rotated vertically)
+  push();
+  translate(offsetX - 25, offsetY + gridSizeH / 2);
+  rotate(-HALF_PI);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  drawingContext.font = "italic 500 13px franklin-gothic-atf, sans-serif";
+  text("Y = HOW ENTERTAINING IS THIS?", 0, 0);
+  pop();
+
+  pop();
 }
 
 function updateCoordDisplay() {
@@ -367,14 +402,11 @@ function styleLabel(id, closeness) {
   // controls drama/intensity
   t = Math.pow(t, 2.5);
 
-  // capped so it does not break the box
-  const size = lerp(14, 25, t);
-
-  const isClose = closeness >= 7;
+  // text size grows from 14px to 20px (smaller max so it stays in the box)
+  const size = lerp(14, 20, t);
 
   el.style.fontSize = size + "px";
-  el.style.color = isClose ? "#ff2cb2" : "#191919";
-  el.style.fontWeight = isClose ? "900" : "400";
+  // color + fontWeight intentionally removed — stays the same
 }
 
 function resetLabelStyle(id) {
@@ -382,8 +414,6 @@ function resetLabelStyle(id) {
   if (!el) return;
 
   el.style.fontSize = "14px";
-  el.style.color = "#191919";
-  el.style.fontWeight = "400";
 }
 
 function drawGlow() {
@@ -443,38 +473,6 @@ function drawHover() {
   rect(cx, cy, cellW, cellH);
 }
 
-function submitSliderGuess() {
-  if (selectedStory === null) {
-    alert("Please select a gossip story first.");
-    return;
-  }
-
-  if (!xSliderTouched || !ySliderTouched) {
-    return;
-  }
-
-  let col = Number(xSlider.value) - 1;
-  let row = rows - Number(ySlider.value);
-
-  let existing = guesses.find((g) => g.storyId === selectedStory);
-  if (existing) {
-    existing.col = col;
-    existing.row = row;
-  } else {
-    guesses.push({ storyId: selectedStory, col, row });
-  }
-
-  checkGuess(selectedStory, col, row);
-
-  xSliderTouched = false;
-  ySliderTouched = false;
-  isSliderDragging = false;
-
-  resetSliders(); // 👈 ADD — reset after guess
-  isSliderDragging = false;
-  updateSliderLabelSizes();
-}
-
 function checkGuess(storyId, col, row) {
   let answer = answerKey.find((a) => a.storyId === storyId);
   if (!answer) return;
@@ -504,14 +502,12 @@ function updateFeedbackUI(storyId, result) {
   const labelEl = document.getElementById("current-story-label");
   if (!labelEl) return;
 
-  // Show result next to the current story label temporarily
   const tag = document.createElement("span");
   tag.textContent = ` — ${result}!`;
   tag.style.color = result === "HIT" ? "#ff2cb2" : "#c0c0c0";
   tag.style.marginLeft = "4px";
   tag.className = "feedback-tag";
 
-  // Remove any old tag first
   labelEl.querySelectorAll(".feedback-tag").forEach((t) => t.remove());
   labelEl.appendChild(tag);
 }
@@ -589,7 +585,6 @@ function updateDVD() {
 
 function drawGuesses() {
   textAlign(CENTER, CENTER);
-  textSize(16);
   textStyle(NORMAL);
 
   let markerSize = Math.min(cellW, cellH) * 0.8;
@@ -598,20 +593,23 @@ function drawGuesses() {
     let x = offsetX + guess.col * cellW + cellW / 2;
     let y = offsetY + guess.row * cellH + cellH / 2;
 
-    if (markerImg) {
-      imageMode(CENTER);
-      image(markerImg, x, y, markerSize, markerSize);
-    } else {
-      fill(255, 44, 178);
-      noStroke();
-      ellipse(x, y, markerSize * 0.7);
-    }
+    // Pick the emoji for this story (fallback to ❓ if missing)
+    let emoji = guessEmojis[guess.storyId] || "❓";
 
     fill(0);
     noStroke();
-    text(guess.storyId + 1, x, y - markerSize / 2 - 10);
+    textSize(markerSize);
+    drawingContext.font = `${markerSize}px sans-serif`;
+    text(emoji, x, y);
   }
 }
+
+document.querySelectorAll(".slider-box").forEach((box) => {
+  box.addEventListener("mouseenter", () => {
+    box.classList.add("active");
+  });
+});
+
 
 // === Toggle helpers (for [anim] elements) ===
 document.addEventListener("DOMContentLoaded", () => {
