@@ -44,37 +44,6 @@
           <div class="stories-popup">
             <div id="story-popup-content">
               <div class="popup-placeholder">
-                <p>
-<h2>🎮 How to Play</h2>
-
-<h3>Open a Gossip Story</h3>
-<p>Click “Read More!” on any story to view the chat.</p>
-
-<h3>Read Carefully 👀</h3>
-<p>Pay attention to the tone, details, and context of the gossip.</p>
-
-<h3>Make Your Guess</h3>
-<p>Use the sliders to decide:</p>
-<ul>
-  <li>How JUICY 🍒 or boring 🥱 the gossip is</li>
-  <li>How Serious 🚨 or UnSeRiOuS 😉 it feels</li>
-</ul>
-
-<h3>Place It on the Grid</h3>
-<p>Your slider choices determine a location—this is your guess.</p>
-
-<h3>Submit Your Answer</h3>
-<p>Hit submit to lock it in.</p>
-
-<h3>See the Result</h3>
-<ul>
-  <li><strong>HIT 💥</strong> → You nailed it</li>
-  <li><strong>MISS ❌</strong> → Close… but not quite</li>
-</ul>
-
-<h3>Try Them All</h3>
-<p>Work through each story and see how many you can get right.</p>
-                </p>
               </div>
             </div>
           </div>
@@ -302,6 +271,35 @@
       <!-- HIDDEN CHAT TEMPLATES -->
       <!-- ============================= -->
       <div id="chat-templates" style="display: none">
+        <!-- HOW TO PLAY TEMPLATE -->
+<div data-chat-id="instructions">
+  <div class="window" style="width: 100%; height: 100%">
+    <div class="title-bar">
+      <div class="title-bar-text">📖 How to Play</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" class="close-popup"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="chat-layout">
+        <div class="chat-scroll instructions-body">
+          <h3>Welcome to Buzz Battleship 💋</h3>
+          <p><strong>1.</strong> Click <em>"Read More!"</em> on any gossip story to open its chat log.</p>
+          <p><strong>2.</strong> Use the sliders to rate the gossip:</p>
+          <ul>
+            <li><strong>X-axis:</strong> boring ↔ JUICY</li>
+            <li><strong>Y-axis:</strong> UnSeRiOuS ↔ SERIOUS</li>
+          </ul>
+          <p><strong>3.</strong> Click <em>Submit Guess</em> to plot your guess on the grid.</p>
+          <p><strong>4.</strong> <span style="color:#ff2cb2;font-weight:bold;">HIT</span> = DVD bounce 🎉 | MISS = confetti 💅</p>
+          <p><strong>5.</strong> Hit <em>Clear Board</em> to start over.</p>
+          <p style="text-align:center;margin-top:16px;"><em>Have fun spilling tea ☕</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
         <!-- CHAT 1: PERFECT COUPLE -->
         <div data-chat-id="1">
           <div class="window" style="width: 100%; height: 100%">
@@ -725,13 +723,12 @@
             ><img src="assets/img/link_gif.gif" alt="flower gif" />About
             Project</a
           >
-          <a href="rules.html"
-            ><img src="assets/img/link_gif.gif" alt="flower gif" />How to
-            Play</a
-          >
-          <a href="stats.html"
-            ><img src="assets/img/link_gif.gif" alt="flower gif" />Answer Key</a
-          >
+         <a href="#" id="open-instructions">
+  <img src="assets/img/link_gif.gif" alt="flower gif" />How to Play
+</a>
+      <a href="#" id="open-answer-key">
+  <img src="assets/img/link_gif.gif" alt="flower gif" />Answer Key
+</a>
           <div class="credits">
             <a href="https://www.are.na/ellie-prisbrey/buzz-battleship"
               ><img src="assets/img/credits.png" alt="credits"
@@ -771,29 +768,25 @@
             if (popup) {
               popup.innerHTML = `
           <div class="popup-placeholder">
-            <p>🎮 How to Play
-Open a Gossip Story
-Click “Read More!” on any story to view the chat.
-Read Carefully 👀
-Pay attention to the tone, details, and context of the gossip.
-Make Your Guess
-Use the sliders to decide:
-How JUICY 🍒 or boring 🥱 the gossip is
-How Serious 🚨 or UnSeRiOuS 😉 it feels
-Place It on the Grid
-Your slider choices determine a location—this is your guess.
-Submit Your Answer
-Hit submit to lock it in.
-See the Result
-HIT 💥 → You nailed it
-MISS ❌ → Close… but not quite
-Try Them All
-Work through each story and see how many you can get right.</p>
           </div>
         `;
             }
           }
         });
+
+        // 👇 NEW: Open "How to Play" popup from about_window link
+document.getElementById("open-instructions")?.addEventListener("click", function (e) {
+  e.preventDefault();   // stop the # link from jumping the page
+
+  const template = document.querySelector(
+    `#chat-templates [data-chat-id="instructions"]`
+  );
+  const popup = document.getElementById("story-popup-content");
+
+  if (template && popup) {
+    popup.innerHTML = template.innerHTML;
+  }
+});
       </script>
     </main>
     <!--GAME SCRIPT LINKED HERE-->

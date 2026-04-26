@@ -35,7 +35,7 @@ const guessEmojis = [
   "😩", // Story 2 — overworked
   "👭", // Story 3 — besties
   "🎭", // Story 4 — twins
-  "💸", // Story 5 — earn money now
+  "💰", // Story 5 — earn money now
   "🪖", // Story 6 — army guy
   "🤢", // Story 7 — teacher
 ];
@@ -56,8 +56,8 @@ let cellW, cellH;
 
 let gridSizeW, gridSizeH;
 let offsetX, offsetY;
-let labelPadding = 40;
-let titlePadding = 40;
+let labelPadding = 38;
+let titlePadding = 38;
 
 let markerImg;
 
@@ -147,6 +147,7 @@ function setup() {
   setupSubmitButton();
   setupDVDOverlay();
   setupSliders();
+  setupAnswerKeyButton(); 
 
   // Observe the wrapper for size changes (handles grid layout shifts)
   const resizeObserver = new ResizeObserver(() => {
@@ -163,7 +164,7 @@ function setStoryFromChat(storyId) {
     return;
   }
 
-  selectedStory = Number(storyId);   // ensure it's a number
+  selectedStory = Number(storyId); // ensure it's a number
   xSliderTouched = false;
   ySliderTouched = false;
 
@@ -181,6 +182,8 @@ function setupClearButton() {
       feedbackMessages = {};
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
       selectedStory = null;
+      answerKeyVisible = false;   // 👈 ADD — reset flag when clearing
+
 
       const labelEl = document.getElementById("current-story-label");
       if (labelEl) {
@@ -200,7 +203,7 @@ function setupSubmitButton() {
 }
 
 function submitSliderGuess() {
-  console.log("Submit clicked! selectedStory =", selectedStory);   // 👈 ADD
+  console.log("Submit clicked! selectedStory =", selectedStory); // 👈 ADD
 
   if (selectedStory === null) {
     alert("Open a gossip story's chat log first!");
@@ -210,7 +213,7 @@ function submitSliderGuess() {
   let col = Number(xSlider.value) - 1;
   let row = rows - Number(ySlider.value);
 
-  console.log("Guess:", { selectedStory, col, row });              // 👈 ADD
+  console.log("Guess:", { selectedStory, col, row }); // 👈 ADD
 
   let existing = guesses.find((g) => g.storyId === selectedStory);
   if (existing) {
@@ -220,7 +223,7 @@ function submitSliderGuess() {
     guesses.push({ storyId: selectedStory, col, row });
   }
 
-  console.log("All guesses:", guesses);                            // 👈 ADD
+  console.log("All guesses:", guesses); // 👈 ADD
 
   checkGuess(selectedStory, col, row);
 
@@ -410,7 +413,7 @@ function styleLabel(id, closeness) {
   t = Math.pow(t, 2.5);
 
   // text size grows from 14px to 20px (smaller max so it stays in the box)
-  const size = lerp(14, 18, t);   // 👈 was 20, now 18 for safety
+  const size = lerp(14, 18, t); // 👈 was 20, now 18 for safety
 
   el.style.fontSize = size + "px";
   // color + fontWeight intentionally removed — stays the same
@@ -465,6 +468,8 @@ function drawCellLines() {
 
 function drawHover() {
   if (!xSlider || !ySlider) return;
+  if (answerKeyVisible) return;   // 👈 ADD — hide hover square + ❓ when showing answers
+
 
   let col = previewCol;
   let row = previewRow;
@@ -482,7 +487,7 @@ function drawHover() {
 
   // 👇 CHANGED: always show an emoji — ❓ by default, story emoji once selected
   let emoji = selectedStory !== null ? guessEmojis[selectedStory] : "❓";
-  let pulse = sin(millis() * 0.005) * 0.05 + 1;         // 0.95 → 1.05
+  let pulse = sin(millis() * 0.005) * 0.05 + 1; // 0.95 → 1.05
   let emojiSize = Math.min(cellW, cellH) * 0.7 * pulse;
 
   fill(0, 180);
@@ -622,6 +627,49 @@ function drawGuesses() {
     textSize(markerSize);
     drawingContext.font = `${markerSize}px sans-serif`;
     text(emoji, x, y);
+  }
+}
+
+let answerKeyVisible = false;
+
+function showAnswerKey() {
+  if (answerKeyVisible) {
+    // HIDE — clear everything
+    guesses = [];
+    answerKeyVisible = false;
+    const labelEl = document.getElementById("current-story-label");
+    if (labelEl) labelEl.innerHTML = "<em>No gossip selected</em>";
+    return;
+  }
+
+  // SHOW
+  guesses = [];
+  feedbackMessages = {};
+  document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
+
+  for (let answer of answerKey) {
+    let col = floor(answer.x) - 1;
+    let row = rows - floor(answer.y);
+    guesses.push({ storyId: answer.storyId, col: col, row: row });
+  }
+
+  const labelEl = document.getElementById("current-story-label");
+  if (labelEl) {
+    labelEl.innerHTML = "<em>🔑 Showing answer key</em>";
+  }
+
+  selectedStory = null;
+  resetSliders();
+  answerKeyVisible = true;
+}
+
+function setupAnswerKeyButton() {
+  const link = document.getElementById("open-answer-key");
+  if (link) {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();   // prevent the # jump
+      showAnswerKey();
+    });
   }
 }
 

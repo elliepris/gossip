@@ -611,7 +611,10 @@ a:hover {
 .slide-title {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  max-width: 70%;
+  height: auto;
+  image-rendering: pixelated;
+  padding-bottom: 5px;
 }
 
 .slide-title img {
@@ -664,11 +667,11 @@ a:hover {
 
   display: flex;
   flex-direction: column;
-  gap: 16px; /* 👈 increase this (you had ~10px) */
 
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+  align-items: center;
 }
 
 .slider-box {
@@ -679,6 +682,10 @@ a:hover {
   overflow: hidden; /* 👈 clip anything that still escapes */
 
   animation: sliderBoxFlash 1s infinite alternate;
+}
+
+.slider-box + .slider-box {
+  margin-top: 10px; /* 👈 space ONLY between sliders */
 }
 
 /* 👇 REPLACE the old .slider-box.active rule with this */
@@ -878,13 +885,11 @@ h3 {
 }
 
 #submit-btn {
-  background-color: #ff2cb2;
   font-weight: bold;
   cursor: pointer;
-  padding: 6px 18px;
 }
 
-.game-play {
+/*.game-play {
   outline: 2px solid red;
 }
 .coordinates {
