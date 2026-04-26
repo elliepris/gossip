@@ -15,43 +15,82 @@
 
   <body>
     <main class="layout">
+      <!-- ============================= -->
+      <!-- HEADER -->
+      <!-- ============================= -->
       <section class="header">
         <div class="logo">
           <img src="assets/img/head.png" alt="Buzz Battleship Logo" />
         </div>
-        <!-- 👈 ADD this closing div -->
       </section>
 
+      <!-- ============================= -->
+      <!-- GAME WINDOW -->
+      <!-- Grid: 2 columns × 4 rows -->
+      <!-- Row 1-2: game-play | stories-popup -->
+      <!-- Row 3:   slider-area | selector-area -->
+      <!-- Row 4:   coordinates | blink -->
+      <!-- ============================= -->
       <section id="game-window" class="game-window">
         <div class="game-layout">
-          <!-- Row 1-2, Col 1: the grid/canvas -->
+          <!-- Rows 1-2, Col 1: the grid/canvas -->
           <div class="game-play">
             <div class="game-play-wrapper">
               <!-- p5 canvas goes here -->
             </div>
           </div>
 
-          <!-- Row 1, Col 2: coordinates window -->
-          <div class="coordinates">
-            <div class="window">
-              <div class="title-bar">
-                <div class="title-bar-text">Coordinate Position</div>
-              </div>
-              <div class="window-body">
-                <p id="coord-display">(5, 5)</p>
+          <!-- Rows 1-2, Col 2: stories pop-up -->
+          <div class="stories-popup">
+            <div id="story-popup-content">
+              <div class="popup-placeholder">
+                <p>
+                  Click "Read More!" on any gossip story to see the chat log
+                  here 👀
+                </p>
               </div>
             </div>
-  <div class="image-stack">
-    <div class="guess">
-      <img src="assets/img/guess.gif">
-    </div>
-    <div class="OMG">
-      <img src="assets/img/gossip_blinky.gif">
-    </div>
-</div>
           </div>
 
-          <!-- Row 2, Col 2: control panel -->
+          <!-- Row 3, Col 1: slider area -->
+          <div class="slider-area">
+            <div class="slider-panel">
+              <div class="slider-row">
+                <span class="slider-label-left" id="truth-left">
+                  boring <span class="emoji">🥱</span>
+                </span>
+                <input
+                  type="range"
+                  id="x-slider"
+                  min="1"
+                  max="10"
+                  value="5"
+                  step="1"
+                />
+                <span class="slider-label-right" id="truth-right">
+                  JUICY <span class="emoji">🍒</span>
+                </span>
+              </div>
+              <div class="slider-row">
+                <span class="slider-label-left" id="drama-left">
+                  UnSeRiOuS <span class="emoji">😉</span>
+                </span>
+                <input
+                  type="range"
+                  id="y-slider"
+                  min="1"
+                  max="10"
+                  value="5"
+                  step="1"
+                />
+                <span class="slider-label-right" id="drama-right">
+                  Serious <span class="emoji">🚨</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3, Col 2: control panel -->
           <div class="selector-area">
             <div class="border">
               <div class="control-panel">
@@ -68,65 +107,36 @@
             </div>
           </div>
 
-          <!-- Row 3, Col 1: slider area -->
-          <!-- Row 3, Col 1: slider area -->
-          <div class="slider-area">
-            <div class="slider-panel">
-              <div class="slider-row">
-        <span class="slider-label-left" id="truth-left">
-  boring <span class="emoji">🥱</span>
-</span>
-                <input
-                  type="range"
-                  id="x-slider"
-                  min="1"
-                  max="10"
-                  value="5"
-                  step="1"
-                />
-            
-<span class="slider-label-right" id="truth-right">
-  JUICY <span class="emoji">🍒</span>
-</span>
+          <!-- Row 4, Col 1: coordinates -->
+          <div class="coordinates">
+            <div class="window">
+              <div class="title-bar">
+                <div class="title-bar-text">Coordinate Position</div>
               </div>
-              <div class="slider-row">
-             <span class="slider-label-left" id="drama-left">
-  UnSeRiOuS <span class="emoji">😉</span>
-</span>
-                <input
-                  type="range"
-                  id="y-slider"
-                  min="1"
-                  max="10"
-                  value="5"
-                  step="1"
-                />
-           <span class="slider-label-right" id="drama-right">
-  Serious <span class="emoji">🚨</span>
-</span>
-                >
+              <div class="window-body">
+                <p id="coord-display">(5, 5)</p>
               </div>
             </div>
           </div>
-          <div class="stories-popup">
-            <div id="story-popup-content">
-              <!-- Default "empty" state -->
-              <div class="popup-placeholder">
-                <p>
-                  Click "Read More!" on any gossip story to see the chat log
-                  here 👀
-                </p>
+
+          <!-- Row 4, Col 2: blink images -->
+          <div class="blink">
+            <div class="image-stack">
+              <div class="guess">
+                <img src="assets/img/guess.gif" />
+              </div>
+              <div class="OMG">
+                <img src="assets/img/gossip_blinky.gif" />
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Row 3, Col 2: stories pop-up -->
       </section>
 
-      <!--THIS IS THE STORIES WINDOW-->
-      <!--I WAS STRUGGLING WITH THE CODE AND DEBUGGED AND WORKED BETWEEN CHAT GPT AND THE EDITOR. I HAD NO CLUE HOW TO FIX THE ISSUES I WAS RUNNING INTO. CODE SNIPPED ORIGINALLY FROM W3 SCHOOLS AND THEN DEBUGGED WITH CHAT GPT. I ALSO ADDED SOME EXTRA STYLES TO MAKE IT LOOK BETTER.-->
-      <!--THIS IS THE STORIES WINDOW-->
+      <!-- ============================= -->
+      <!-- STORIES WINDOW -->
+      <!-- Debugged with ChatGPT; original snippet from W3 Schools -->
+      <!-- ============================= -->
       <section class="stories_window">
         <div class="stories-wrapper">
           <div class="stories-header">
@@ -270,10 +280,69 @@
         </div>
       </section>
 
-      <!-- Hidden chat templates -->
+      <!-- ============================= -->
+      <!-- HIDDEN CHAT TEMPLATES -->
+      <!-- ============================= -->
       <div id="chat-templates" style="display: none">
         <!-- CHAT 1: PERFECT COUPLE -->
         <div data-chat-id="1">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <div class="title-bar-text">Chat Log bby</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-icon">
+                  <img src="assets/img/runningman.png" alt="runningman" />
+                </div>
+                <div class="chat-scroll">
+                  <p>User A: ok quick</p>
+                  <p>User A: jade + ryan are bad</p>
+                  <p>User B: lol how bad</p>
+                  <p>User A: like his family hates her now</p>
+                  <p>User B: wait what</p>
+                  <p>User A: ALL of them</p>
+                  <p>User A: for no clear reason</p>
+                  <p>User A: and they are not subtle about it</p>
+                  <p>User B: thats so uncomfortable</p>
+                  <p>User A: they wont let her come over anymore</p>
+                  <p>User A: so now they just sneak around</p>
+                  <p>User B: omg</p>
+                  <p>User A: like meeting up in secret</p>
+                  <p>User A: but hes not standing up to them</p>
+                  <p>User B: of course not</p>
+                  <p>User A: just keeps saying itll work out</p>
+                  <p>User A: but doing nothing</p>
+                  <p>User B: 🙄</p>
+                  <p>User A: so she finally told him</p>
+                  <p>User A: its me or them</p>
+                  <p>User B: good</p>
+                  <p>User A: and he couldnt choose</p>
+                  <p>User B: oh no</p>
+                  <p>User A: like actually couldnt</p>
+                  <p>User A: just left it there</p>
+                  <p>User B: thats worse</p>
+                  <p>User A: ALSO</p>
+                  <p>User A: his cousin miles</p>
+                  <p>User A: has been around the whole time</p>
+                  <p>User B: ya</p>
+                  <p>User A: hes the only one being nice to her</p>
+                  <p>User A: like consistently</p>
+                  <p>User B: …</p>
+                  <p>User A: and i think he likes her</p>
+                  <p>User B: this is gonna end badly</p>
+                  <p>User A: it already feels like it</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAT 2: OVERWORKED -->
+        <div data-chat-id="2">
           <div class="window" style="width: 100%; height: 100%">
             <div class="title-bar">
               <div class="title-bar-text">Chat Log bby</div>

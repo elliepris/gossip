@@ -62,19 +62,18 @@ canvas {
   background-size: auto;
 }
 
-/* Ensure game-layout stretches properly */
 .game-layout {
   display: grid;
   grid-template-areas:
-    "game-play stories-popup"
-    "game-play stories-popup"
-    "slider-area selector-area"
-    "coordinates selector-area";
+    "game-play    stories-popup"
+    "game-play    stories-popup"
+    "slider-area  selector-area"
+    "coordinates  blink";
   grid-template-columns: 50% 50%;
   grid-template-rows: 30% 30% 25% 15%;
   width: 100%;
-  height: 100%; /* Remove align-items: center */
-  gap: 0; /* Add this */
+  height: 100%;
+  gap: 0;
 }
 
 .game-play {
@@ -102,25 +101,18 @@ canvas {
   height: 100%;
 }
 
+/* COORDINATES — bottom-left cell, just the coord window */
 .coordinates {
   grid-area: coordinates;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-
   width: 100%;
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-.coordinates > * {
   min-width: 0;
   min-height: 0;
 }
 
-/* LEFT SIDE */
 .coordinates .window {
   width: 100%;
   height: 100%;
@@ -154,7 +146,18 @@ canvas {
   font-weight: bold;
 }
 
-/* RIGHT SIDE */
+/* BLINK — bottom-right cell, holds the image stack */
+.blink {
+  grid-area: blink;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
 .image-stack {
   display: flex;
   flex-direction: column;
@@ -174,7 +177,7 @@ canvas {
 
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -185,6 +188,7 @@ canvas {
   display: block;
 }
 
+/* (unchanged) */
 .button-row {
   display: flex;
   gap: 12px;
@@ -197,6 +201,7 @@ canvas {
   font-weight: bold;
   cursor: pointer;
 }
+
 
 .stories_window {
   grid-area: stories_window;
@@ -699,20 +704,21 @@ a:hover {
 .selector-area {
   grid-area: selector-area;
   display: flex;
+  align-items: flex-start;     /* 👈 align border to top */
+  justify-content: stretch;
   box-sizing: border-box;
-  padding: 40px;
+    padding: 10px 20px;          /* 👈 match slider-area's margin */
+
   min-height: 0;
 }
 
 .border {
-  flex: 1;
+flex: 1;
   width: 100%;
-  height: 100%;
+  height: 100%;     /* 👈 now it can fill the full selector-area */
   min-height: 0;
 
-  display: flex;
-  align-items: flex-start; /* top */
-  justify-content: center; /* horizontal center */
+  display: block;
 
   box-sizing: border-box;
   color: black;
@@ -732,22 +738,38 @@ a:hover {
 
 .control-panel {
   width: 100%;
-  min-height: 0;
 
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   align-items: center;
-  justify-content: flex-start;
 
   text-align: center;
-  overflow: hidden;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0;
+  margin: 0;
 }
 
-.game-play {
+.control-panel h2 {
+  margin: 0;
+}
+
+.control-panel .current-story {
+  margin: 0;
+}
+
+.control-panel .current-story p {
+  margin: 4px 0;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/*.game-play {
   outline: 2px solid red;
 }
 .coordinates {
