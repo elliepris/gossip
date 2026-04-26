@@ -276,14 +276,31 @@ canvas {
 }
 
 .chat-icon {
-  width: 40px;
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin: 0;
+  background: #c0c0c0;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  text-shadow: 1px 1px 2px #666;
+}
+
+.chat-icon h3 {
+    font-family: "franklin-gothic-atf", sans-serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+
 }
 
 .chat-icon img {
-  display: block;
-  width: 100%;
+  width: 50px;
   height: auto;
+  image-rendering: pixelated;
+
 }
 
 .chat-scroll {
@@ -293,10 +310,24 @@ canvas {
   overflow-y: auto;
   overflow-x: hidden;
   background: white;
-  padding: 6px;
+  padding: 5px;
   box-sizing: border-box;
-  font-size: 11px;
+  font-size: 16px;
   font-family: "comic-sans-ms", sans-serif;
+  line-height: 1;
+}
+
+.user-a {
+  font-family: adobe-garamond-pro, serif;
+  font-weight: 700;
+  color: #ff2cb2;
+  background-color: #191919;
+}
+
+.user-b {
+  font-family: adobe-garamond-pro, serif;
+  font-weight: 700;
+  color: #191919;
 }
 
 .title-bar-controls {
@@ -309,6 +340,7 @@ canvas {
 
 .title-bar-text {
   color: #191919;
+  font-weight: bold;
 }
 
 .response {
@@ -873,11 +905,6 @@ a:hover {
   color: #191919;
   text-align: center;
   text-transform: none; /* override the global h2/h3 uppercase if needed */
-}
-
-h3 {
-  font-size: 20px;
-  text-align: left;
 }
 
 .popup-placeholder p {
