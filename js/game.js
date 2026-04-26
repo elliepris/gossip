@@ -42,13 +42,13 @@ const guessEmojis = [
 
 // 👇 ADD THIS
 const storyTitles = [
-  "It's Me or Them",      // Story 1
-  "Too Much",             // Story 2
-  "Messy Emmy",           // Story 3
-  "It Took a Haircut",    // Story 4
-  "Got His Bag",          // Story 5
-  "Charmer or Creeper",   // Story 6
-  "Speak Up",             // Story 7
+  "It's Me or Them", // Story 1
+  "Too Much", // Story 2
+  "Messy Emmy", // Story 3
+  "It Took a Haircut", // Story 4
+  "Got His Bag", // Story 5
+  "Charmer or Creeper", // Story 6
+  "Speak Up", // Story 7
 ];
 
 // === STATE ===
@@ -162,8 +162,7 @@ function setup() {
   setupDVDOverlay();
   setupSliders();
   setupAnswerKeyButton();
-setupEnterKey();                       // 👈 ADD
-
+  setupEnterKey(); // 👈 ADD
 
   // Observe the wrapper for size changes (handles grid layout shifts)
   const resizeObserver = new ResizeObserver(() => {
@@ -174,7 +173,8 @@ setupEnterKey();                       // 👈 ADD
 }
 
 function setStoryFromChat(storyId) {
-  if (storyId === undefined || storyId === null || isNaN(storyId)) {   // 👈 FIXED
+  if (storyId === undefined || storyId === null || isNaN(storyId)) {
+    // 👈 FIXED
     console.warn("Invalid storyId:", storyId);
     return;
   }
@@ -220,7 +220,7 @@ function setupSubmitButton() {
 
 function submitSliderGuess() {
   // 👇 ADD: block guesses while answer key is showing
-if (answerKeyVisible) return;   // silently do nothing
+  if (answerKeyVisible) return; // silently do nothing
 
   if (selectedStory === null) {
     alert("Open a gossip story's chat log first!");
@@ -255,11 +255,11 @@ function setupDVDOverlay() {
   dvdOverlay.style.left = "0";
   dvdOverlay.style.width = "100%";
   dvdOverlay.style.height = "100%";
-  dvdOverlay.style.background = "rgba(0, 0, 0, 0.6)";   // 60% black
+  dvdOverlay.style.background = "rgba(25, 25, 25, 0.6)"; // 60% black
   dvdOverlay.style.pointerEvents = "none";
-  dvdOverlay.style.zIndex = "99";                        // below the DVD canvas (z=100)
-  dvdOverlay.style.opacity = "0";                        // hidden by default
-  dvdOverlay.style.transition = "opacity 0.4s ease";     // smooth fade
+  dvdOverlay.style.zIndex = "99"; // below the DVD canvas (z=100)
+  dvdOverlay.style.opacity = "0"; // hidden by default
+  dvdOverlay.style.transition = "opacity 0.4s ease"; // smooth fade
   gameWindow.appendChild(dvdOverlay);
 
   // Existing DVD canvas code
@@ -502,7 +502,7 @@ function drawCellLines() {
 
 function drawHover() {
   if (!xSlider || !ySlider) return;
-  if (answerKeyVisible) return; // 👈 ADD — hide hover square + ❓ when showing answers
+  if (answerKeyVisible) return;
 
   let col = previewCol;
   let row = previewRow;
@@ -511,19 +511,25 @@ function drawHover() {
 
   // Draw the pink hover square
   noStroke();
+  let squareColor = color("#ff2cb2");
+
   if (xSliderTouched && ySliderTouched) {
-    fill(255, 44, 178, 180);
+    squareColor.setAlpha(180);
   } else {
-    fill(255, 44, 178, 80);
+    squareColor.setAlpha(80);
   }
+
+  fill(squareColor);
   rect(cx, cy, cellW, cellH);
 
-  // 👇 CHANGED: always show an emoji — ❓ by default, story emoji once selected
+  // Draw the emoji — ❓ by default, story emoji once selected
   let emoji = selectedStory !== null ? guessEmojis[selectedStory] : "❓";
-  let pulse = sin(millis() * 0.005) * 0.05 + 1; // 0.95 → 1.05
+  let pulse = sin(millis() * 0.005) * 0.05 + 1;
   let emojiSize = Math.min(cellW, cellH) * 0.7 * pulse;
 
-  fill(0, 180);
+  let emojiColor = color("#191919"); // 👈 renamed to avoid conflict
+  emojiColor.setAlpha(180);
+  fill(emojiColor);
   noStroke();
   textAlign(CENTER, CENTER);
   textStyle(NORMAL);
@@ -643,7 +649,7 @@ function updateDVD() {
         dvdActive = false;
         dvdCtx.clearRect(0, 0, dvdCanvas.width, dvdCanvas.height);
 
-        if (dvdOverlay) dvdOverlay.style.opacity = "0";   // 👈 ADD THIS LINE
+        if (dvdOverlay) dvdOverlay.style.opacity = "0"; // 👈 ADD THIS LINE
       }, 500);
     } else {
       wallsHit = { top: false, bottom: false, left: false, right: false };
@@ -664,7 +670,7 @@ function drawGuesses() {
     // Pick the emoji for this story (fallback to ❓ if missing)
     let emoji = guessEmojis[guess.storyId] || "❓";
 
-    fill(0);
+    fill("#191919");
     noStroke();
     textSize(markerSize);
     drawingContext.font = `${markerSize}px sans-serif`;

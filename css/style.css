@@ -1,11 +1,9 @@
-/*debugged using blackbox ai*/
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
   overflow: hidden;
-  /*cursor: url("../assets/img/cursor.gif"), auto;*/
 }
 
 @font-face {
@@ -16,6 +14,19 @@ body {
 @font-face {
   font-family: "london";
   src: url("../assets/font/OldLondon.ttf") format("truetype");
+}
+
+:root {
+  --pink: #ff2cb2;
+  --pink-light: #eeb2c9;
+
+  --gray-dark: #191919;
+  --gray-mid: #666;
+  --gray-light: #b1b1b1;
+  --gray-ui: #cbcbcb;
+  --gray-soft: #c0c0c0;
+
+  --white: #ffffff;
 }
 
 canvas {
@@ -38,8 +49,8 @@ canvas {
 
 .header {
   grid-area: header;
-  background-color: #ff2cb2;
-  border: 2px black dotted;
+  background-color: var(--pink);
+  border: 2px var(--gray-dark) dotted;
   background-image: url("../assets/img/sparkle_pink.gif");
   background-repeat: repeat;
 }
@@ -212,19 +223,19 @@ canvas {
 
 .stories_window {
   grid-area: stories_window;
-  background-color: #cbcbcb;
+  background-color: var(--gray-ui);
   overflow-y: auto;
   overflow-x: hidden;
-  border-left: 2px black dotted;
-  border-bottom: 2px black dotted;
+  border-left: 2px var(--gray-dark) dotted;
+  border-bottom: 2px var(--gray-dark) dotted;
 }
 
 .about_window {
   grid-area: about_window;
-  background-color: #b1b1b1;
+  background-color: var(--gray-light);
   overflow: hidden;
-  border-right: 2px black dotted;
-  border-bottom: 2px black dotted;
+  border-right: 2px var(--gray-dark) dotted;
+  border-bottom: 2px var(--gray-dark) dotted;
 }
 
 .about {
@@ -256,8 +267,8 @@ canvas {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #cccccc;
-  box-shadow: 0px 0px 8px #191919;
+  background: var(--gray-ui);
+  box-shadow: 0px 0px 8px var(--gray-mid);
 }
 
 #story-popup-content .window {
@@ -265,7 +276,7 @@ canvas {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #cccccc;
+  background: var(--gray-ui);
 }
 
 #story-popup-content .window-body {
@@ -274,7 +285,7 @@ canvas {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: #cccccc;
+  background: var(--gray-ui);
   padding: 8px;
 }
 
@@ -292,12 +303,12 @@ canvas {
   gap: 8px;
   justify-content: center;
   margin: 0;
-  background: #c0c0c0;
-  border-top: 2px solid #808080;
-  border-left: 2px solid #808080;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-  text-shadow: 1px 1px 2px #666;
+  background: var(--gray-soft);
+  border-top: 2px solid var(--gray-mid);
+  border-left: 2px solid var(--gray-mid);
+  border-right: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
+  text-shadow: 1px 1px 2px var(--gray-mid);
 }
 
 .chat-icon h3 {
@@ -321,26 +332,30 @@ canvas {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background: white;
+  background: var(--white);
   padding: 5px;
   box-sizing: border-box;
   font-size: 15px;
   font-family: "tahoma", sans-serif;
-
   line-height: 1;
+
+  border-top: 2px solid var(--gray-mid);
+  border-left: 2px solid var(--gray-mid);
+  border-right: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
 }
 
 .user-a {
   font-family: adobe-garamond-pro, serif;
   font-weight: 700;
-  color: #ff2cb2;
-  background-color: #eeb2c9;
+  color: var(--pink);
+  background-color: var(--pink-light);
 }
 
 .user-b {
   font-family: "comic-sans-ms", sans-serif;
   font-weight: 700;
-  color: #ff6aa8;
+  color: var(--pink);
 }
 
 .title-bar-controls {
@@ -348,7 +363,7 @@ canvas {
 }
 
 .title-bar {
-  background: linear-gradient(to right, #ff2cb2, #c0c0c0);
+  background: linear-gradient(to right, var(--pink), var(--gray-soft));
 }
 
 .title-bar-text {
@@ -411,7 +426,7 @@ canvas {
 
 .ad-wrapper {
   margin: 10px 20px;
-  background-color: white;
+  background-color: var(--white);
   box-shadow: 0px 0px 8px #191919;
 }
 
@@ -421,7 +436,7 @@ canvas {
   align-items: flex-start;
   width: 250px;
   padding: 10px;
-  border: 2px black dotted;
+  border: 2px var(--gray-dark) dotted;
 }
 
 .ad button {
@@ -597,9 +612,9 @@ h2 {
   font-weight: 400;
   font-style: normal;
   text-shadow:
-    0 0 10px #ff2cb2,
-    0 0 20px #ff2cb2,
-    0 0 30px #ff2cb2;
+    0 0 10px var(--pink),
+    0 0 20px var(--pink),
+    0 0 30px var(--pink);
 }
 
 a img {
@@ -620,7 +635,7 @@ a:visited {
 }
 
 a:hover {
-  color: white;
+  color: var(--white);
 }
 
 .emoji {
@@ -697,16 +712,16 @@ a:hover {
 
 @keyframes sliderBoxFlash {
   0% {
-    background-color: #eeb2c9;
-    box-shadow: 0 0 6px #eeb2c9;
+    background-color: var(--pink-light);
+    box-shadow: 0 0 6px var(--pink-light);
   }
   50% {
-    background-color: #ff6aa8;
-    box-shadow: 0 0 10px #ff6aa8;
+    background-color: var(--pink);
+    box-shadow: 0 0 10px var(--pink);
   }
   100% {
-    background-color: #ff2cb2;
-    box-shadow: 0 0 14px #ff2cb2;
+    background-color: var(--pink);
+    box-shadow: 0 0 14px var(--pink);
   }
 }
 
@@ -725,12 +740,11 @@ a:hover {
 }
 
 .slider-box {
-  border: 2px black dotted;
-  padding: 8px 12px; /* 👈 a bit more horizontal padding */
+  border: 2px var(--gray-dark) dotted;
+  padding: 8px 12px;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden; /* 👈 clip anything that still escapes */
-
+  overflow: hidden;
   animation: sliderBoxFlash 1s infinite alternate;
 }
 
@@ -741,8 +755,8 @@ a:hover {
 /* 👇 REPLACE the old .slider-box.active rule with this */
 .slider-box:hover {
   animation: none;
-  background-color: #c0c0c0; /* 👈 same grey as game grid */
-  box-shadow: 0 0 10px #ff2cb2;
+  background-color: var(--gray-soft); /* 👈 same grey as game grid */
+  box-shadow: 0 0 10px var(--pink);
 }
 
 .slider-row {
@@ -756,7 +770,7 @@ a:hover {
 
 .slider-label-left,
 .slider-label-right {
-  flex: 0 0 120px; /* 👈 was 90px — now 120px */
+  flex: 0 0 120px;
   width: 120px;
   min-width: 120px;
   max-width: 120px;
@@ -765,8 +779,8 @@ a:hover {
     font-size 0.1s ease,
     color 0.1s ease;
 
-  white-space: nowrap;
-  overflow: visible; /* 👈 was 'hidden' — allow text to show */
+  white-space: nowrap;                   /* 👈 fixed */
+  overflow: visible;
   text-overflow: clip;
 
   display: flex;
@@ -806,7 +820,7 @@ a:hover {
   height: 90%;
   overflow: hidden;
   background: rgba(203, 203, 203, 0.2);
-  box-shadow: 0px 0px 10px #ff2cb2;
+  box-shadow: 0px 0px 10px var(--pink);
 }
 
 #story-popup-content .window {
@@ -831,9 +845,9 @@ a:hover {
 }
 
 .popup-placeholder {
-  padding: px;
+  padding: 8px;                          /* 👈 fixed */
   text-align: center;
-  color: #666;
+  color: var(--gray-mid);
   font-style: italic;
   font-size: 13px;
 }
@@ -858,8 +872,8 @@ a:hover {
   display: block;
 
   box-sizing: border-box;
-  color: black;
-  background: white;
+  color: #191919;
+  background: var(--white);
   padding: 20px 10px 14px 12px;
   background-clip: padding-box;
 
@@ -940,6 +954,50 @@ font-family: comic-sans-ms, sans-serif;
 #submit-btn {
   font-weight: bold;
   cursor: pointer;
+}
+
+.instructions-body {
+  padding: 20px;
+}
+
+.instructions-body h3 {
+font-family: stencil-std, sans-serif;
+text-shadow: 0 0 10px var(--pink);
+font-size: 25px;
+margin: 0 0 10px 0; /* 👈 controlled spacing */
+
+}
+
+/* 98.css COLOR OVERRIDES */
+.window,
+.window-body {
+  background: var(--gray-ui);
+  color: var(--gray-dark);
+}
+
+.window .title-bar {
+  background: linear-gradient(to right, var(--pink), var(--gray-soft));
+}
+
+.window .title-bar-text {
+  color: var(--gray-dark);
+  font-weight: bold;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  color: var(--gray-dark);
+}
+
+.chat-scroll {
+  background: var(--white);
+  color: var(--gray-dark);
+
+  border-top: 2px solid var(--gray-mid);
+  border-left: 2px solid var(--gray-mid);
+  border-right: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
 }
 
 /*.game-play {
