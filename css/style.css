@@ -105,14 +105,14 @@ canvas {
 .coordinates {
   grid-area: coordinates;
 
-  display: flex;                /* 👈 make it a flex container */
-  justify-content: center;      /* horizontal center */
-  align-items: center;          /* vertical center */
+  display: flex; /* 👈 make it a flex container */
+  justify-content: center; /* horizontal center */
+  align-items: center; /* vertical center */
 
-  width: 100%;                  /* 👈 fill the grid cell */
+  width: 100%; /* 👈 fill the grid cell */
   height: 100%;
 
-  padding: 20px;                /* 👈 your spacing */
+  padding: 20px; /* 👈 your spacing */
   box-sizing: border-box;
 }
 
@@ -198,7 +198,6 @@ canvas {
   font-weight: bold;
   cursor: pointer;
 }
-
 
 .stories_window {
   grid-area: stories_window;
@@ -300,8 +299,12 @@ canvas {
   font-family: "comic-sans-ms", sans-serif;
 }
 
+.title-bar-controls {
+  margin: 0 5px;
+}
+
 .title-bar {
-  background: linear-gradient(to right, #ff2cb2, #191919);
+  background: linear-gradient(to right, #ff2cb2, #c0c0c0);
 }
 
 .title-bar-text {
@@ -592,7 +595,7 @@ a:hover {
 
 .slider-area {
   grid-area: slider-area;
-  padding: 10px;        /* 👈 gives boxes breathing room */
+  padding: 10px; /* 👈 gives boxes breathing room */
   box-sizing: border-box;
 
   display: flex;
@@ -605,10 +608,53 @@ a:hover {
   overflow: hidden;
 }
 
+.slide-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.slide-title img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: center;
+}
+
+@keyframes titlePulseGlow {
+  0% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+  100% {
+    transform: scale(1.08);
+    filter: brightness(120%);
+  }
+}
+
+.slide-title img {
+  display: block;
+  transform-origin: center;
+}
+
+/* ONLY animate when it has this class */
+.slide-title img.pulse {
+  animation: titlePulseGlow 1.2s ease-in-out infinite alternate;
+}
+
 @keyframes sliderBoxFlash {
-  0%   { background-color: #eeb2c9; box-shadow: 0 0 6px #eeb2c9; }
-  50%  { background-color: #ff6aa8; box-shadow: 0 0 10px #ff6aa8; }
-  100% { background-color: #ff2cb2; box-shadow: 0 0 14px #ff2cb2; }
+  0% {
+    background-color: #eeb2c9;
+    box-shadow: 0 0 6px #eeb2c9;
+  }
+  50% {
+    background-color: #ff6aa8;
+    box-shadow: 0 0 10px #ff6aa8;
+  }
+  100% {
+    background-color: #ff2cb2;
+    box-shadow: 0 0 14px #ff2cb2;
+  }
 }
 
 .slider-panel {
@@ -618,7 +664,7 @@ a:hover {
 
   display: flex;
   flex-direction: column;
-  gap: 16px;   /* 👈 increase this (you had ~10px) */
+  gap: 16px; /* 👈 increase this (you had ~10px) */
 
   padding: 10px;
   box-sizing: border-box;
@@ -627,17 +673,18 @@ a:hover {
 
 .slider-box {
   border: 2px black dotted;
-  padding: 8px;
+  padding: 8px 12px; /* 👈 a bit more horizontal padding */
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden; /* 👈 clip anything that still escapes */
 
   animation: sliderBoxFlash 1s infinite alternate;
 }
 
-/* 👇 stops flashing */
-.slider-box.active {
+/* 👇 REPLACE the old .slider-box.active rule with this */
+.slider-box:hover {
   animation: none;
-  background-color: #c0c0c0; /* final state */
+  background-color: #c0c0c0; /* 👈 same grey as game grid */
   box-shadow: 0 0 10px #ff2cb2;
 }
 
@@ -652,17 +699,17 @@ a:hover {
 
 .slider-label-left,
 .slider-label-right {
-  flex: 0 0 90px;
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
+  flex: 0 0 120px; /* 👈 was 90px — now 120px */
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
 
   transition:
     font-size 0.1s ease,
     color 0.1s ease;
 
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible; /* 👈 was 'hidden' — allow text to show */
   text-overflow: clip;
 
   display: flex;
@@ -737,18 +784,18 @@ a:hover {
 .selector-area {
   grid-area: selector-area;
   display: flex;
-  align-items: flex-start;     /* 👈 align border to top */
+  align-items: flex-start; /* 👈 align border to top */
   justify-content: stretch;
   box-sizing: border-box;
-  padding: 15px 70px;          /* 👈 match slider-area's margin */
+  padding: 15px 70px; /* 👈 match slider-area's margin */
 
   min-height: 0;
 }
 
 .border {
-flex: 1;
+  flex: 1;
   width: 100%;
-  height: 100%;     /* 👈 now it can fill the full selector-area */
+  height: 100%; /* 👈 now it can fill the full selector-area */
   min-height: 0;
 
   display: block;
@@ -818,7 +865,7 @@ flex: 1;
   font-weight: 400;
   color: #191919;
   text-align: center;
-  text-transform: none;        /* override the global h2/h3 uppercase if needed */
+  text-transform: none; /* override the global h2/h3 uppercase if needed */
 }
 
 h3 {
@@ -827,11 +874,17 @@ h3 {
 }
 
 .popup-placeholder p {
-text-align: left;
-
+  text-align: left;
 }
 
-/*.game-play {
+#submit-btn {
+  background-color: #ff2cb2;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 18px;
+}
+
+.game-play {
   outline: 2px solid red;
 }
 .coordinates {

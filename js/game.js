@@ -157,13 +157,19 @@ function setup() {
 }
 
 function setStoryFromChat(storyId) {
-  selectedStory = storyId;
+  // Guard against NaN / undefined
+  if (storyId === undefined || storyId === null || isNaN(storyId)) {
+    console.warn("Invalid storyId:", storyId);
+    return;
+  }
+
+  selectedStory = Number(storyId);   // ensure it's a number
   xSliderTouched = false;
   ySliderTouched = false;
 
   const labelEl = document.getElementById("current-story-label");
   if (labelEl) {
-    labelEl.textContent = `Gossip Story #${storyId + 1}`;
+    labelEl.textContent = `Gossip Story #${selectedStory + 1}`;
   }
 }
 
@@ -194,18 +200,17 @@ function setupSubmitButton() {
 }
 
 function submitSliderGuess() {
+  console.log("Submit clicked! selectedStory =", selectedStory);   // 👈 ADD
+
   if (selectedStory === null) {
     alert("Open a gossip story's chat log first!");
     return;
   }
 
-  if (!xSliderTouched || !ySliderTouched) {
-    alert("Please move both sliders before submitting.");
-    return;
-  }
-
   let col = Number(xSlider.value) - 1;
   let row = rows - Number(ySlider.value);
+
+  console.log("Guess:", { selectedStory, col, row });              // 👈 ADD
 
   let existing = guesses.find((g) => g.storyId === selectedStory);
   if (existing) {
@@ -214,6 +219,8 @@ function submitSliderGuess() {
   } else {
     guesses.push({ storyId: selectedStory, col, row });
   }
+
+  console.log("All guesses:", guesses);                            // 👈 ADD
 
   checkGuess(selectedStory, col, row);
 
@@ -403,7 +410,7 @@ function styleLabel(id, closeness) {
   t = Math.pow(t, 2.5);
 
   // text size grows from 14px to 20px (smaller max so it stays in the box)
-  const size = lerp(14, 20, t);
+  const size = lerp(14, 18, t);   // 👈 was 20, now 18 for safety
 
   el.style.fontSize = size + "px";
   // color + fontWeight intentionally removed — stays the same
@@ -464,6 +471,7 @@ function drawHover() {
   let cx = offsetX + col * cellW;
   let cy = offsetY + row * cellH;
 
+  // Draw the pink hover square
   noStroke();
   if (xSliderTouched && ySliderTouched) {
     fill(255, 44, 178, 180);
@@ -471,6 +479,19 @@ function drawHover() {
     fill(255, 44, 178, 80);
   }
   rect(cx, cy, cellW, cellH);
+
+  // 👇 CHANGED: always show an emoji — ❓ by default, story emoji once selected
+  let emoji = selectedStory !== null ? guessEmojis[selectedStory] : "❓";
+  let pulse = sin(millis() * 0.005) * 0.05 + 1;         // 0.95 → 1.05
+  let emojiSize = Math.min(cellW, cellH) * 0.7 * pulse;
+
+  fill(0, 180);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textStyle(NORMAL);
+  textSize(emojiSize);
+  drawingContext.font = `${emojiSize}px sans-serif`;
+  text(emoji, cx + cellW / 2, cy + cellH / 2);
 }
 
 function checkGuess(storyId, col, row) {
@@ -604,12 +625,13 @@ function drawGuesses() {
   }
 }
 
-document.querySelectorAll(".slider-box").forEach((box) => {
-  box.addEventListener("mouseenter", () => {
-    box.classList.add("active");
+const title = document.querySelector(".slide-title img");
+
+document.querySelectorAll('input[type="range"]').forEach((slider) => {
+  slider.addEventListener("input", () => {
+    title.classList.remove("pulse");
   });
 });
-
 
 // === Toggle helpers (for [anim] elements) ===
 document.addEventListener("DOMContentLoaded", () => {
