@@ -1,0 +1,65 @@
+/* =================================================
+   LANDING PAGE — galaxy background, centered content
+   ================================================= */
+
+.landing-body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background-color: #191919;
+  background-image: url("../assets/img/galaxy.gif");
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+.landing-layout {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.landing-logo img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 20px #ff2cb2);
+  animation: landingPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes landingPulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px #ff2cb2);
+  }
+  100% {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 30px #ff2cb2);
+  }
+}
+
+/* ================================
+   PLAY BUTTON — big, bold, sheens on its own
+   (98.css handles button look; style.css handles sheen)
+   ================================ */
+.play-btn {
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 5px 20px;;
+}

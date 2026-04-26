@@ -5,16 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Buzz Battleship</title>
-<!-- used chatGPT to link to the 98.css file correctly -->
+    <!-- used chatGPT to link to the 98.css file correctly -->
     <link rel="stylesheet" href="https://unpkg.com/98.css" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-
-    <script src="js/libraries/p5.min.js"></script>
-    <script src="js/libraries/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/lep8ram.css" />
   </head>
 
-  <body>
+  <body class="landing-body">
+    <main class="landing-layout">
+      <div class="landing-content">
+        <!-- Main logo/image -->
+        <div class="landing-logo">
+          <img src="assets/img/start.png" alt="Buzz Battleship Logo" />
+        </div>
+
+        <!-- Play button -->
+<button anim="sheen" class="play-btn" onclick="window.location.href='game.html'">
+  Let's Chat...
+</button>
+
+ </div>
+    </main>
+
     <script src="js/index.js"></script>
-    <p><a href="game.html">Play</a></p>
   </body>
 </html>
