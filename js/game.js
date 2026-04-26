@@ -18,8 +18,6 @@ const missFonts = [
   "'london', cursive",
 ];
 
-const maxDist = 180;
-
 const answerKey = [
   { storyId: 0, x: 3, y: 4 },
   { storyId: 1, x: 6, y: 6 },
@@ -58,7 +56,6 @@ let ySliderTouched = false;
 let confettiPieces = [];
 let selectedStory = null;
 let guesses = [];
-let feedbackMessages = {};
 
 let canvas;
 let cols = 10;
@@ -70,13 +67,10 @@ let offsetX, offsetY;
 let labelPadding = 38;
 let titlePadding = 38;
 
-let markerImg;
-
 // Sliders
 let xSlider, ySlider;
 let previewCol = 4;
 let previewRow = 5;
-let isSliderDragging = false;
 
 // DVD animation state
 let dvdActive = false;
@@ -196,7 +190,6 @@ function setupClearButton() {
   if (btn) {
     btn.addEventListener("click", () => {
       guesses = [];
-      feedbackMessages = {};
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
       selectedStory = null;
       answerKeyVisible = false; // 👈 ADD — reset flag when clearing
@@ -241,7 +234,6 @@ function submitSliderGuess() {
   checkGuess(selectedStory, col, row);
 
   resetSliders();
-  isSliderDragging = false;
   updateSliderLabelSizes();
 }
 
@@ -299,7 +291,6 @@ function setupSliders() {
   // Live preview only — no auto-submit
   xSlider.addEventListener("input", () => {
     previewCol = Number(xSlider.value) - 1;
-    isSliderDragging = true;
     xSliderTouched = true;
   });
   ySlider.addEventListener("input", () => {
@@ -323,13 +314,6 @@ function resetSliders() {
   ySliderTouched = false;
 
   updateSliderLabelSizes();
-}
-
-function windowResized() {
-  const wrapper = document.querySelector(".game-play-wrapper");
-  if (!wrapper) return;
-  resizeCanvas(wrapper.clientWidth, wrapper.clientHeight);
-  updateGridSize();
 }
 
 function updateGridSize() {
@@ -547,7 +531,6 @@ function checkGuess(storyId, col, row) {
 
   let result = col === answerCol && row === answerRow ? "HIT" : "MISS";
 
-  feedbackMessages[storyId] = result;
   updateFeedbackUI(storyId, result);
 
   if (result === "HIT") {
@@ -692,7 +675,6 @@ function showAnswerKey() {
 
   // SHOW
   guesses = [];
-  feedbackMessages = {};
   document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
 
   for (let answer of answerKey) {

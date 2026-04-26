@@ -100,9 +100,6 @@ canvas {
 .game-play-wrapper {
   width: 100%;
   height: 100%;
-  display: block;
-  padding: 0;
-  margin: 0;
   overflow: hidden;
 }
 
@@ -297,35 +294,6 @@ canvas {
   gap: 10px;
 }
 
-.chat-icon {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  margin: 0;
-  background: var(--gray-soft);
-  border-top: 2px solid var(--gray-mid);
-  border-left: 2px solid var(--gray-mid);
-  border-right: 2px solid var(--white);
-  border-bottom: 2px solid var(--white);
-  text-shadow: 1px 1px 2px var(--gray-mid);
-}
-
-.chat-icon h3 {
-  font-family: tahoma, sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 1px;
-
-}
-
-.chat-icon img {
-  width: 50px;
-  height: auto;
-  image-rendering: pixelated;
-
-}
-
 .chat-scroll {
   flex: 1;
   min-height: 0;
@@ -345,30 +313,170 @@ canvas {
   border-bottom: 2px solid var(--white);
 }
 
+/* ================================
+   DEFAULT fallback user styles
+   (shows if no specific chat override matches)
+   ================================ */
 .user-a {
   font-family: adobe-garamond-pro, serif;
-  font-weight: 700;
   color: var(--pink);
-  background-color: var(--pink-light);
+  background-color: var(--gray-dark);
+  font-weight: 700;
+  line-spacing: 1.5;
+  font-size: 15px;
 }
 
 .user-b {
   font-family: "comic-sans-ms", sans-serif;
+  color: var(--pink);
+  font-weight: 400;
+  text-decoration: underline;
+  line-spacing: 1.5;
+  font-size: 15px;
+
+}
+
+/* ================================
+   CHAT 1 — Romeo & Juliet
+   ================================ */
+.chat-style-1 .user-a {
+  font-family: adobe-garamond-pro, serif;
+  color: var(--white);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.chat-style-1 .user-b {
+  font-family: "franklin-gothic-atf", sans-serif;
+  color: var(--gray-dark);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* ================================
+   CHAT 2 — Cinderella
+   ================================ */
+.chat-style-2 .user-a {
+  font-family: "comic-sans-ms", sans-serif;
+  color: var(--white);
+  background-color: var(--pink-light);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.chat-style-2 .user-b {
+  font-family: "franklin-gothic-atf", sans-serif;
+  color: var(--gray-dark);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* ================================
+   CHAT 3 — Emma/Clueless
+   ================================ */
+.chat-style-3 .user-a {
+  font-family: adobe-garamond-pro, serif;
+  color: var(--white);
+  background-color: var(--gray-dark);
   font-weight: 700;
+}
+
+.chat-style-3 .user-b {
+  font-family: "tahoma", sans-serif;
+  text-decoration: underline;
   color: var(--pink);
 }
 
-.title-bar-controls {
-  margin: 0 5px;
+/* ================================
+   CHAT 4 — Twelfth Night
+   ================================ */
+.chat-style-4 .user-a {
+  font-family: "comic-sans-ms", sans-serif;
+  color: var(--pink);
+}
+
+.chat-style-4 .user-b {
+  font-family: "tahoma", sans-serif;
+  color: var(--gray-mid);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ================================
+   CHAT 5 — Taming of the Shrew
+   ================================ */
+.chat-style-5 .user-a {
+  font-family: "curlz", cursive;
+  color: var(--pink-light);
+  font-size: 17px;
+}
+
+.chat-style-5 .user-b {
+  font-family: adobe-garamond-pro, serif;
+  color: var(--gray-dark);
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* ================================
+   CHAT 6 — Pride & Prejudice
+   ================================ */
+.chat-style-6 .user-a {
+  font-family: "tahoma", sans-serif;
+  color: var(--pink);
+  background-color: var(--white);
+
+}
+
+.chat-style-6 .user-b {
+  font-family: "comic-sans-ms", sans-serif;
+  color: var(--gray-dark);
+  background-color: var(--pink-light);
+  padding: 0 4px;
+}
+
+/* ================================
+   CHAT 7 — Pygmalion
+   ================================ */
+.chat-style-7 .user-a {
+  font-family: adobe-garamond-pro, serif;
+  color: var(--pink);
+  background-color: var(--gray-dark);
+  font-weight: 700;
+}
+
+.chat-style-7 .user-b {
+  font-family: "comic-sans-ms", sans-serif;
+  color: var(--gray-dark);
+  font-weight: 400;
+  text-decoration: underline;
 }
 
 .title-bar {
-  background: linear-gradient(to right, var(--pink), var(--gray-soft));
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.title-bar-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  margin-right: 6px;
+  image-rendering: pixelated;
+  vertical-align: middle;
+  flex-shrink: 0;
 }
 
 .title-bar-text {
   color: #191919;
   font-weight: bold;
+  /* No margin-left auto — stays next to icon */
+}
+
+.title-bar-controls {
+  margin-left: auto;   /* 👈 NEW — pushes close button to the right */
+  margin-right: 5px;
 }
 
 .response {
@@ -700,11 +808,6 @@ a:hover {
   }
 }
 
-.slide-title img {
-  display: block;
-  transform-origin: center;
-}
-
 /* ONLY animate when it has this class */
 .slide-title img.pulse {
   animation: titlePulseGlow 1.2s ease-in-out infinite alternate;
@@ -976,7 +1079,7 @@ margin: 0 0 10px 0; /* 👈 controlled spacing */
 }
 
 .window .title-bar {
-  background: linear-gradient(to right, var(--pink), var(--gray-soft));
+  background: linear-gradient(to right, var(--gray-soft), var(--pink));
 }
 
 .window .title-bar-text {

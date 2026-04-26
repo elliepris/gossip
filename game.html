@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://use.typekit.net/lep8ram.css" />
 
     <script src="js/libraries/p5.min.js"></script>
-    <script src="js/libraries/p5.sound.min.js"></script>
   </head>
 
   <body>
@@ -43,38 +42,52 @@
           <!-- Rows 1-2, Col 2: stories pop-up -->
           <div class="stories-popup">
             <div id="story-popup-content">
-              <div class="popup-placeholder">
-              </div>
+              <div class="popup-placeholder"></div>
             </div>
           </div>
 
           <!-- Row 3, Col 1: slider area -->
-    <div class="slider-area">
-  <div class="slider-panel">
-  
-    <div class="slide-title">
-  <img src="assets/img/slide_to_rate.gif" class="pulse">
-</div>
+          <div class="slider-area">
+            <div class="slider-panel">
+              <div class="slide-title">
+                <img src="assets/img/slide_to_rate.gif" class="pulse" />
+              </div>
 
-    <div class="slider-box">
-      <div class="slider-row">
-        <span class="slider-label-left" id="truth-left">boring</span>
-        <input type="range" id="x-slider" min="1" max="10" value="5" step="1" />
-        <span class="slider-label-right" id="truth-right">JUICY</span>
-      </div>
-    </div>
+              <div class="slider-box">
+                <div class="slider-row">
+                  <span class="slider-label-left" id="truth-left">boring</span>
+                  <input
+                    type="range"
+                    id="x-slider"
+                    min="1"
+                    max="10"
+                    value="5"
+                    step="1"
+                  />
+                  <span class="slider-label-right" id="truth-right">JUICY</span>
+                </div>
+              </div>
 
-    <div class="slider-box">
-     
-      <div class="slider-row">
-        <span class="slider-label-left" id="drama-left">UnSeRiOuS</span>
-        <input type="range" id="y-slider" min="1" max="10" value="5" step="1" />
-        <span class="slider-label-right" id="drama-right">SERIOUS</span>
-      </div>
-    </div>
-
-  </div>
-</div>
+              <div class="slider-box">
+                <div class="slider-row">
+                  <span class="slider-label-left" id="drama-left"
+                    >UnSeRiOuS</span
+                  >
+                  <input
+                    type="range"
+                    id="y-slider"
+                    min="1"
+                    max="10"
+                    value="5"
+                    step="1"
+                  />
+                  <span class="slider-label-right" id="drama-right"
+                    >SERIOUS</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Row 3, Col 2: control panel -->
           <div class="selector-area">
@@ -82,12 +95,14 @@
               <div class="control-panel">
                 <div class="current-story">
                   <h3>Currently Reading:</h3>
-                  <p id="current-story-label"><em>Pick a story to start 💋</em></p>
+                  <p id="current-story-label">
+                    <em>Pick a story to start 💋</em>
+                  </p>
                 </div>
                 <div class="control-buttons">
                   <button id="submit-btn" anim="sheen" class="open-chat">
-  Submit Guess
-</button>
+                    Submit Guess
+                  </button>
                 </div>
               </div>
             </div>
@@ -103,7 +118,7 @@
                 <p id="coord-display">(5, 5)</p>
               </div>
             </div>
-              <button id="clear-btn">Clear Board</button>
+            <button id="clear-btn">Clear Board</button>
           </div>
 
           <!-- Row 4, Col 2: blink images -->
@@ -157,7 +172,10 @@
               <div class="ad-img ad2-img"></div>
               <div class="ad-text">
                 <h2>Too Much</h2>
-                <p>She’s carrying a whole household and a business, and no one is stepping in.</p>
+                <p>
+                  She’s carrying a whole household and a business, and no one is
+                  stepping in.
+                </p>
               </div>
               <button
                 anim="sheen"
@@ -176,7 +194,10 @@
               <div class="ad-img ad3-img"></div>
               <div class="ad-text">
                 <h2>messy emmy</h2>
-                <p>Bad setups, obvious feelings, and now two people want the same guy.</p>
+                <p>
+                  Bad setups, obvious feelings, and now two people want the same
+                  guy.
+                </p>
               </div>
               <button
                 anim="sheen"
@@ -195,7 +216,9 @@
               <div class="ad-img ad4-img"></div>
               <div class="ad-text">
                 <h2>it took a haircut</h2>
-                <p>He couldn’t perform. She wasn’t allowed to. So she became him.</p>
+                <p>
+                  He couldn’t perform. She wasn’t allowed to. So she became him.
+                </p>
               </div>
               <button
                 anim="sheen"
@@ -252,7 +275,9 @@
               <div class="ad-img ad7-img"></div>
               <div class="ad-text">
                 <h2>Speak Up</h2>
-                <p>Some things are harder to hear once they’re said out loud.</p>
+                <p>
+                  Some things are harder to hear once they’re said out loud.
+                </p>
               </div>
               <button
                 anim="sheen"
@@ -271,87 +296,58 @@
       <!-- HIDDEN CHAT TEMPLATES -->
       <!-- ============================= -->
       <div id="chat-templates" style="display: none">
-<!-- HOW TO PLAY TEMPLATE -->
-<div data-chat-id="instructions">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">How to Play</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-scroll instructions-body">
-          <h3>How to Play 🎮</h3>
-
-          <p><strong>1. Open a Gossip Story</strong></p>
-          <p>Click <em>Read More!</em> on any ad to open the chat.</p>
-
-          <p><strong>2. Read Carefully 👀</strong></p>
-          <p>Pay attention to tone, details, and what’s said versus what’s implied.</p>
-
-          <p><strong>3. Make Your Judgment</strong></p>
-          <p>Use the sliders to rate the story:</p>
-          <ul>
-            <li><strong>Boring 🥱</strong> → <strong>JUICY 🍒</strong></li>
-            <li><strong>UnSeRiOuS 😉</strong> → <strong>SERIOUS 🚨</strong></li>
-          </ul>
-
-          <p><strong>4. Place It on the Grid</strong></p>
-          <p>Your slider choices determine where the story lands. This is your guess.</p>
-
-          <p><strong>5. Submit Your Answer</strong></p>
-          <p>Click <em>Submit Guess</em> to lock it in.</p>
-
-          <p><strong>6. See the Result</strong></p>
-          <ul>
-            <li><strong>HIT 💥</strong> → You placed it correctly</li>
-            <li><strong>MISS ❌</strong> → Close… but not quite</li>
-          </ul>
-
-          <p><strong>7. Try Them All</strong></p>
-          <p>Work through each story and see how many you can get right.</p>
+        <!-- HOW TO PLAY TEMPLATE -->
+        <div data-chat-id="instructions">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <div class="title-bar-text">📖 How to Play</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll instructions-body">
+                  <h3>Welcome to Buzz Battleship 💋</h3>
+                  <p>
+                    <strong>1.</strong> Click <em>"Read More!"</em> on any
+                    gossip story to open its chat log.
+                  </p>
+                  <p><strong>2.</strong> Use the sliders to rate the gossip:</p>
+                  <ul>
+                    <li><strong>X-axis:</strong> boring ↔ JUICY</li>
+                    <li><strong>Y-axis:</strong> UnSeRiOuS ↔ SERIOUS</li>
+                  </ul>
+                  <p>
+                    <strong>3.</strong> Click <em>Submit Guess</em> to plot your
+                    guess on the grid.
+                  </p>
+                  <p>
+                    <strong>4.</strong>
+                    <span style="color: #ff2cb2; font-weight: bold">HIT</span> =
+                    DVD bounce 🎉 | MISS = confetti 💅
+                  </p>
+                  <p>
+                    <strong>5.</strong> Hit <em>Clear Board</em> to start over.
+                  </p>
+                  <p style="text-align: center; margin-top: 16px">
+                    <em>Have fun spilling tea ☕</em>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-<div data-chat-id="instructions">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">📖 How to Play</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-    <div class="window-body">
-      <div class="chat-layout">
-        <div class="chat-scroll instructions-body">
-          <h3>Welcome to Buzz Battleship 💋</h3>
-          <p><strong>1.</strong> Click <em>"Read More!"</em> on any gossip story to open its chat log.</p>
-          <p><strong>2.</strong> Use the sliders to rate the gossip:</p>
-          <ul>
-            <li><strong>X-axis:</strong> boring ↔ JUICY</li>
-            <li><strong>Y-axis:</strong> UnSeRiOuS ↔ SERIOUS</li>
-          </ul>
-          <p><strong>3.</strong> Click <em>Submit Guess</em> to plot your guess on the grid.</p>
-          <p><strong>4.</strong> <span style="color:#ff2cb2;font-weight:bold;">HIT</span> = DVD bounce 🎉 | MISS = confetti 💅</p>
-          <p><strong>5.</strong> Hit <em>Clear Board</em> to start over.</p>
-          <p style="text-align:center;margin-top:16px;"><em>Have fun spilling tea ☕</em></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
         <!-- CHAT 1: PERFECT COUPLE -->
         <div data-chat-id="1">
           <div class="window" style="width: 100%; height: 100%">
             <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
               <div class="title-bar-text">Chat with: starcrxd</div>
               <div class="title-bar-controls">
                 <button aria-label="Close" class="close-popup"></button>
@@ -359,415 +355,660 @@
             </div>
             <div class="window-body">
               <div class="chat-layout">
-                <div class="chat-icon">
-                  <img src="assets/img/runningman.png" alt="runningman" />
-                  <h3 class="title-message">INSTANT MESSAGE</h3>
+                <div class="chat-scroll">
+                  <p><span class="user-a">FaIrverona:</span> ok quick</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> jade + ryan are bad
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> lol how bad</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> like his family
+                    hates her now
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> wait what</p>
+                  <p><span class="user-a">FaIrverona:</span> ALL of them</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> for no clear reason
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> and they are not
+                    subtle about it
+                  </p>
+                  <p>
+                    <span class="user-b">starcrxd:</span> thats so uncomfortable
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> they wont let her
+                    come over anymore
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> so now they just
+                    sneak around
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> omg</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> like meeting up in
+                    secret
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> but hes not standing
+                    up to them
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> of course not</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> just keeps saying
+                    itll work out
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> but doing nothing
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> 🙄</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> so she finally told
+                    him
+                  </p>
+                  <p><span class="user-a">FaIrverona:</span> its me or them</p>
+                  <p><span class="user-b">starcrxd:</span> good</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> and he couldnt
+                    choose
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> oh no</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> like actually
+                    couldnt
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> just left it there
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> thats worse</p>
+                  <p><span class="user-a">FaIrverona:</span> ALSO</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> his cousin miles
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> has been around the
+                    whole time
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> ya</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> hes the only one
+                    being nice to her
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> like consistently
+                  </p>
+                  <p><span class="user-b">starcrxd:</span> …</p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> and i think he likes
+                    her
+                  </p>
+                  <p>
+                    <span class="user-b">starcrxd:</span> this is gonna end
+                    badly
+                  </p>
+                  <p>
+                    <span class="user-a">FaIrverona:</span> it already feels
+                    like it
+                  </p>
                 </div>
-               <div class="chat-scroll">
-  <p><span class="user-a">FaIrverona:</span> ok quick</p>
-  <p><span class="user-a">FaIrverona:</span> jade + ryan are bad</p>
-  <p><span class="user-b">starcrxd:</span> lol how bad</p>
-  <p><span class="user-a">FaIrverona:</span> like his family hates her now</p>
-  <p><span class="user-b">starcrxd:</span> wait what</p>
-  <p><span class="user-a">FaIrverona:</span> ALL of them</p>
-  <p><span class="user-a">FaIrverona:</span> for no clear reason</p>
-  <p><span class="user-a">FaIrverona:</span> and they are not subtle about it</p>
-  <p><span class="user-b">starcrxd:</span> thats so uncomfortable</p>
-  <p><span class="user-a">FaIrverona:</span> they wont let her come over anymore</p>
-  <p><span class="user-a">FaIrverona:</span> so now they just sneak around</p>
-  <p><span class="user-b">starcrxd:</span> omg</p>
-  <p><span class="user-a">FaIrverona:</span> like meeting up in secret</p>
-  <p><span class="user-a">FaIrverona:</span> but hes not standing up to them</p>
-  <p><span class="user-b">starcrxd:</span> of course not</p>
-  <p><span class="user-a">FaIrverona:</span> just keeps saying itll work out</p>
-  <p><span class="user-a">FaIrverona:</span> but doing nothing</p>
-  <p><span class="user-b">starcrxd:</span> 🙄</p>
-  <p><span class="user-a">FaIrverona:</span> so she finally told him</p>
-  <p><span class="user-a">FaIrverona:</span> its me or them</p>
-  <p><span class="user-b">starcrxd:</span> good</p>
-  <p><span class="user-a">FaIrverona:</span> and he couldnt choose</p>
-  <p><span class="user-b">starcrxd:</span> oh no</p>
-  <p><span class="user-a">FaIrverona:</span> like actually couldnt</p>
-  <p><span class="user-a">FaIrverona:</span> just left it there</p>
-  <p><span class="user-b">starcrxd:</span> thats worse</p>
-  <p><span class="user-a">FaIrverona:</span> ALSO</p>
-  <p><span class="user-a">FaIrverona:</span> his cousin miles</p>
-  <p><span class="user-a">FaIrverona:</span> has been around the whole time</p>
-  <p><span class="user-b">starcrxd:</span> ya</p>
-  <p><span class="user-a">FaIrverona:</span> hes the only one being nice to her</p>
-  <p><span class="user-a">FaIrverona:</span> like consistently</p>
-
-  <p><span class="user-b">starcrxd:</span> …</p>
-  <p><span class="user-a">FaIrverona:</span> and i think he likes her</p>
-  <p><span class="user-b">starcrxd:</span> this is gonna end badly</p>
-  <p><span class="user-a">FaIrverona:</span> it already feels like it</p>
-
-</div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- CHAT 2: OVERWORKED -->
-<div data-chat-id="2">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: dinergrl</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
+        <div data-chat-id="2">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: dinergrl</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p><span class="user-a">MDNTmaid:</span> ok cami is not ok</p>
+                  <p><span class="user-b">dinergrl:</span> what happened</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> her stepmom + sisters
+                  </p>
+                  <p><span class="user-a">MDNTmaid:</span> they are awful</p>
+                  <p><span class="user-b">dinergrl:</span> i know</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> no like worse than i
+                    thought
+                  </p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> they make her do
+                    EVERYTHING
+                  </p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> im not exaggerating
+                  </p>
+                  <p><span class="user-b">dinergrl:</span> ugh</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> she basically runs
+                    their whole business
+                  </p>
+                  <p><span class="user-b">dinergrl:</span> what</p>
+                  <p><span class="user-a">MDNTmaid:</span> im serious</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> and then still has all
+                    the house stuff
+                  </p>
+                  <p><span class="user-b">dinergrl:</span> thats too much</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> i went to pick her up
+                  </p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> they were so rude to
+                    her
+                  </p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> like right in front of
+                    me
+                  </p>
+                  <p>
+                    <span class="user-b">dinergrl:</span> did she say anything
+                  </p>
+                  <p><span class="user-a">MDNTmaid:</span> no</p>
+                  <p><span class="user-a">MDNTmaid:</span> she just took it</p>
+                  <p><span class="user-b">dinergrl:</span> :(</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> we were applying to
+                    colleges
+                  </p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> and she didnt even
+                    seem excited
+                  </p>
+                  <p><span class="user-b">dinergrl:</span> i get that</p>
+                  <p>
+                    <span class="user-a">MDNTmaid:</span> i feel like leaving is
+                    the only way
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="chat-scroll">
-
-          <p><span class="user-a">MDNTmaid:</span> ok cami is not ok</p>
-          <p><span class="user-b">dinergrl:</span> what happened</p>
-          <p><span class="user-a">MDNTmaid:</span> her stepmom + sisters</p>
-          <p><span class="user-a">MDNTmaid:</span> they are awful</p>
-          <p><span class="user-b">dinergrl:</span> i know</p>
-          <p><span class="user-a">MDNTmaid:</span> no like worse than i thought</p>
-          <p><span class="user-a">MDNTmaid:</span> they make her do EVERYTHING</p>
-          <p><span class="user-a">MDNTmaid:</span> im not exaggerating</p>
-          <p><span class="user-b">dinergrl:</span> ugh</p>
-          <p><span class="user-a">MDNTmaid:</span> she basically runs their whole business</p>
-          <p><span class="user-b">dinergrl:</span> what</p>
-          <p><span class="user-a">MDNTmaid:</span> im serious</p>
-          <p><span class="user-a">MDNTmaid:</span> and then still has all the house stuff</p>
-          <p><span class="user-b">dinergrl:</span> thats too much</p>
-          <p><span class="user-a">MDNTmaid:</span> i went to pick her up</p>
-          <p><span class="user-a">MDNTmaid:</span> they were so rude to her</p>
-          <p><span class="user-a">MDNTmaid:</span> like right in front of me</p>
-          <p><span class="user-b">dinergrl:</span> did she say anything</p>
-          <p><span class="user-a">MDNTmaid:</span> no</p>
-          <p><span class="user-a">MDNTmaid:</span> she just took it</p>
-          <p><span class="user-b">dinergrl:</span> :(</p>
-          <p><span class="user-a">MDNTmaid:</span> we were applying to colleges</p>
-          <p><span class="user-a">MDNTmaid:</span> and she didnt even seem excited</p>
-          <p><span class="user-b">dinergrl:</span> i get that</p>
-          <p><span class="user-a">MDNTmaid:</span> i feel like leaving is the only way</p>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-     
         <!-- CHAT 3: BESTIES -->
-<div data-chat-id="3">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: austen4evr</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
+        <div data-chat-id="3">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: austen4evr</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p>
+                    <span class="user-a">UGHasIF:</span> ok so the new girl
+                    holly
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> ya</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> shes kind of a pick me
+                  </p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> but i also feel bad
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> same</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> shes been hanging out w
+                    emmy
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> oh no</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> and emmy keeps setting
+                    her up
+                  </p>
+                  <p><span class="user-a">UGHasIF:</span> with people</p>
+                  <p><span class="user-b">austen4evr:</span> like who</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> just completely wrong
+                  </p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> like she doesnt get her
+                    at all
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> classic</p>
+                  <p><span class="user-a">UGHasIF:</span> it never works</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> bc its not what holly
+                    wants
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> mhm</p>
+                  <p><span class="user-a">UGHasIF:</span> ALSO</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> emmy is in full denial
+                    about grant
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> lol obvious</p>
+                  <p><span class="user-a">UGHasIF:</span> SO obvious</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> like everyone knows
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> except her</p>
+                  <p><span class="user-a">UGHasIF:</span> exactly</p>
+                  <p><span class="user-a">UGHasIF:</span> but now</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> holly thinks she likes
+                    him too
+                  </p>
+                  <p><span class="user-b">austen4evr:</span> oh thats bad</p>
+                  <p>
+                    <span class="user-a">UGHasIF:</span> and emmy wont say
+                    anything
+                  </p>
+                  <p><span class="user-a">UGHasIF:</span> like at all</p>
+                  <p><span class="user-b">austen4evr:</span> thats messy</p>
+                  <p><span class="user-a">UGHasIF:</span> its gonna get bad</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="chat-scroll">
-
-          <p><span class="user-a">UGHasIF:</span> ok so the new girl holly</p>
-          <p><span class="user-b">austen4evr:</span> ya</p>
-          <p><span class="user-a">UGHasIF:</span> shes kind of a pick me</p>
-          <p><span class="user-a">UGHasIF:</span> but i also feel bad</p>
-          <p><span class="user-b">austen4evr:</span> same</p>
-          <p><span class="user-a">UGHasIF:</span> shes been hanging out w emmy</p>
-          <p><span class="user-b">austen4evr:</span> oh no</p>
-          <p><span class="user-a">UGHasIF:</span> and emmy keeps setting her up</p>
-          <p><span class="user-a">UGHasIF:</span> with people</p>
-          <p><span class="user-b">austen4evr:</span> like who</p>
-          <p><span class="user-a">UGHasIF:</span> just completely wrong</p>
-          <p><span class="user-a">UGHasIF:</span> like she doesnt get her at all</p>
-          <p><span class="user-b">austen4evr:</span> classic</p>
-          <p><span class="user-a">UGHasIF:</span> it never works</p>
-          <p><span class="user-a">UGHasIF:</span> bc its not what holly wants</p>
-          <p><span class="user-b">austen4evr:</span> mhm</p>
-          <p><span class="user-a">UGHasIF:</span> ALSO</p>
-          <p><span class="user-a">UGHasIF:</span> emmy is in full denial about grant</p>
-          <p><span class="user-b">austen4evr:</span> lol obvious</p>
-          <p><span class="user-a">UGHasIF:</span> SO obvious</p>
-          <p><span class="user-a">UGHasIF:</span> like everyone knows</p>
-          <p><span class="user-b">austen4evr:</span> except her</p>
-
-          <p><span class="user-a">UGHasIF:</span> exactly</p>
-          <p><span class="user-a">UGHasIF:</span> but now</p>
-          <p><span class="user-a">UGHasIF:</span> holly thinks she likes him too</p>
-          <p><span class="user-b">austen4evr:</span> oh thats bad</p>
-          <p><span class="user-a">UGHasIF:</span> and emmy wont say anything</p>
-          <p><span class="user-a">UGHasIF:</span> like at all</p>
-          <p><span class="user-b">austen4evr:</span> thats messy</p>
-          <p><span class="user-a">UGHasIF:</span> its gonna get bad</p>
-
+        <!-- CHAT 4: TWINS -->
+        <div data-chat-id="4">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: goudalovr</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p>
+                    <span class="user-a">badahunkydude:</span> ok this one is
+                    kinda insane
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> lol what</p>
+                  <p><span class="user-a">badahunkydude:</span> twins</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> valerie + seth
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> ok</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> seth hates
+                    performing
+                  </p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> like stage fright
+                    level
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> haha</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> valerie is the
+                    opposite
+                  </p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> like full theatre
+                    kid
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> of course</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> their school is
+                    doing a big play
+                  </p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> but girls cant
+                    audition for the lead
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> thats dumb</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> she tries anyway
+                  </p>
+                  <p><span class="user-a">badahunkydude:</span> they say no</p>
+                  <p><span class="user-b">goudalovr:</span> ugh</p>
+                  <p><span class="user-a">badahunkydude:</span> so</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> she cuts her hair
+                  </p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> dresses like him
+                  </p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> auditions as seth
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> STOP</p>
+                  <p><span class="user-a">badahunkydude:</span> im serious</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> and she gets the
+                    part
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> omg</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> like the main
+                    role
+                  </p>
+                  <p><span class="user-b">goudalovr:</span> thats amazing</p>
+                  <p><span class="user-a">badahunkydude:</span> no one knows</p>
+                  <p>
+                    <span class="user-a">badahunkydude:</span> its kinda perfect
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-</div>
-
-   <!-- CHAT 4: TWINS -->
-  <div data-chat-id="4">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: goudalovr</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
+        <!-- CHAT 5: EARN MONEY NOW -->
+        <div data-chat-id="5">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: !ttrstoCLEO!!</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> ok i feel bad for
+                    kara
+                  </p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> lol really</p>
+                  <p><span class="user-a">seattleTrOlL:</span> i know</p>
+                  <p><span class="user-a">seattleTrOlL:</span> but listen</p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> ok</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> her sister gets
+                    EVERYTHING
+                  </p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> like attention
+                  </p>
+                  <p><span class="user-a">seattleTrOlL:</span> guys</p>
+                  <p><span class="user-a">seattleTrOlL:</span> all of it</p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> ya</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> so this guy parker
+                    starts taking her out
+                  </p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> ok</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> and shes actually
+                    into it
+                  </p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> like she softens a
+                    little
+                  </p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> aw</p>
+                  <p><span class="user-a">seattleTrOlL:</span> NO</p>
+                  <p><span class="user-a">seattleTrOlL:</span> turns out</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> he was getting
+                    paid
+                  </p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> stop</p>
+                  <p><span class="user-a">seattleTrOlL:</span> im serious</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> some rich guy
+                    hired him
+                  </p>
+                  <p><span class="user-b">!ttrstoCLEO!!:</span> for what</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> for her sister
+                  </p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> like to distract
+                    kara
+                  </p>
+                  <p>
+                    <span class="user-b">!ttrstoCLEO!!:</span> thats so mean
+                  </p>
+                  <p><span class="user-a">seattleTrOlL:</span> i know</p>
+                  <p>
+                    <span class="user-a">seattleTrOlL:</span> like thats
+                    actually humiliating
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="chat-scroll">
-
-          <p><span class="user-a">badahunkydude:</span> ok this one is kinda insane</p>
-          <p><span class="user-b">goudalovr:</span> lol what</p>
-          <p><span class="user-a">badahunkydude:</span> twins</p>
-          <p><span class="user-a">badahunkydude:</span> valerie + seth</p>
-          <p><span class="user-b">goudalovr:</span> ok</p>
-          <p><span class="user-a">badahunkydude:</span> seth hates performing</p>
-          <p><span class="user-a">badahunkydude:</span> like stage fright level</p>
-          <p><span class="user-b">goudalovr:</span> haha</p>
-          <p><span class="user-a">badahunkydude:</span> valerie is the opposite</p>
-          <p><span class="user-a">badahunkydude:</span> like full theatre kid</p>
-          <p><span class="user-b">goudalovr:</span> of course</p>
-          <p><span class="user-a">badahunkydude:</span> their school is doing a big play</p>
-          <p><span class="user-a">badahunkydude:</span> but girls cant audition for the lead</p>
-          <p><span class="user-b">goudalovr:</span> thats dumb</p>
-          <p><span class="user-a">badahunkydude:</span> she tries anyway</p>
-          <p><span class="user-a">badahunkydude:</span> they say no</p>
-          <p><span class="user-b">goudalovr:</span> ugh</p>
-          <p><span class="user-a">badahunkydude:</span> so</p>
-          <p><span class="user-a">badahunkydude:</span> she cuts her hair</p>
-          <p><span class="user-a">badahunkydude:</span> dresses like him</p>
-          <p><span class="user-a">badahunkydude:</span> auditions as seth</p>
-
-          <p><span class="user-b">goudalovr:</span> STOP</p>
-          <p><span class="user-a">badahunkydude:</span> im serious</p>
-          <p><span class="user-a">badahunkydude:</span> and she gets the part</p>
-          <p><span class="user-b">goudalovr:</span> omg</p>
-          <p><span class="user-a">badahunkydude:</span> like the main role</p>
-          <p><span class="user-b">goudalovr:</span> thats amazing</p>
-          <p><span class="user-a">badahunkydude:</span> no one knows</p>
-          <p><span class="user-a">badahunkydude:</span> its kinda perfect</p>
-
+        <!-- CHAT 6: ARMY GUY -->
+        <div data-chat-id="6">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: 27nfrightened</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> ok this one is
+                    confusing
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> lol go</p>
+                  <p><span class="user-a">exlentboildptato:</span> liz</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> was seeing
+                    that army guy
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> ya</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> and it just
+                    ended
+                  </p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> like suddenly
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> weird</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> but then she
+                    runs into will
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> ugh</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> and he tells
+                    her
+                  </p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> something
+                    kinda bad
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> what</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> that the army
+                    guy
+                  </p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> had a thing w
+                    his 17 yr old sister
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> WHAT</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> like a few yrs
+                    ago
+                  </p>
+                  <p>
+                    <span class="user-b">27nfrightened:</span> thats really bad
+                  </p>
+                  <p><span class="user-a">exlentboildptato:</span> but</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> liz said he
+                    was always normal w her
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> hmm</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> so now she
+                    doesnt know if will is lying
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> messy</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> AND her sister
+                    is about to go to brighton
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> omg</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> where he is
+                  </p>
+                  <p><span class="user-b">27nfrightened:</span> no</p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> so now shes
+                    like
+                  </p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> do i warn her
+                  </p>
+                  <p>
+                    <span class="user-a">exlentboildptato:</span> or stay out of
+                    it
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CHAT 5: EARN MONEY NOW -->
-<div data-chat-id="5">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: !ttrstoCLEO!!</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
+        <!-- CHAT 7: TEACHER -->
+        <div data-chat-id="7">
+          <div class="window" style="width: 100%; height: 100%">
+            <div class="title-bar">
+              <img
+                class="title-bar-icon"
+                src="assets/img/runningman.png"
+                alt="runningman"
+              />
+              <div class="title-bar-text">Chat with: imALLthat</div>
+              <div class="title-bar-controls">
+                <button aria-label="Close" class="close-popup"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="chat-layout">
+                <div class="chat-scroll">
+                  <p>
+                    <span class="user-a">flwrgirl:</span> ok wait do u remember
+                    ella
+                  </p>
+                  <p>
+                    <span class="user-b">imALLthat:</span> ya from hart's class
+                  </p>
+                  <p><span class="user-a">flwrgirl:</span> ok</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> i always thought she
+                    was just shy
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> same</p>
+                  <p><span class="user-a">flwrgirl:</span> like never talked</p>
+                  <p><span class="user-a">flwrgirl:</span> ever</p>
+                  <p><span class="user-b">imALLthat:</span> ya</p>
+                  <p><span class="user-a">flwrgirl:</span> ok so</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> she told me she has a
+                    stutter
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> oh</p>
+                  <p><span class="user-a">flwrgirl:</span> like thats why</p>
+                  <p><span class="user-b">imALLthat:</span> that makes sense</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> but shes been doing
+                    speech therapy
+                  </p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> and shes totally
+                    different now
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> wait really</p>
+                  <p><span class="user-a">flwrgirl:</span> we got coffee</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> she was talking
+                    nonstop
+                  </p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> like confident and
+                    funny
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> i love that</p>
+                  <p><span class="user-a">flwrgirl:</span> ok but listen</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> she said she had been
+                    hooking up w hart
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> NO</p>
+                  <p><span class="user-a">flwrgirl:</span> yes</p>
+                  <p><span class="user-a">flwrgirl:</span> for a while</p>
+                  <p><span class="user-b">imALLthat:</span> thats so gross</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> and the way she said
+                    it
+                  </p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> it didnt even sound
+                    like she realized how bad it was
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> thats worse</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> like she kept being
+                    like "he helped me"
+                  </p>
+                  <p><span class="user-b">imALLthat:</span> ew</p>
+                  <p>
+                    <span class="user-a">flwrgirl:</span> it just felt really
+                    off
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="chat-scroll">
-
-          <p><span class="user-a">seattleTrOlL:</span> ok i feel bad for kara</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> lol really</p>
-          <p><span class="user-a">seattleTrOlL:</span> i know</p>
-          <p><span class="user-a">seattleTrOlL:</span> but listen</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> ok</p>
-          <p><span class="user-a">seattleTrOlL:</span> her sister gets EVERYTHING</p>
-          <p><span class="user-a">seattleTrOlL:</span> like attention</p>
-          <p><span class="user-a">seattleTrOlL:</span> guys</p>
-          <p><span class="user-a">seattleTrOlL:</span> all of it</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> ya</p>
-          <p><span class="user-a">seattleTrOlL:</span> so this guy parker starts taking her out</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> ok</p>
-          <p><span class="user-a">seattleTrOlL:</span> and shes actually into it</p>
-          <p><span class="user-a">seattleTrOlL:</span> like she softens a little</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> aw</p>
-          <p><span class="user-a">seattleTrOlL:</span> NO</p>
-          <p><span class="user-a">seattleTrOlL:</span> turns out</p>
-          <p><span class="user-a">seattleTrOlL:</span> he was getting paid</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> stop</p>
-          <p><span class="user-a">seattleTrOlL:</span> im serious</p>
-          <p><span class="user-a">seattleTrOlL:</span> some rich guy hired him</p>
-          <p><span class="user-b">!ttrstoCLEO!!:</span> for what</p>
-          <p><span class="user-a">seattleTrOlL:</span> for her sister</p>
-          <p><span class="user-a">seattleTrOlL:</span> like to distract kara</p>
-
-          <p><span class="user-b">!ttrstoCLEO!!:</span> thats so mean</p>
-          <p><span class="user-a">seattleTrOlL:</span> i know</p>
-          <p><span class="user-a">seattleTrOlL:</span> like thats actually humiliating</p>
-
-        </div>
-
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- CHAT 6: ARMY GUY -->
-<div data-chat-id="6">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: 27nfrightened</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
-        </div>
-
-        <div class="chat-scroll">
-
-          <p><span class="user-a">exlentboildptato:</span> ok this one is confusing</p>
-          <p><span class="user-b">27nfrightened:</span> lol go</p>
-          <p><span class="user-a">exlentboildptato:</span> liz</p>
-          <p><span class="user-a">exlentboildptato:</span> was seeing that army guy</p>
-          <p><span class="user-b">27nfrightened:</span> ya</p>
-          <p><span class="user-a">exlentboildptato:</span> and it just ended</p>
-          <p><span class="user-a">exlentboildptato:</span> like suddenly</p>
-          <p><span class="user-b">27nfrightened:</span> weird</p>
-          <p><span class="user-a">exlentboildptato:</span> but then she runs into will</p>
-          <p><span class="user-b">27nfrightened:</span> ugh</p>
-          <p><span class="user-a">exlentboildptato:</span> and he tells her</p>
-          <p><span class="user-a">exlentboildptato:</span> something kinda bad</p>
-          <p><span class="user-b">27nfrightened:</span> what</p>
-          <p><span class="user-a">exlentboildptato:</span> that the army guy</p>
-          <p><span class="user-a">exlentboildptato:</span> had a thing w his 17 yr old sister</p>
-          <p><span class="user-b">27nfrightened:</span> WHAT</p>
-          <p><span class="user-a">exlentboildptato:</span> like a few yrs ago</p>
-          <p><span class="user-b">27nfrightened:</span> thats really bad</p>
-          <p><span class="user-a">exlentboildptato:</span> but</p>
-          <p><span class="user-a">exlentboildptato:</span> liz said he was always normal w her</p>
-          <p><span class="user-b">27nfrightened:</span> hmm</p>
-          <p><span class="user-a">exlentboildptato:</span> so now she doesnt know if will is lying</p>
-          <p><span class="user-b">27nfrightened:</span> messy</p>
-          <p><span class="user-a">exlentboildptato:</span> AND her sister is about to go to brighton</p>
-          <p><span class="user-b">27nfrightened:</span> omg</p>
-          <p><span class="user-a">exlentboildptato:</span> where he is</p>
-          <p><span class="user-b">27nfrightened:</span> no</p>
-          <p><span class="user-a">exlentboildptato:</span> so now shes like</p>
-          <p><span class="user-a">exlentboildptato:</span> do i warn her</p>
-          <p><span class="user-a">exlentboildptato:</span> or stay out of it</p>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
- <!-- CHAT 7: TEACHER -->
-<div data-chat-id="7">
-  <div class="window" style="width: 100%; height: 100%">
-    <div class="title-bar">
-      <div class="title-bar-text">Chat with: imALLthat</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close" class="close-popup"></button>
-      </div>
-    </div>
-
-    <div class="window-body">
-      <div class="chat-layout">
-
-        <div class="chat-icon">
-          <img src="assets/img/runningman.png" alt="runningman" />
-          <h3 class="title-message">INSTANT MESSAGE</h3>
-        </div>
-
-        <div class="chat-scroll">
-
-          <p><span class="user-a">flwrgirl:</span> ok wait do u remember ella</p>
-          <p><span class="user-b">imALLthat:</span> ya from hart’s class</p>
-          <p><span class="user-a">flwrgirl:</span> ok</p>
-          <p><span class="user-a">flwrgirl:</span> i always thought she was just shy</p>
-          <p><span class="user-b">imALLthat:</span> same</p>
-          <p><span class="user-a">flwrgirl:</span> like never talked</p>
-          <p><span class="user-a">flwrgirl:</span> ever</p>
-          <p><span class="user-b">imALLthat:</span> ya</p>
-          <p><span class="user-a">flwrgirl:</span> ok so</p>
-          <p><span class="user-a">flwrgirl:</span> she told me she has a stutter</p>
-          <p><span class="user-b">imALLthat:</span> oh</p>
-          <p><span class="user-a">flwrgirl:</span> like thats why</p>
-          <p><span class="user-b">imALLthat:</span> that makes sense</p>
-          <p><span class="user-a">flwrgirl:</span> but shes been doing speech therapy</p>
-          <p><span class="user-a">flwrgirl:</span> and shes totally different now</p>
-          <p><span class="user-b">imALLthat:</span> wait really</p>
-          <p><span class="user-a">flwrgirl:</span> we got coffee</p>
-          <p><span class="user-a">flwrgirl:</span> she was talking nonstop</p>
-          <p><span class="user-a">flwrgirl:</span> like confident and funny</p>
-          <p><span class="user-b">imALLthat:</span> i love that</p>
-          <p><span class="user-a">flwrgirl:</span> ok but listen</p>
-          <p><span class="user-a">flwrgirl:</span> she said she had been hooking up w hart</p>
-          <p><span class="user-b">imALLthat:</span> NO</p>
-          <p><span class="user-a">flwrgirl:</span> yes</p>
-
-          <p><span class="user-a">flwrgirl:</span> for a while</p>
-          <p><span class="user-b">imALLthat:</span> thats so gross</p>
-          <p><span class="user-a">flwrgirl:</span> and the way she said it</p>
-          <p><span class="user-a">flwrgirl:</span> it didnt even sound like she realized how bad it was</p>
-          <p><span class="user-b">imALLthat:</span> thats worse</p>
-          <p><span class="user-a">flwrgirl:</span> like she kept being like “he helped me”</p>
-          <p><span class="user-b">imALLthat:</span> ew</p>
-          <p><span class="user-a">flwrgirl:</span> it just felt really off</p>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!--ABOUT SECTION STARTS HERE-->
+      <!--ABOUT SECTION STARTS HERE-->
       <section class="about_window">
         <div class="links">
           <a href="about.html"
             ><img src="assets/img/link_gif.gif" alt="flower gif" />About
             Project</a
           >
-         <a href="#" id="open-instructions">
-  <img src="assets/img/link_gif.gif" alt="flower gif" />How to Play
-</a>
-      <a href="#" id="open-answer-key">
-  <img src="assets/img/link_gif.gif" alt="flower gif" />Answer Key
-</a>
+          <a href="#" id="open-instructions">
+            <img src="assets/img/link_gif.gif" alt="flower gif" />How to Play
+          </a>
+          <a href="#" id="open-answer-key">
+            <img src="assets/img/link_gif.gif" alt="flower gif" />Answer Key
+          </a>
           <div class="credits">
             <a href="https://www.are.na/ellie-prisbrey/buzz-battleship"
               ><img src="assets/img/credits.png" alt="credits"
@@ -777,56 +1018,65 @@
       </section>
 
       <!--MODAL SCRIPT STARTS HERE-->
-      <script>
-        // Open chat in storiespopup + auto-select the story
-        document.querySelectorAll(".open-chat").forEach((button) => {
-          button.addEventListener("click", function () {
-            const chatId = this.dataset.chatId;
-            const storyId = Number(this.dataset.storyId);
+<script>
+  // ============================================
+  // OPEN CHAT POPUP + set chat-style class
+  // ============================================
+  document.querySelectorAll(".open-chat").forEach((button) => {
+    button.addEventListener("click", function () {
+      const chatId = this.dataset.chatId;
+      const storyId = Number(this.dataset.storyId);
 
-            const template = document.querySelector(
-              `#chat-templates [data-chat-id="${chatId}"]`,
-            );
-            const popup = document.getElementById("story-popup-content");
+      const template = document.querySelector(
+        `#chat-templates [data-chat-id="${chatId}"]`,
+      );
+      const popup = document.getElementById("story-popup-content");
 
-            if (template && popup) {
-              popup.innerHTML = template.innerHTML;
-            }
+      if (template && popup) {
+        popup.innerHTML = template.innerHTML;
+        popup.className = "";                            // clear old classes
+        popup.classList.add(`chat-style-${chatId}`);     // add new style class
+      }
 
-            // Auto-select this story for the guess
-            if (typeof setStoryFromChat === "function") {
-              setStoryFromChat(storyId);
-            }
-          });
-        });
+      if (typeof setStoryFromChat === "function" && !isNaN(storyId)) {
+        setStoryFromChat(storyId);
+      }
+    });
+  });
 
-        // Close popup
-        document.addEventListener("click", function (e) {
-          if (e.target.classList.contains("close-popup")) {
-            const popup = document.getElementById("story-popup-content");
-            if (popup) {
-              popup.innerHTML = `
-          <div class="popup-placeholder">
-          </div>
-        `;
-            }
-          }
-        });
+  // ============================================
+  // CLOSE POPUP
+  // ============================================
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("close-popup")) {
+      const popup = document.getElementById("story-popup-content");
+      if (popup) {
+        popup.innerHTML = `<div class="popup-placeholder"></div>`;
+        popup.className = "";   // clear chat-style class
+      }
+    }
+  });
 
-        // 👇 NEW: Open "How to Play" popup from about_window link
-document.getElementById("open-instructions")?.addEventListener("click", function (e) {
-  e.preventDefault();   // stop the # link from jumping the page
+  // ============================================
+  // OPEN "HOW TO PLAY" POPUP from about_window link
+  // ============================================
+  document
+    .getElementById("open-instructions")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
 
-  const template = document.querySelector(
-    `#chat-templates [data-chat-id="instructions"]`
-  );
-  const popup = document.getElementById("story-popup-content");
+      const template = document.querySelector(
+        `#chat-templates [data-chat-id="instructions"]`,
+      );
+      const popup = document.getElementById("story-popup-content");
 
-  if (template && popup) {
-    popup.innerHTML = template.innerHTML;
-  }
-});
-      </script>
+      if (template && popup) {
+        popup.innerHTML = template.innerHTML;
+        popup.className = "";
+        popup.classList.add("chat-style-instructions");
+      }
+    });
+</script>
     </main>
     <!--GAME SCRIPT LINKED HERE-->
     <script src="js/game.js"></script>
