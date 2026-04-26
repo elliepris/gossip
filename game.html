@@ -81,14 +81,13 @@
             <div class="border">
               <div class="control-panel">
                 <div class="current-story">
-                  <p>Currently reading:</p>
-                  <p id="current-story-label"><em>No gossip selected</em></p>
+                  <h3>Currently Reading:</h3>
+                  <p id="current-story-label"><em>Pick a story to start 💋</em></p>
                 </div>
                 <div class="control-buttons">
                   <button id="submit-btn" anim="sheen" class="open-chat">
   Submit Guess
 </button>
-                  <button id="clear-btn">Clear Board</button>
                 </div>
               </div>
             </div>
@@ -104,6 +103,7 @@
                 <p id="coord-display">(5, 5)</p>
               </div>
             </div>
+              <button id="clear-btn">Clear Board</button>
           </div>
 
           <!-- Row 4, Col 2: blink images -->
@@ -137,8 +137,8 @@
             <div class="ad">
               <div class="ad-img ad1-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 1</h2>
-                <p>This is a preview of the story for perfect couple LOL</p>
+                <h2>It's Me or Them</h2>
+                <p>When his family shut her out, she asked him to choose.</p>
               </div>
               <button
                 anim="sheen"
@@ -156,8 +156,8 @@
             <div class="ad">
               <div class="ad-img ad2-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 2</h2>
-                <p>This is a preview of the story for overworked LOL</p>
+                <h2>Too Much</h2>
+                <p>She’s carrying a whole household and a business, and no one is stepping in.</p>
               </div>
               <button
                 anim="sheen"
@@ -175,8 +175,8 @@
             <div class="ad">
               <div class="ad-img ad3-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 3</h2>
-                <p>This is a preview of the story for besties LOL</p>
+                <h2>messy emmy</h2>
+                <p>Bad setups, obvious feelings, and now two people want the same guy.</p>
               </div>
               <button
                 anim="sheen"
@@ -194,8 +194,8 @@
             <div class="ad">
               <div class="ad-img ad4-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 4</h2>
-                <p>This is a preview of the story for twins LOL</p>
+                <h2>it took a haircut</h2>
+                <p>He couldn’t perform. She wasn’t allowed to. So she became him.</p>
               </div>
               <button
                 anim="sheen"
@@ -213,8 +213,8 @@
             <div class="ad">
               <div class="ad-img ad5-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 5</h2>
-                <p>This is a preview of the story for earn money now LOL</p>
+                <h2>got his bag</h2>
+                <p>A setup that goes way further than anyone expected.</p>
               </div>
               <button
                 anim="sheen"
@@ -232,8 +232,8 @@
             <div class="ad">
               <div class="ad-img ad6-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 6</h2>
-                <p>This is a preview of the story for army guy LOL</p>
+                <h2>Charmer or Creeper</h2>
+                <p>When you don’t know the truth, either choice feels wrong.</p>
               </div>
               <button
                 anim="sheen"
@@ -251,8 +251,8 @@
             <div class="ad">
               <div class="ad-img ad7-img"></div>
               <div class="ad-text">
-                <h2>Gossip Story 7</h2>
-                <p>This is a preview of the story for teacher LOL</p>
+                <h2>Speak Up</h2>
+                <p>Some things are harder to hear once they’re said out loud.</p>
               </div>
               <button
                 anim="sheen"
@@ -271,7 +271,55 @@
       <!-- HIDDEN CHAT TEMPLATES -->
       <!-- ============================= -->
       <div id="chat-templates" style="display: none">
-        <!-- HOW TO PLAY TEMPLATE -->
+<!-- HOW TO PLAY TEMPLATE -->
+<div data-chat-id="instructions">
+  <div class="window" style="width: 100%; height: 100%">
+    <div class="title-bar">
+      <div class="title-bar-text">How to Play</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" class="close-popup"></button>
+      </div>
+    </div>
+
+    <div class="window-body">
+      <div class="chat-layout">
+
+        <div class="chat-scroll instructions-body">
+          <h3>How to Play 🎮</h3>
+
+          <p><strong>1. Open a Gossip Story</strong></p>
+          <p>Click <em>Read More!</em> on any ad to open the chat.</p>
+
+          <p><strong>2. Read Carefully 👀</strong></p>
+          <p>Pay attention to tone, details, and what’s said versus what’s implied.</p>
+
+          <p><strong>3. Make Your Judgment</strong></p>
+          <p>Use the sliders to rate the story:</p>
+          <ul>
+            <li><strong>Boring 🥱</strong> → <strong>JUICY 🍒</strong></li>
+            <li><strong>UnSeRiOuS 😉</strong> → <strong>SERIOUS 🚨</strong></li>
+          </ul>
+
+          <p><strong>4. Place It on the Grid</strong></p>
+          <p>Your slider choices determine where the story lands. This is your guess.</p>
+
+          <p><strong>5. Submit Your Answer</strong></p>
+          <p>Click <em>Submit Guess</em> to lock it in.</p>
+
+          <p><strong>6. See the Result</strong></p>
+          <ul>
+            <li><strong>HIT 💥</strong> → You placed it correctly</li>
+            <li><strong>MISS ❌</strong> → Close… but not quite</li>
+          </ul>
+
+          <p><strong>7. Try Them All</strong></p>
+          <p>Work through each story and see how many you can get right.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 <div data-chat-id="instructions">
   <div class="window" style="width: 100%; height: 100%">
     <div class="title-bar">
@@ -705,8 +753,9 @@
     </div>
   </div>
 </div>
+</div>
 
-      <!--ABOUT SECTION STARTS HERE-->
+<!--ABOUT SECTION STARTS HERE-->
       <section class="about_window">
         <div class="links">
           <a href="about.html"

@@ -102,24 +102,36 @@ canvas {
 }
 
 /* COORDINATES — bottom-left cell, just the coord window */
+/* COORDINATES — bottom-left cell, now holds coord window + clear button */
 .coordinates {
   grid-area: coordinates;
 
-  display: flex; /* 👈 make it a flex container */
-  justify-content: center; /* horizontal center */
-  align-items: center; /* vertical center */
+  display: flex;
+  flex-direction: row;           /* 👈 place items side-by-side */
+  align-items: center;
+  justify-content: center;
+  gap: 15px;                     /* 👈 space between the window and button */
 
-  width: 100%; /* 👈 fill the grid cell */
+  width: 100%;
   height: 100%;
 
-  padding: 20px; /* 👈 your spacing */
+  padding: 20px;
   box-sizing: border-box;
 }
 
 .coordinates .window {
-  width: 100%;
+  width: auto;                   /* 👈 let it shrink to content */
   height: auto;
   max-width: 150px;
+  flex-shrink: 0;                /* 👈 don't squish the coord window */
+}
+
+/* 👇 style the Clear Board button in this area */
+.coordinates #clear-btn {
+  padding: 6px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .coordinates .title-bar {
@@ -132,7 +144,6 @@ canvas {
   overflow: hidden;
 
   display: flex;
-  align-items: center;
   padding: 4px;
   box-sizing: border-box;
 }
@@ -290,7 +301,8 @@ canvas {
 }
 
 .chat-icon h3 {
-    font-family: "franklin-gothic-atf", sans-serif;
+  font-family: tahoma, sans-serif;
+  font-weight: 700;
   font-size: 20px;
   letter-spacing: 1px;
 
@@ -312,8 +324,9 @@ canvas {
   background: white;
   padding: 5px;
   box-sizing: border-box;
-  font-size: 16px;
-  font-family: "comic-sans-ms", sans-serif;
+  font-size: 15px;
+  font-family: "tahoma", sans-serif;
+
   line-height: 1;
 }
 
@@ -321,13 +334,13 @@ canvas {
   font-family: adobe-garamond-pro, serif;
   font-weight: 700;
   color: #ff2cb2;
-  background-color: #191919;
+  background-color: #eeb2c9;
 }
 
 .user-b {
-  font-family: adobe-garamond-pro, serif;
+  font-family: "comic-sans-ms", sans-serif;
   font-weight: 700;
-  color: #191919;
+  color: #ff6aa8;
 }
 
 .title-bar-controls {
@@ -413,13 +426,18 @@ canvas {
 
 .ad button {
   margin-top: 5px;
-  background-color: #ff2cb2;
 }
 
 .ad-text h2,
 .ad-text p {
   margin-top: 0;
   margin-bottom: 5px;
+}
+
+.ad-text p {
+  font-family: tahoma, sans-serif;
+  font-size: 14px;
+  line-height: 1.25;
 }
 
 .ad-img {
@@ -773,7 +791,7 @@ a:hover {
 
 .stories-popup {
   grid-area: stories-popup;
-  padding: 0px 30px;
+  padding: 30px 20px;
   overflow: hidden;
   box-sizing: border-box;
   min-height: 0;
@@ -869,8 +887,12 @@ a:hover {
   margin: 0;
 }
 
-.control-panel h2 {
+.control-panel h3 {
   margin: 0;
+  font-size: 20px;
+font-family: comic-sans-ms, sans-serif;
+  font-weight: 700;
+
 }
 
 .control-panel .current-story {
@@ -879,6 +901,10 @@ a:hover {
 
 .control-panel .current-story p {
   margin: 4px 0;
+  font-family: tahoma, sans-serif;
+  font-size: 14px;
+  color:#191919;
+
 }
 
 .control-buttons {

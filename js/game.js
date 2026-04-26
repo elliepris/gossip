@@ -40,6 +40,17 @@ const guessEmojis = [
   "🤢", // Story 7 — teacher
 ];
 
+// 👇 ADD THIS
+const storyTitles = [
+  "It's Me or Them",      // Story 1
+  "Too Much",             // Story 2
+  "Messy Emmy",           // Story 3
+  "It Took a Haircut",    // Story 4
+  "Got His Bag",          // Story 5
+  "Charmer or Creeper",   // Story 6
+  "Speak Up",             // Story 7
+];
+
 // === STATE ===
 let xSliderTouched = false;
 let ySliderTouched = false;
@@ -80,6 +91,9 @@ let dvdLoopCount = 0;
 const DVD_TOTAL_LOOPS = 1;
 
 let dvdCanvas, dvdCtx;
+let dvdImg; // 👈 ADD
+let dvdImgLoaded = false;
+let dvdOverlay;
 
 // === CONFETTI CLASS ===
 class Confetti {
@@ -147,7 +161,9 @@ function setup() {
   setupSubmitButton();
   setupDVDOverlay();
   setupSliders();
-  setupAnswerKeyButton(); 
+  setupAnswerKeyButton();
+setupEnterKey();                       // 👈 ADD
+
 
   // Observe the wrapper for size changes (handles grid layout shifts)
   const resizeObserver = new ResizeObserver(() => {
@@ -158,19 +174,20 @@ function setup() {
 }
 
 function setStoryFromChat(storyId) {
-  // Guard against NaN / undefined
-  if (storyId === undefined || storyId === null || isNaN(storyId)) {
+  if (storyId === undefined || storyId === null || isNaN(storyId)) {   // 👈 FIXED
     console.warn("Invalid storyId:", storyId);
     return;
   }
 
-  selectedStory = Number(storyId); // ensure it's a number
+  selectedStory = Number(storyId);
   xSliderTouched = false;
   ySliderTouched = false;
 
   const labelEl = document.getElementById("current-story-label");
   if (labelEl) {
-    labelEl.textContent = `Gossip Story #${selectedStory + 1}`;
+    const emoji = guessEmojis[selectedStory] || "❓";
+    const title = storyTitles[selectedStory] || "Unknown Story";
+    labelEl.textContent = `${emoji} ${title}`;
   }
 }
 
@@ -182,12 +199,11 @@ function setupClearButton() {
       feedbackMessages = {};
       document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
       selectedStory = null;
-      answerKeyVisible = false;   // 👈 ADD — reset flag when clearing
-
+      answerKeyVisible = false; // 👈 ADD — reset flag when clearing
 
       const labelEl = document.getElementById("current-story-label");
       if (labelEl) {
-        labelEl.innerHTML = "<em>No gossip selected</em>";
+        labelEl.innerHTML = "<em>No story selected</em>";
       }
 
       resetSliders();
@@ -203,7 +219,8 @@ function setupSubmitButton() {
 }
 
 function submitSliderGuess() {
-  console.log("Submit clicked! selectedStory =", selectedStory); // 👈 ADD
+  // 👇 ADD: block guesses while answer key is showing
+if (answerKeyVisible) return;   // silently do nothing
 
   if (selectedStory === null) {
     alert("Open a gossip story's chat log first!");
@@ -213,8 +230,6 @@ function submitSliderGuess() {
   let col = Number(xSlider.value) - 1;
   let row = rows - Number(ySlider.value);
 
-  console.log("Guess:", { selectedStory, col, row }); // 👈 ADD
-
   let existing = guesses.find((g) => g.storyId === selectedStory);
   if (existing) {
     existing.col = col;
@@ -222,8 +237,6 @@ function submitSliderGuess() {
   } else {
     guesses.push({ storyId: selectedStory, col, row });
   }
-
-  console.log("All guesses:", guesses); // 👈 ADD
 
   checkGuess(selectedStory, col, row);
 
@@ -235,6 +248,21 @@ function submitSliderGuess() {
 function setupDVDOverlay() {
   const gameWindow = document.getElementById("game-window");
 
+  // 👇 NEW: Create the dark overlay (behind the DVD canvas)
+  dvdOverlay = document.createElement("div");
+  dvdOverlay.style.position = "absolute";
+  dvdOverlay.style.top = "0";
+  dvdOverlay.style.left = "0";
+  dvdOverlay.style.width = "100%";
+  dvdOverlay.style.height = "100%";
+  dvdOverlay.style.background = "rgba(0, 0, 0, 0.6)";   // 60% black
+  dvdOverlay.style.pointerEvents = "none";
+  dvdOverlay.style.zIndex = "99";                        // below the DVD canvas (z=100)
+  dvdOverlay.style.opacity = "0";                        // hidden by default
+  dvdOverlay.style.transition = "opacity 0.4s ease";     // smooth fade
+  gameWindow.appendChild(dvdOverlay);
+
+  // Existing DVD canvas code
   dvdCanvas = document.createElement("canvas");
   dvdCanvas.style.position = "absolute";
   dvdCanvas.style.top = "0";
@@ -246,6 +274,12 @@ function setupDVDOverlay() {
   gameWindow.appendChild(dvdCanvas);
 
   dvdCtx = dvdCanvas.getContext("2d");
+
+  dvdImg = new Image();
+  dvdImg.onload = () => {
+    dvdImgLoaded = true;
+  };
+  dvdImg.src = "assets/img/dvd_logo.png";
 
   window.addEventListener("resize", () => {
     dvdCanvas.width = gameWindow.clientWidth;
@@ -468,8 +502,7 @@ function drawCellLines() {
 
 function drawHover() {
   if (!xSlider || !ySlider) return;
-  if (answerKeyVisible) return;   // 👈 ADD — hide hover square + ❓ when showing answers
-
+  if (answerKeyVisible) return; // 👈 ADD — hide hover square + ❓ when showing answers
 
   let col = previewCol;
   let row = previewRow;
@@ -530,7 +563,7 @@ function updateFeedbackUI(storyId, result) {
 
   const tag = document.createElement("span");
   tag.textContent = ` — ${result}!`;
-  tag.style.color = result === "HIT" ? "#ff2cb2" : "#c0c0c0";
+  tag.style.color = result === "HIT" ? "#ff2cb2" : "#ff2cb2";
   tag.style.marginLeft = "4px";
   tag.className = "feedback-tag";
 
@@ -548,6 +581,9 @@ function startDVDAnimation() {
   dvdSpeedY = random() > 0.5 ? 6 : -6;
   wallsHit = { top: false, bottom: false, left: false, right: false };
   pickPinkColor();
+
+  // 👇 NEW: fade in the overlay
+  if (dvdOverlay) dvdOverlay.style.opacity = "1";
 }
 
 function pickPinkColor() {
@@ -587,14 +623,18 @@ function updateDVD() {
     pickPinkColor();
   }
 
-  dvdCtx.fillStyle = dvdColor;
-  dvdCtx.fillRect(dvdX, dvdY, dvdW, dvdH);
-
-  dvdCtx.fillStyle = "white";
-  dvdCtx.font = "bold 28px sans-serif";
-  dvdCtx.textAlign = "center";
-  dvdCtx.textBaseline = "middle";
-  dvdCtx.fillText("HIT!", dvdX + dvdW / 2, dvdY + dvdH / 2);
+  // Draw the tinted image
+  if (dvdImgLoaded) {
+    dvdCtx.save();
+    dvdCtx.drawImage(dvdImg, dvdX, dvdY, dvdW, dvdH);
+    dvdCtx.globalCompositeOperation = "source-in";
+    dvdCtx.fillStyle = dvdColor;
+    dvdCtx.fillRect(dvdX, dvdY, dvdW, dvdH);
+    dvdCtx.restore();
+  } else {
+    dvdCtx.fillStyle = dvdColor;
+    dvdCtx.fillRect(dvdX, dvdY, dvdW, dvdH);
+  }
 
   if (wallsHit.top && wallsHit.bottom && wallsHit.left && wallsHit.right) {
     dvdLoopCount++;
@@ -602,6 +642,8 @@ function updateDVD() {
       setTimeout(() => {
         dvdActive = false;
         dvdCtx.clearRect(0, 0, dvdCanvas.width, dvdCanvas.height);
+
+        if (dvdOverlay) dvdOverlay.style.opacity = "0";   // 👈 ADD THIS LINE
       }, 500);
     } else {
       wallsHit = { top: false, bottom: false, left: false, right: false };
@@ -638,7 +680,7 @@ function showAnswerKey() {
     guesses = [];
     answerKeyVisible = false;
     const labelEl = document.getElementById("current-story-label");
-    if (labelEl) labelEl.innerHTML = "<em>No gossip selected</em>";
+    if (labelEl) labelEl.innerHTML = "<em>No story selected</em>";
     return;
   }
 
@@ -667,10 +709,19 @@ function setupAnswerKeyButton() {
   const link = document.getElementById("open-answer-key");
   if (link) {
     link.addEventListener("click", (e) => {
-      e.preventDefault();   // prevent the # jump
+      e.preventDefault(); // prevent the # jump
       showAnswerKey();
     });
   }
+}
+
+function setupEnterKey() {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      submitSliderGuess();
+    }
+  });
 }
 
 const title = document.querySelector(".slide-title img");
