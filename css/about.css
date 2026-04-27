@@ -4,14 +4,12 @@
 
 .layout {
   grid-template-areas:
-    "header header header"
     "about-stories about-info about-side";
   grid-template-columns: 3fr 1fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   height: 100vh;
   overflow: hidden;
 }
-
 /* ================================
    LEFT COLUMN — scrollable pink
    ================================ */
