@@ -1,3 +1,4 @@
+console.log("credits.js is loaded");
 const crawl = document.querySelector(".star-wars-crawl");
 
 function updateCreditsScroll() {
@@ -8,8 +9,8 @@ function updateCreditsScroll() {
 
   const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
 
-  const top = 100 - progress * 180;
-  const scale = 0.45 + progress * 1.2;
+ const scale = 1 + progress * 0.8;   // start full size
+const top = 80 - progress * 120;    // start higher up
   const opacity = progress > 0.85 ? 1 - (progress - 0.85) / 0.15 : 1;
 
   crawl.style.top = `${top}%`;
