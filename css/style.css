@@ -233,6 +233,9 @@ canvas {
   overflow: hidden;
   border-right: 2px var(--gray-dark) dotted;
   border-bottom: 2px var(--gray-dark) dotted;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .about {
@@ -733,7 +736,22 @@ a img {
 }
 
 .credits {
-  padding-top: 200px;
+  margin-top: auto;           /* 👈 pushes to bottom */
+  padding: 20px;
+  text-align: left;           /* 👈 left-aligned */
+}
+
+.credits a {
+  font-family: comic-sans-ms, sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--gray-dark);
+
+}
+
+.credits a:hover {
+  color: var(--white);
+  text-decoration: underline;
 }
 
 a:link {

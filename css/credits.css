@@ -10,16 +10,53 @@
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  font-family: "comic-sans-ms", "Comic Sans MS", cursive, sans-serif;
 }
 
-h1 {
-    color: white;
+.credits-page {
+  padding: 50px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  color: white;
+  font-family: "comic-sans-ms", "Comic Sans MS", cursive, sans-serif;
+  text-shadow:
+    0 0 10px var(--pink, #ff2cb2),
+    0 0 20px var(--pink, #ff2cb2),
+    0 0 30px var(--pink, #ff2cb2);
 }
 
 p {
-    color: white;
+  color: white;
+  font-family: "comic-sans-ms", "Comic Sans MS", cursive, sans-serif;
+  text-shadow:
+    0 0 8px var(--pink, #ff2cb2),
+    0 0 16px var(--pink, #ff2cb2);
+    font-size: 15px;
 }
 
-h2 {
-    color: white;
+a:link,
+a:visited {
+  color: white;
+  font-family: "comic-sans-ms", "Comic Sans MS", cursive, sans-serif;
+  text-shadow:
+    0 0 10px var(--pink, #ff2cb2),
+    0 0 20px var(--pink, #ff2cb2),
+    0 0 30px var(--pink, #ff2cb2);
+}
+
+a:hover {
+  color: var(--pink, #ff2cb2);
+  text-shadow:
+    0 0 10px white,
+    0 0 20px white;
+}
+
+.credits-back-btn {
+  margin-bottom: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
