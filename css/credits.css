@@ -23,23 +23,7 @@
   top: 20px;
   left: 20px;
   z-index: 10;
-
-  display: inline-block;
-  padding: 10px 24px;
-
-  background: white;
-  color: #191919;
-  font-family: "franklin-gothic-atf", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-
-  border: 2px solid #191919;
-  border-radius: 20px;
-  box-shadow: 3px 3px 0 #191919;
-  transition: all 0.15s ease;
 }
-
 .credits-back-btn:link,
 .credits-back-btn:visited {
   color: #191919;
@@ -98,17 +82,6 @@
   transform: translateX(-50%) rotateX(25deg) scale(0.45);
 
   opacity: 1;
-}
-
-@keyframes crawl {
-  0% {
-    top: 100%;
-    transform: translateX(-50%) rotateX(25deg);
-  }
-  100% {
-    top: -5000px;                            /* 👈 scroll far enough for all text */
-    transform: translateX(-50%) rotateX(25deg);
-  }
 }
 
 /* Text styling */
