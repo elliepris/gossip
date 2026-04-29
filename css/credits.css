@@ -211,6 +211,10 @@ a:hover {
   padding-bottom: 25px;
 }
 
+a:focus {
+  outline: none;
+}
+
 /* ✅ BUTTON + SHEEN */
 .credits-back-btn {
   position: fixed;

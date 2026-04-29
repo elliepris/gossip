@@ -168,7 +168,6 @@ function setup() {
 
 function setStoryFromChat(storyId) {
   if (storyId === undefined || storyId === null || isNaN(storyId)) {
-    // 👈 FIXED
     console.warn("Invalid storyId:", storyId);
     return;
   }
@@ -249,7 +248,8 @@ function setupDVDOverlay() {
   dvdOverlay.style.height = "100%";
   dvdOverlay.style.background = "rgba(25, 25, 25, 0.6)"; // 60% black
   dvdOverlay.style.pointerEvents = "none";
-  dvdOverlay.style.zIndex = "99"; // below the DVD canvas (z=100)
+  dvdOverlay.style.zIndex = "50"; // 👈 LOWERED
+
   dvdOverlay.style.opacity = "0"; // hidden by default
   dvdOverlay.style.transition = "opacity 0.4s ease"; // smooth fade
   gameWindow.appendChild(dvdOverlay);
@@ -272,6 +272,12 @@ function setupDVDOverlay() {
     dvdImgLoaded = true;
   };
   dvdImg.src = "assets/img/dvd_logo.png";
+
+  const playWrapper = document.querySelector(".game-play-wrapper");
+  if (playWrapper) {
+    playWrapper.style.position = "relative";
+    playWrapper.style.zIndex = "60"; // above overlay (50), below DVD canvas (100)
+  }
 
   window.addEventListener("resize", () => {
     dvdCanvas.width = gameWindow.clientWidth;
@@ -345,7 +351,6 @@ function draw() {
   drawAxisLabels();
   drawHover();
   drawGuesses();
-
   updateCoordDisplay();
   updateSliderLabelSizes();
 
@@ -665,15 +670,15 @@ let answerKeyVisible = false;
 
 function showAnswerKey() {
   if (answerKeyVisible) {
-    // HIDE — clear everything
     guesses = [];
     answerKeyVisible = false;
     const labelEl = document.getElementById("current-story-label");
     if (labelEl) labelEl.innerHTML = "<em>No story selected</em>";
+
+    if (dvdOverlay) dvdOverlay.style.opacity = "0"; // 👈 hide overlay
     return;
   }
 
-  // SHOW
   guesses = [];
   document.querySelectorAll(".feedback-tag").forEach((tag) => tag.remove());
 
@@ -691,16 +696,26 @@ function showAnswerKey() {
   selectedStory = null;
   resetSliders();
   answerKeyVisible = true;
+
+  if (dvdOverlay) dvdOverlay.style.opacity = "1"; // 👈 show overlay
 }
 
 function setupAnswerKeyButton() {
   const link = document.getElementById("open-answer-key");
   if (link) {
     link.addEventListener("click", (e) => {
-      e.preventDefault(); // prevent the # jump
+      e.preventDefault();
+      e.stopPropagation(); // 👈 prevent this click from triggering the close
       showAnswerKey();
     });
   }
+
+  // 👇 NEW: Click anywhere to close the answer key
+  document.addEventListener("click", (e) => {
+    if (answerKeyVisible) {
+      showAnswerKey(); // toggles it off
+    }
+  });
 }
 
 function setupEnterKey() {

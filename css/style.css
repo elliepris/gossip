@@ -336,7 +336,7 @@ canvas {
   color: var(--pink);
   font-weight: 400;
   text-decoration: underline;
-  line-height: 1.55;
+  line-height: 1.5;
   font-size: 15px;
 
 }
@@ -736,9 +736,11 @@ a img {
 }
 
 .credits {
-  margin-top: auto;           /* 👈 pushes to bottom */
+  margin-top: auto;        /* pushes it to bottom */
   padding: 20px;
-  text-align: left;           /* 👈 left-aligned */
+
+  display: flex;
+  justify-content: center; /* horizontal center */
 }
 
 .credits a {
