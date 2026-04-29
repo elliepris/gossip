@@ -327,7 +327,7 @@ canvas {
   color: var(--pink);
   background-color: var(--gray-dark);
   font-weight: 700;
-  line-spacing: 1.5;
+  line-height: 1.55;
   font-size: 15px;
 }
 
@@ -336,7 +336,7 @@ canvas {
   color: var(--pink);
   font-weight: 400;
   text-decoration: underline;
-  line-spacing: 1.5;
+  line-height: 1.55;
   font-size: 15px;
 
 }
