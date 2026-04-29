@@ -206,16 +206,13 @@
 
 /* Window body — scrolls internally, scrollbar flush to right */
 .about-window-body {
-  padding: 20px 0 20px 20px;
   flex: 1;
   overflow-y: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-}
+    margin: 0;                       /* 👈 ensure no margin */
 
-.about-window-body > * {
-  margin-right: 20px;
 }
 
 .about-window-body p {
@@ -223,8 +220,9 @@
   font-size: 14px;
   line-height: 1.5;
   color: #191919;
-  margin: 0 0 14px 0;
-  margin-right: 20px;
+  padding: 0 20px;
+   margin: 0 0 10px 0;
+
 }
 
 /* ================================
@@ -239,8 +237,8 @@
   box-shadow: inset 1px 1px 0 #000000;
 
   padding: 16px;
+  margin: 20px;
   margin-top: auto;
-  margin-right: 20px;
   box-sizing: border-box;
 }
 
