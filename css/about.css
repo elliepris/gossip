@@ -1,11 +1,17 @@
-/* =================================================
-   ABOUT PAGE — 3-column layout matching game page
-   ================================================= */
+@font-face {
+  font-family: "curlz";
+  src: url("../assets/font/curlz.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "london";
+  src: url("../assets/font/OldLondon.ttf") format("truetype");
+}
 
 .layout {
-  grid-template-areas:
-    "about-stories about-info about-side";
-  grid-template-columns: 3fr 1fr 1fr;
+  display: grid;
+  grid-template-areas: "about-stories about-info";
+  grid-template-columns: 2fr 1fr; /* adjust ratio as you like */
   grid-template-rows: 1fr;
   height: 100vh;
   overflow: hidden;
@@ -17,7 +23,7 @@
 .about-stories {
   grid-area: about-stories;
   background-color: #191919;
-  background-image: url("../assets/img/galaxy.gif");  /* 👈 CHANGED to galaxy */
+  background-image: url("../assets/img/galaxy.gif");
   background-repeat: repeat;
   background-size: auto;
 
@@ -27,7 +33,6 @@
 
   padding: 40px;
   box-sizing: border-box;
-
 }
 
 .about-top-bar {
@@ -36,35 +41,20 @@
 
 /* ================================
    AD-WRAPPER STYLE
-   — override game page's small size
    ================================ */
 .about-stories .ad-wrapper {
-  margin: 40px auto; /* 👈 top/bottom 40px, left/right auto */
+  margin: 40px auto;
   background-color: white;
   box-shadow: 0px 0px 8px #ff2cb2;
   width: 80%;
 }
 
-.about-stories .ad {
+.ad {
   width: 100%;
   box-sizing: border-box;
-  padding: 20px;
   border: 2px black dotted;
   display: block;
-}
-
-.about-stories .ad-text {
-  width: 100%;
-}
-
-.about-stories .ad-text h2 {
-  font-family: "franklin-gothic-atf", sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.05;
-  text-transform: none;
-  color: #191919;
-  margin: 0 0 12px 0;
+  padding: 20px;
 }
 
 .story-emoji {
@@ -72,10 +62,10 @@
   margin-left: 4px;
 }
 
-/* 👇 NEW — story image inside each card */
+/* 👇 story image inside each card */
 .story-image {
   width: 100%;
-  margin: 10px 0 16px 0;
+  margin: 10px 0 20px 0;
   box-sizing: border-box;
 }
 
@@ -84,127 +74,214 @@
   height: auto;
   display: block;
   box-sizing: border-box;
+  padding-bottom: 10px;
 }
 
-.story-desc {
+.story-desc p {
   font-family: "tahoma", sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   color: #191919;
   line-height: 1.4;
-  margin: 0 0 16px 0;
-}
-
-/* 👇 NEW — story data block (averages, medians, etc.) */
-.story-data {
-  font-family: "tahoma", sans-serif;
-  font-size: 11px;
-  color: #191919;
-  margin: 0 0 12px 0;
-}
-
-.story-data p {
-  margin: 2px 0;
-}
-
-/* Stats row — two columns at bottom of card */
-.story-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  padding-top: 12px;
-  border-top: 1px dotted rgba(25, 25, 25, 0.4);
-}
-
-.stat-block {
-  font-family: "tahoma", sans-serif;
-  font-size: 11px;
-  color: #191919;
-  line-height: 1.4;
-}
-
-.stat-block strong {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.stat-block p {
-  margin: 0;
-  font-weight: 400;
+  margin: 0 0 20px 0; /* 👈 spacing below story-desc */
 }
 
 /* ================================
-   MIDDLE COLUMN — about info
+   TWO-COLUMN DATA LAYOUT
+   (What the Data Says | Chaos Score)
+   ================================ */
+.story-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 20px; /* 👈 spacing above data row */
+  border-top: 2px dotted #191919;
+}
+
+.data-block {
+  display: grid;
+}
+
+.data-block h3 {
+  font-family: "tahoma", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px 0; /* 👈 consistent 10px below heading */
+}
+
+.data-block p {
+  font-family: "tahoma", sans-serif;
+  font-size: 13px;
+  color: #191919;
+  margin: 0 0 10px 0; /* 👈 consistent 10px below paragraphs */
+}
+
+.data-block .respondent-note {
+  font-style: italic;
+  font-size: 10px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Left column — dotted divider */
+.data-block:first-child {
+  border-right: 2px dotted #191919;
+  padding-right: 20px;
+}
+
+/* Right column — image on left, text on right */
+.data-block:last-child {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "heading heading"
+    "image   text";
+  column-gap: 10px; /* 👈 10px between image and text */
+  align-items: start;
+}
+
+.data-block:last-child h3 {
+  grid-area: heading;
+  margin: 0 0 10px 0; /* 👈 10px below heading, same as left column */
+}
+
+.data-block:last-child p {
+  grid-area: text;
+  margin: 0;
+}
+
+.data-block:last-child img {
+  grid-area: image;
+  width: 120px;
+  height: 120px; /* 👈 FIXED height — forces consistency */
+  object-fit: contain; /* 👈 scales graph nicely within the box */
+  display: block;
+  margin: 0;
+}
+/* ================================
+   RIGHT COLUMN — 98.css window
    ================================ */
 .about-info {
   grid-area: about-info;
-  background: #cbcbcb;
-  overflow-y: auto;
-  padding: 30px 24px;
+  background-color: var(--gray-light);
+  padding: 60px;
   box-sizing: border-box;
-  border-left: 2px black dotted;
-  border-bottom: 2px black dotted;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The window itself */
+.about-window {
+  width: 100%;
+  height: 90%;
+  box-shadow: 0px 0px 8px #191919;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Title bar */
+.about-window .title-bar {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-window .title-bar-text {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.about-window .title-bar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.about-window .title-bar-controls button {
+  min-width: 18px;
+  min-height: 16px;
+  padding: 0;
+}
+
+/* Window body — scrolls internally, scrollbar flush to right */
+.about-window-body {
+  padding: 20px 0 20px 20px;
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-window-body > * {
+  margin-right: 20px;
+}
+
+.about-window-body p {
   font-family: "tahoma", sans-serif;
   font-size: 14px;
   line-height: 1.5;
   color: #191919;
-}
-
-.about-info h3 {
-  font-family: "franklin-gothic-atf", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0 0 12px 0;
-}
-
-.about-info h3:not(:first-child) {
-  margin-top: 24px;
-  border-top: 2px dotted #191919;
-  padding-top: 18px;
-}
-
-.about-info p {
-  margin: 0 0 12px 0;
-}
-
-.about-info a {
-  color: #ff2cb2;
-  font-weight: bold;
-}
-
-.about-info a:hover {
-  color: #191919;
-  background: #ff2cb2;
+  margin: 0 0 14px 0;
+  margin-right: 20px;
 }
 
 /* ================================
-   RIGHT COLUMN — logo + back
+   GOSSIP LOGO — inset grey box
    ================================ */
-.about-side {
-  overflow-y: auto;
-  min-height: 0;
-}
+.about-window-body .gossip-logo {
+  background-color: #c0c0c0;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: inset 1px 1px 0 #000000;
 
-.gossip-logo {
-  width: 100%;
-  background: white;
-  padding: 12px;
+  padding: 16px;
+  margin-top: auto;
+  margin-right: 20px;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid #191919;
 }
 
-.gossip-logo img {
-  width: 100%;
-  height: auto;
+.about-window-body .gossip-logo a {
   display: block;
 }
 
-.side-back {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.about-window-body .gossip-logo img {
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* ================================
+   GOSSIP LOGO — inset grey box
+   ================================ */
+.about-window-body .gossip-logo {
+  background-color: #c0c0c0;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: inset 1px 1px 0 #000000;
+
+  padding: 16px;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+.about-window-body .gossip-logo a {
+  display: block;
+}
+
+.about-window-body .gossip-logo img {
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
 }
 
 .about-back-btn {
@@ -212,7 +289,7 @@
   font-weight: bold;
   top: auto;
   left: auto;
-  overflow: hidden; /* 👈 clips the sheen to button */
+  overflow: hidden;
 }
 
 /* ================================
@@ -223,10 +300,10 @@
   bottom: 30px;
   right: 30px;
   z-index: 999;
-  
+
   font-weight: bold;
   cursor: pointer;
-  
+
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -261,4 +338,35 @@
   transform: rotateZ(60deg) translate(-5em, 7.5em);
   pointer-events: none;
   animation: sheen 1s infinite;
+}
+
+img {
+  image-rendering: pixelated;
+}
+
+h1 {
+  font-family: comic-sans-ms, sans-serif;
+  font-size: 45px;
+  margin: 0;
+  padding-bottom: 10px;
+  color: #191919;
+  font-weight: bold;
+  text-shadow:
+    0 0 10px var(--pink, #ff2cb2),
+    0 0 20px var(--pink, #ff2cb2),
+    0 0 30px var(--pink, #ff2cb2);
+}
+
+h2 {
+  font-size: 20px;
+  font-family: "franklin-gothic-atf", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.3;
 }
